@@ -32,21 +32,22 @@ const rooms = {};
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
-  // Tham gia phòng
-  socket.on('joinRoom', (roomCode) => {
+  // Tham gia vào phòng
+  socket.on('joinRoom', (data) => {
+    // data có thể là string (code) hoặc object { roomCode, user }
+    const roomCode = typeof data === 'string' ? data : data.roomCode;
+    const user = typeof data === 'string' ? null : data.user;
+
     socket.join(roomCode);
-    console.log(`User ${socket.id} joined room ${roomCode}`);
     
-    // Nếu phòng chưa tồn tại, tạo mới
     if (!rooms[roomCode]) {
-      rooms[roomCode] = {
-        players: [],
-        state: 'waiting' // waiting, playing, finished
-      };
+      rooms[roomCode] = { players: [], state: 'waiting' };
     }
     
-    rooms[roomCode].players.push(socket.id);
-    
+    if (rooms[roomCode].players.length < 2 && !rooms[roomCode].players.find(p => p.id === socket.id)) {
+      rooms[roomCode].players.push({ id: socket.id, user });
+    }
+
     // Báo cho các client trong phòng biết có người mới vào
     io.to(roomCode).emit('playerJoined', {
       players: rooms[roomCode].players
@@ -72,7 +73,17 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
-    // TODO: Xử lý xoá user khỏi phòng nếu bị disconnect
+    // Xoá user khỏi phòng nếu bị disconnect
+    for (const roomCode in rooms) {
+      const room = rooms[roomCode];
+      const index = room.players.findIndex(p => p.id === socket.id);
+      if (index !== -1) {
+        room.players.splice(index, 1);
+        io.to(roomCode).emit('playerJoined', {
+          players: room.players
+        });
+      }
+    }
   });
 });
 

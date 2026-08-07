@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import io from 'socket.io-client';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, LogOut } from 'lucide-react';
 
 let socket: any;
 
@@ -11,18 +12,21 @@ function LobbyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const joinCode = searchParams.get('join');
+  const { data: session, status } = useSession();
 
   const [roomCode, setRoomCode] = useState('');
   const [joinedRoom, setJoinedRoom] = useState<string | null>(null);
-  const [players, setPlayers] = useState<string[]>([]);
+  const [players, setPlayers] = useState<any[]>([]);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Connect to backend
+    // Chỉ kết nối socket khi đã đăng nhập
+    if (!session?.user) return;
+
     socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
 
-    socket.on('playerJoined', (data: { players: string[] }) => {
+    socket.on('playerJoined', (data: { players: any[] }) => {
       setPlayers(data.players);
     });
 
@@ -39,26 +43,36 @@ function LobbyContent() {
 
     // Auto-join if URL has ?join=PIN
     if (joinCode && typeof window !== 'undefined') {
-       socket.emit('joinRoom', joinCode);
+       socket.emit('joinRoom', { 
+         roomCode: joinCode, 
+         user: { name: session.user.name, image: session.user.image } 
+       });
        setJoinedRoom(joinCode);
     }
 
     return () => {
-      socket.disconnect();
+      if (socket) socket.disconnect();
     };
-  }, [joinCode, router, joinedRoom]);
+  }, [joinCode, router, joinedRoom, session]);
 
   const handleJoin = () => {
-    if (roomCode.trim() === '') return;
-    socket.emit('joinRoom', roomCode);
+    if (roomCode.trim() === '' || !session?.user) return;
+    socket.emit('joinRoom', { 
+      roomCode, 
+      user: { name: session.user.name, image: session.user.image } 
+    });
     setJoinedRoom(roomCode);
     setError('');
   };
 
   const handleCreate = () => {
+    if (!session?.user) return;
     const randomCode = Math.floor(1000 + Math.random() * 9000).toString();
     setRoomCode(randomCode);
-    socket.emit('joinRoom', randomCode);
+    socket.emit('joinRoom', { 
+      roomCode: randomCode, 
+      user: { name: session.user.name, image: session.user.image } 
+    });
     setJoinedRoom(randomCode);
     setError('');
     // Xoá param join trên URL nếu có để tránh lỗi
@@ -81,8 +95,40 @@ function LobbyContent() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  if (status === 'loading') {
+    return <div className="min-h-screen flex items-center justify-center font-bold text-gray-500">Loading Session...</div>;
+  }
+
+  if (!session) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-black p-4">
+        <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md text-center border border-gray-100">
+          <h1 className="text-4xl font-black mb-3 tracking-tight text-gray-900">SAT Arena</h1>
+          <p className="text-gray-500 mb-8 font-medium">Log in to enter the 1v1 battlefield.</p>
+          <button 
+            onClick={() => signIn('google')}
+            className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-200 text-gray-700 px-6 py-4 rounded-xl font-bold hover:bg-gray-50 hover:border-gray-300 transition-all"
+          >
+            <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+            Sign in with Google
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-black p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-black p-4 relative">
+      
+      {/* Header Profile */}
+      <div className="absolute top-4 right-4 flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+         <img src={session.user?.image || ''} alt="Avatar" className="w-8 h-8 rounded-full" />
+         <span className="font-bold text-sm hidden sm:block">{session.user?.name}</span>
+         <button onClick={() => signOut()} className="ml-2 text-gray-400 hover:text-red-500" title="Sign Out">
+            <LogOut size={16} />
+         </button>
+      </div>
+
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md text-center">
         <h1 className="text-3xl font-bold mb-2">SAT 1v1 Challenge</h1>
         <p className="text-gray-500 mb-8">Enter the arena and challenge your friends.</p>
@@ -150,11 +196,12 @@ function LobbyContent() {
 
             <div className="bg-gray-100 p-4 rounded-lg">
               <h3 className="font-bold mb-3">Players ({players.length}/2)</h3>
-              <ul className="space-y-2">
-                {players.map((id, index) => (
-                  <li key={index} className="bg-white px-4 py-2 rounded shadow-sm font-semibold flex items-center gap-2">
+              <ul className="space-y-3">
+                {players.map((p, index) => (
+                  <li key={index} className="bg-white px-4 py-2 rounded-lg shadow-sm font-semibold flex items-center gap-3">
+                    <img src={p.user?.image || 'https://www.gravatar.com/avatar/?d=mp'} alt="Avatar" className="w-8 h-8 rounded-full bg-gray-200" />
+                    <span className="flex-1 text-left">{p.user?.name || `Player ${index + 1}`} {socket?.id === p.id && "(You)"}</span>
                     <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                    Player {index + 1} {socket?.id === id && "(You)"}
                   </li>
                 ))}
               </ul>

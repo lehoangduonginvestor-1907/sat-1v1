@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X, User } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X } from 'lucide-react';
 import io from 'socket.io-client';
 
 let socket: any;
@@ -49,6 +50,7 @@ const MOCK_QUESTIONS = [
 function ArenaContent() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get('room');
+  const { data: session } = useSession();
 
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   
@@ -59,6 +61,7 @@ function ArenaContent() {
 
   // Opponent state
   const [opponentAnswers, setOpponentAnswers] = useState<Record<number, boolean>>({});
+  const [players, setPlayers] = useState<any[]>([]);
 
   // Timer State
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
@@ -106,9 +109,16 @@ function ArenaContent() {
 
   // Socket effect
   useEffect(() => {
-    if (roomCode) {
+    if (roomCode && session?.user) {
       socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
-      socket.emit('joinRoom', roomCode);
+      socket.emit('joinRoom', { 
+        roomCode, 
+        user: { name: session.user.name, image: session.user.image } 
+      });
+
+      socket.on('playerJoined', (data: { players: any[] }) => {
+        setPlayers(data.players);
+      });
 
       socket.on('opponentProgress', (data: { questionIdx: number, isCorrect: boolean }) => {
         setOpponentAnswers(prev => ({ ...prev, [data.questionIdx]: true }));
@@ -118,7 +128,7 @@ function ArenaContent() {
     return () => {
       if (socket) socket.disconnect();
     };
-  }, [roomCode]);
+  }, [roomCode, session]);
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
@@ -209,15 +219,18 @@ function ArenaContent() {
     return () => window.removeEventListener('mousedown', handleClickOutside);
   }, [selectionMenu]);
 
+  const me = players.find(p => p.id === socket?.id);
+  const opponent = players.find(p => p.id !== socket?.id);
+
   return (
     <div className="flex flex-col h-screen w-full bg-white overflow-hidden text-black font-sans selection:bg-blue-200">
       
       {/* ProgressBar Area (New) */}
       <div className="bg-gray-100 flex items-center justify-between px-8 py-1.5 border-b border-gray-300 text-xs font-semibold">
         <div className="flex items-center gap-2 w-1/3">
-           <User size={14} className="text-blue-600" />
-           <span className="w-16">You:</span>
-           <div className="flex-1 flex gap-1 h-2">
+           <img src={me?.user?.image || 'https://www.gravatar.com/avatar/?d=mp'} alt="Me" className="w-5 h-5 rounded-full" />
+           <span className="w-auto truncate max-w-[100px]">{me?.user?.name || 'You'}</span>
+           <div className="flex-1 flex gap-1 h-2 ml-2">
              {MOCK_QUESTIONS.map((_, i) => (
                 <div key={i} className={`flex-1 rounded-sm ${answers[i] ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
              ))}
@@ -226,9 +239,9 @@ function ArenaContent() {
         </div>
         <div className="text-gray-400 font-bold tracking-widest text-[10px]">1V1 ARENA</div>
         <div className="flex items-center gap-2 w-1/3 flex-row-reverse">
-           <User size={14} className="text-red-500" />
-           <span className="w-16 text-right">Opponent:</span>
-           <div className="flex-1 flex gap-1 h-2 flex-row-reverse">
+           <img src={opponent?.user?.image || 'https://www.gravatar.com/avatar/?d=mp'} alt="Opponent" className="w-5 h-5 rounded-full" />
+           <span className="w-auto text-right truncate max-w-[100px]">{opponent?.user?.name || 'Opponent'}</span>
+           <div className="flex-1 flex gap-1 h-2 flex-row-reverse mr-2">
              {MOCK_QUESTIONS.map((_, i) => (
                 <div key={i} className={`flex-1 rounded-sm ${opponentAnswers[i] ? 'bg-red-500' : 'bg-gray-300'}`}></div>
              ))}
