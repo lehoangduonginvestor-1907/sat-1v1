@@ -27,15 +27,14 @@ class Question(BaseModel):
     correctAnswer: int
 
 system_instruction = """Bạn là một chuyên gia phân tích dữ liệu giáo dục và giải đề thi Digital SAT chuyên nghiệp.
-Nhiệm vụ của bạn là nhận diện nội dung câu hỏi từ hình ảnh và trích xuất thành định dạng JSON theo đúng schema.
-Nếu câu hỏi có chứa đáp án đúng được khoanh hoặc đánh dấu trong hình, hãy lấy đó làm correctAnswer (index từ 0 đến 3 cho A, B, C, D).
-Nếu câu hỏi chưa có đáp án, bạn hãy TỰ GIẢI để tìm ra đáp án đúng và điền index của đáp án đó vào trường correctAnswer.
+Nhiệm vụ của bạn là nhận diện nội dung câu hỏi từ hình ảnh Câu Hỏi và đối chiếu với hình ảnh Đáp Án (Answer Key) để trích xuất thành định dạng JSON theo đúng schema.
 Lưu ý:
 - "id" có thể lấy mã ID của câu hỏi ở góc màn hình. Nếu không có, hãy tạo 1 chuỗi ngẫu nhiên.
-- "domain" và "skill" lấy từ context của câu hỏi (Ví dụ: Math, Advanced Math).
+- "domain" và "skill" lấy từ context của câu hỏi.
 - "passage" là phần ngữ cảnh hoặc đoạn văn. Đối với câu hỏi toán học, nếu không có đoạn văn, hãy lấy phần bối cảnh, hoặc để chuỗi rỗng.
 - Chuyển tất cả công thức toán học thành mã LaTeX (bọc trong dấu $ hoặc $$).
-- Mảng "options" chứa 4 đáp án dạng chuỗi (KHÔNG bao gồm chữ cái A., B., C., D. ở đầu mỗi chuỗi). 
+- Mảng "options" chứa 4 đáp án dạng chuỗi (KHÔNG bao gồm chữ cái A., B., C., D. ở đầu).
+- Dựa vào hình ảnh Đáp Án (Answer Key), tìm đáp án đúng tương ứng với câu hỏi này và ghi vào trường correctAnswer (0 cho A, 1 cho B, 2 cho C, 3 cho D).
 - Nếu là câu điền đáp án (Grid-in) không có trắc nghiệm, trả về mảng rỗng [] và correctAnswer = 0.
 """
 
@@ -47,9 +46,10 @@ def extract_page_to_image(pdf_path, page_num):
     img_data = pix.tobytes("png")
     return img_data
 
-def process_pdf_file(pdf_path):
+def process_pdf_file(pdf_path, answer_key_path=None):
     print(f"Processing file: {pdf_path}", flush=True)
     doc = fitz.open(pdf_path)
+    ans_doc = fitz.open(answer_key_path) if answer_key_path else None
     results = []
     
     for page_num in range(len(doc)):
@@ -57,12 +57,18 @@ def process_pdf_file(pdf_path):
         try:
             img_data = extract_page_to_image(pdf_path, page_num)
             
+            contents = ["Hãy trích xuất câu hỏi trong ảnh này thành mảng JSON theo đúng định dạng. Lưu ý 1 trang có thể có nhiều câu hỏi.", types.Part.from_bytes(data=img_data, mime_type='image/png')]
+            
+            # Nếu có Answer Key, giả định page_num tương ứng (hoặc truyền toàn bộ Answer Key nếu cần)
+            # Tạm thời map 1-1 theo số trang
+            if ans_doc and page_num < len(ans_doc):
+                ans_img_data = extract_page_to_image(answer_key_path, page_num)
+                contents.append("Dưới đây là trang Đáp án tương ứng (Answer Key). Hãy dùng nó để xác định chính xác trường correctAnswer.")
+                contents.append(types.Part.from_bytes(data=ans_img_data, mime_type='image/png'))
+
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
-                contents=[
-                    "Hãy trích xuất và giải câu hỏi trong ảnh này thành mảng JSON theo đúng định dạng. Lưu ý 1 trang có thể có nhiều câu hỏi.", 
-                    types.Part.from_bytes(data=img_data, mime_type='image/png')
-                ],
+                contents=contents,
                 config=types.GenerateContentConfig(
                     system_instruction=system_instruction,
                     temperature=0.1,
@@ -92,9 +98,10 @@ def process_pdf_file(pdf_path):
 
 if __name__ == "__main__":
     test_file = r"D:\Question Bank (Unformatted)\Math\Advanced Math\Equivalent Expressions\Equivalent Expressions 1.pdf"
+    test_ans = r"D:\Question Bank (Unformatted)\Answer Keys\Math\Advanced Math\Equivalent Expressions 1 Answer Key.pdf"
     
     if os.path.exists(test_file):
-        data = process_pdf_file(test_file)
+        data = process_pdf_file(test_file, test_ans if os.path.exists(test_ans) else None)
         
         # Đảm bảo thư mục backend/data tồn tại
         os.makedirs(r"D:\web-sat-challenge\backend\data", exist_ok=True)
