@@ -1,17 +1,22 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import io from 'socket.io-client';
+import { Copy, Check } from 'lucide-react';
 
 let socket: any;
 
-export default function Home() {
+function LobbyContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const joinCode = searchParams.get('join');
+
   const [roomCode, setRoomCode] = useState('');
   const [joinedRoom, setJoinedRoom] = useState<string | null>(null);
   const [players, setPlayers] = useState<string[]>([]);
   const [error, setError] = useState('');
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     // Connect to backend
@@ -32,10 +37,16 @@ export default function Home() {
       }
     });
 
+    // Auto-join if URL has ?join=PIN
+    if (joinCode && typeof window !== 'undefined') {
+       socket.emit('joinRoom', joinCode);
+       setJoinedRoom(joinCode);
+    }
+
     return () => {
       socket.disconnect();
     };
-  }, [joinedRoom, router]);
+  }, [joinCode, router, joinedRoom]);
 
   const handleJoin = () => {
     if (roomCode.trim() === '') return;
@@ -50,12 +61,24 @@ export default function Home() {
     socket.emit('joinRoom', randomCode);
     setJoinedRoom(randomCode);
     setError('');
+    // Xoá param join trên URL nếu có để tránh lỗi
+    if (joinCode) {
+      router.replace('/');
+    }
   };
 
   const handleStartMatch = () => {
     if (players.length >= 2) {
       socket.emit('startMatch', joinedRoom);
     }
+  };
+
+  const inviteLink = typeof window !== 'undefined' ? `${window.location.origin}/?join=${joinedRoom}` : '';
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(inviteLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -100,9 +123,29 @@ export default function Home() {
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
+            <div className="p-6 bg-blue-50 rounded-lg border-2 border-blue-200 relative">
               <p className="text-sm text-gray-600 font-semibold mb-1">ROOM PIN</p>
               <p className="text-4xl font-black tracking-widest text-blue-700">{joinedRoom}</p>
+              
+              {/* Invite Link Section */}
+              <div className="mt-4 pt-4 border-t border-blue-200">
+                <p className="text-xs text-gray-500 font-semibold mb-2">INVITE LINK</p>
+                <div className="flex items-center gap-2 bg-white border border-gray-300 rounded p-1.5">
+                  <input 
+                    type="text" 
+                    readOnly 
+                    value={inviteLink}
+                    className="flex-1 text-xs text-gray-600 bg-transparent outline-none px-1"
+                  />
+                  <button 
+                    onClick={copyToClipboard}
+                    className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded text-gray-700 transition"
+                    title="Copy Invite Link"
+                  >
+                    {copied ? <Check size={14} className="text-green-600" /> : <Copy size={14} />}
+                  </button>
+                </div>
+              </div>
             </div>
 
             <div className="bg-gray-100 p-4 rounded-lg">
@@ -142,5 +185,13 @@ export default function Home() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <LobbyContent />
+    </Suspense>
   );
 }
