@@ -25,7 +25,7 @@ try {
 
 const allowedOrigins = process.env.FRONTEND_URL 
   ? process.env.FRONTEND_URL.split(',') 
-  : ["http://localhost:3000"];
+  : ["http://localhost:3000", "https://sat-1v1-cyan.vercel.app", "*"];
 
 app.use(cors({
   origin: allowedOrigins,
@@ -36,7 +36,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: "*",
     methods: ['GET', 'POST']
   }
 });
