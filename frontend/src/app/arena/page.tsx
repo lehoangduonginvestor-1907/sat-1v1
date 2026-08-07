@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X } from 'lucide-react';
+import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X, CheckCircle2 } from 'lucide-react';
 import io from 'socket.io-client';
 
 let socket: any;
@@ -170,6 +170,7 @@ function ArenaContent() {
   };
 
   const toggleEliminate = (label: string) => {
+    if (isReviewMode) return;
     const currentEliminated = [...eliminated];
     if (currentEliminated.includes(label)) {
       setEliminations({ ...eliminations, [currentQuestionIdx]: currentEliminated.filter(e => e !== label) });
@@ -180,6 +181,23 @@ function ArenaContent() {
         setAnswers({ ...answers, [currentQuestionIdx]: '' });
       }
     }
+  };
+
+  const formatPassage = (text: string) => {
+    if (!text) return '';
+    let formatted = text;
+    // Break paragraphs for Text 1 and Text 2
+    if (formatted.includes('Text 1') && formatted.includes('Text 2')) {
+      formatted = formatted.replace(/Text 1/g, '<br/><strong>Text 1</strong><br/>');
+      formatted = formatted.replace(/Text 2/g, '<br/><br/><strong>Text 2</strong><br/>');
+    }
+    // Highlight "Connections" if it exists
+    formatted = formatted.replace(/^Connections/, '<strong>Connections</strong>');
+    // Ensure regular newlines are rendered
+    formatted = formatted.replace(/\n/g, '<br/>');
+    // Clean up leading BRs
+    formatted = formatted.replace(/^(<br\/>)+/, '');
+    return formatted;
   };
 
   // Handle Text Selection for Highlight
@@ -363,7 +381,7 @@ function ArenaContent() {
         <div className="w-1/2 p-10 overflow-y-auto border-r-2 border-gray-300 relative">
           <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800" onMouseUp={handleTextSelection}>
             {/* Parse LaTeX or standard text here. For now we use basic display */}
-            {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: currentQuestion.passage.replace(/\n/g, '<br/>') }}></p>}
+            {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: formatPassage(currentQuestion.passage) }}></p>}
             <p className="font-semibold text-black">{currentQuestion.question}</p>
           </div>
           
@@ -410,24 +428,34 @@ function ArenaContent() {
                 const label = String.fromCharCode(65 + idx); // A, B, C, D
                 const isSelected = selectedOption === label;
                 const isEliminated = eliminated.includes(label);
+                
+                const isCorrect = idx === currentQuestion.correctAnswer;
+                const showAsCorrect = isReviewMode && isCorrect;
+                const showAsWrong = isReviewMode && isSelected && !isCorrect;
 
                 return (
                   <div key={label} className="flex items-center gap-4">
                     <button
-                      onClick={() => handleSelectOption(label)}
-                      disabled={isEliminated}
+                      onClick={() => !isReviewMode && handleSelectOption(label)}
+                      disabled={isEliminated || isReviewMode}
                       className={`flex-1 flex items-center p-3 rounded-lg border-2 text-left transition-all
-                        ${isEliminated ? 'border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed' : 
+                        ${showAsCorrect ? 'border-green-500 bg-green-50 ring-1 ring-green-500' :
+                          showAsWrong ? 'border-red-500 bg-red-50 ring-1 ring-red-500' :
+                          isEliminated ? 'border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed' : 
                           isSelected ? 'border-blue-600 bg-blue-50 ring-1 ring-blue-600' : 'border-gray-300 hover:border-gray-400 bg-white'
                         }
                       `}
                     >
                       <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold mr-4 flex-shrink-0
-                        ${isSelected ? 'border-blue-600 bg-blue-600 text-white' : 'border-gray-400 text-gray-600'}
+                        ${showAsCorrect ? 'border-green-500 bg-green-500 text-white' :
+                          showAsWrong ? 'border-red-500 bg-red-500 text-white' :
+                          isSelected ? 'border-blue-600 bg-blue-600 text-white' : 'border-gray-400 text-gray-600'}
                       `}>
                         {label}
                       </div>
-                      <span className={`text-[17px] leading-relaxed ${isEliminated ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                      <span className={`text-[17px] leading-relaxed ${isEliminated && !isReviewMode ? 'line-through text-gray-400' : 
+                          showAsCorrect ? 'text-green-900 font-medium' :
+                          showAsWrong ? 'text-red-900 line-through' : 'text-gray-900'}`}>
                         {text}
                       </span>
                     </button>
@@ -435,7 +463,8 @@ function ArenaContent() {
                     {/* Eliminate Toggle Button */}
                     <button 
                       onClick={() => toggleEliminate(label)}
-                      className="text-gray-400 hover:text-gray-700 p-1 group relative"
+                      disabled={isReviewMode}
+                      className={`text-gray-400 hover:text-gray-700 p-1 group relative ${isReviewMode ? 'opacity-50 cursor-not-allowed' : ''}`}
                       title="Eliminate option"
                     >
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -446,6 +475,21 @@ function ArenaContent() {
                   </div>
                 );
               })}
+              
+              {/* Review Explanation */}
+              {isReviewMode && (
+                <div className="mt-6 p-5 bg-blue-50 rounded-xl border border-blue-200 shadow-sm animate-in fade-in zoom-in-95 duration-300">
+                  <h4 className="font-bold text-blue-900 flex items-center gap-2 mb-2">
+                    <CheckCircle2 size={20} className="text-blue-600" /> Explanation
+                  </h4>
+                  <p className="text-blue-800 leading-relaxed text-sm">
+                    {currentQuestion.explanation || 
+                     `The correct answer is Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)}. ` +
+                     `Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)} best satisfies the requirement of the question based on the provided text.`
+                    }
+                  </p>
+                </div>
+              )}
             </div>
 
           </div>
