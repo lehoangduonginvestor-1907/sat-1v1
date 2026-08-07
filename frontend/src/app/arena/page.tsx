@@ -96,7 +96,7 @@ function ArenaContent() {
     const savedName = localStorage.getItem('sat_nickname') || 'Player';
 
     if (roomCode) {
-      socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
+      socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com');
       socket.emit('joinRoom', { 
         roomCode, 
         user: { name: savedName, image: null } 

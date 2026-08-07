@@ -39,7 +39,7 @@ function LobbyContent() {
     if (!nickname) return;
 
     if (!socket) {
-      socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
+      socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com');
     }
 
     const handlePlayerJoined = (data: { players: any[] }) => {
