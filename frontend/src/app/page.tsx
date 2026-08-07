@@ -56,6 +56,10 @@ function LobbyContent() {
         const currentParams = new URLSearchParams(window.location.search);
         const room = currentParams.get('join') || localStorage.getItem('current_room');
         if (room) {
+          if (socket) {
+            socket.disconnect();
+            socket = null;
+          }
           router.push(`/arena?room=${room}`);
         }
       }
