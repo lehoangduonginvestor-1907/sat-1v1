@@ -179,11 +179,11 @@ function ArenaContent() {
         span.className = 'bg-yellow-300 border-b-2 border-yellow-500 cursor-pointer';
         span.title = "Click to remove highlight";
         // Gỡ highlight khi click vào
-        span.onclick = function(this: HTMLElement) {
+        span.addEventListener('click', function() {
           if (this.parentNode) {
             this.outerHTML = this.innerHTML;
           }
-        };
+        });
 
         // Note: surroundContents might fail if selection crosses elements, 
         // but works well for basic text selection
