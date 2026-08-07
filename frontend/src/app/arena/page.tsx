@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X } from 'lucide-react';
 import io from 'socket.io-client';
 
@@ -47,23 +49,32 @@ function ArenaContent() {
 
   // Text Selection / Highlight State
   const [selectionMenu, setSelectionMenu] = useState<{ x: number, y: number, range: Range | null } | null>(null);
+  // Post-match states
+  const [isFinished, setIsFinished] = useState(false);
+  const [isOpponentFinished, setIsOpponentFinished] = useState(false);
+  const [matchResults, setMatchResults] = useState<any>(null);
+  const [isReviewMode, setIsReviewMode] = useState(false);
+  const { width, height } = useWindowSize();
 
-  if (!questions || questions.length === 0) {
-    return <div className="min-h-screen flex items-center justify-center font-bold text-gray-500">Loading Question Bank...</div>;
-  }
-
-  const currentQuestion = questions[currentQuestionIdx];
-  const selectedOption = answers[currentQuestionIdx] || null;
-  const eliminated = eliminations[currentQuestionIdx] || [];
-  const isBookmarked = bookmarks[currentQuestionIdx] || false;
 
   // Timer effect
   useEffect(() => {
+    if (isFinished || isReviewMode) return;
     const timer = setInterval(() => {
-      setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          if (!isFinished) {
+            if (socket) socket.emit('finishMatch', { roomCode, answers });
+            setIsFinished(true);
+          }
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isFinished, isReviewMode, roomCode, answers]);
 
   // Calculator effect
   useEffect(() => {
@@ -99,8 +110,20 @@ function ArenaContent() {
         setOpponentAnswers(prev => ({ ...prev, [data.questionIdx]: true }));
       });
 
-      socket.on('matchStarted', (data: { questions: any[] }) => {
+      
+      socket.on('opponentFinished', () => {
+        setIsOpponentFinished(true);
+      });
+
+      socket.on('matchEnded', (data: { results: any[] }) => {
+        setMatchResults(data.results);
+      });
+
+      socket.on('matchStarted', (data: { questions: any[], timeLimit?: number }) => {
         setQuestions(data.questions);
+        if (data.timeLimit) {
+          setTimeLeft(data.timeLimit * 60);
+        }
       });
     }
 
@@ -108,6 +131,24 @@ function ArenaContent() {
       if (socket) socket.disconnect();
     };
   }, [roomCode]);
+
+  // Ẩn menu khi click ra ngoài
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (selectionMenu) setSelectionMenu(null);
+    };
+    window.addEventListener('mousedown', handleClickOutside);
+    return () => window.removeEventListener('mousedown', handleClickOutside);
+  }, [selectionMenu]);
+
+  if (!questions || questions.length === 0) {
+    return <div className="min-h-screen flex items-center justify-center font-bold text-gray-500">Loading Question Bank...</div>;
+  }
+
+  const currentQuestion = questions[currentQuestionIdx];
+  const selectedOption = answers[currentQuestionIdx] || null;
+  const eliminated = eliminations[currentQuestionIdx] || [];
+  const isBookmarked = bookmarks[currentQuestionIdx] || false;
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
@@ -185,14 +226,7 @@ function ArenaContent() {
     }
   };
 
-  // Ẩn menu khi click ra ngoài
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (selectionMenu) setSelectionMenu(null);
-    };
-    window.addEventListener('mousedown', handleClickOutside);
-    return () => window.removeEventListener('mousedown', handleClickOutside);
-  }, [selectionMenu]);
+
 
   const me = players.find(p => p.id === socket?.id);
   const opponent = players.find(p => p.id !== socket?.id);
@@ -438,15 +472,91 @@ function ArenaContent() {
           >
             Back
           </button>
-          <button 
-            onClick={() => setCurrentQuestionIdx(prev => Math.min(questions.length - 1, prev + 1))}
-            disabled={currentQuestionIdx === questions.length - 1}
-            className="px-6 py-1.5 font-bold bg-[#1d4ed8] text-white hover:bg-blue-700 disabled:bg-gray-400 rounded text-sm transition shadow-sm"
-          >
-            Next
-          </button>
+          {isReviewMode ? (
+            <button 
+              onClick={() => {
+                 setMatchResults(null);
+                 setIsReviewMode(false);
+                 window.location.href = '/';
+              }}
+              className="px-6 py-1.5 font-bold bg-gray-800 text-white hover:bg-black rounded text-sm transition shadow-sm ml-2"
+            >
+              Exit Review
+            </button>
+          ) : currentQuestionIdx === questions.length - 1 ? (
+            <button 
+              onClick={() => {
+                if (confirm("Are you sure you want to submit your test?")) {
+                  setIsFinished(true);
+                  if (socket && roomCode) socket.emit('finishMatch', { roomCode, answers });
+                }
+              }}
+              className="px-6 py-1.5 font-bold bg-red-600 text-white hover:bg-red-700 rounded text-sm transition shadow-sm"
+            >
+              Submit Test
+            </button>
+          ) : (
+            <button 
+              onClick={() => setCurrentQuestionIdx(prev => Math.min(questions.length - 1, prev + 1))}
+              disabled={currentQuestionIdx === questions.length - 1}
+              className="px-6 py-1.5 font-bold bg-[#1d4ed8] text-white hover:bg-blue-700 disabled:bg-gray-400 rounded text-sm transition shadow-sm"
+            >
+              Next
+            </button>
+          )}
         </div>
       </footer>
+
+      {/* Result Modal & Waiting Screen */}
+      {isFinished && !isReviewMode && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          {!matchResults ? (
+            <div className="bg-white p-10 rounded-2xl shadow-2xl text-center max-w-sm w-full animate-in zoom-in">
+              <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+              <h2 className="text-2xl font-black mb-2 text-gray-900">Test Submitted!</h2>
+              <p className="text-gray-500 font-medium">{isOpponentFinished ? "Opponent has also finished. Waiting for results..." : "Waiting for your opponent to finish..."}</p>
+            </div>
+          ) : (
+            <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg relative animate-in zoom-in fade-in duration-300 text-center">
+              {(() => {
+                // Determine if current user won (highest score and not a tie unless both max)
+                const sorted = [...matchResults].sort((a: any,b: any) => b.score - a.score);
+                const isWinner = sorted[0].id === socket?.id;
+                if (isWinner) {
+                  return <Confetti width={width} height={height} recycle={false} numberOfPieces={500} />;
+                }
+                return null;
+              })()}
+              <h2 className="text-4xl font-black mb-6 text-gray-900">Match Results</h2>
+              <div className="space-y-4 mb-8">
+                {matchResults.sort((a: any, b: any) => b.score - a.score).map((p: any, idx: number) => (
+                  <div key={p.id} className={`flex justify-between items-center p-4 rounded-xl border-2 ${p.id === socket?.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl font-black text-gray-400">#{idx + 1}</span>
+                      <span className="text-xl font-bold text-gray-900">{p.name} {p.id === socket?.id && '(You)'}</span>
+                    </div>
+                    <span className="text-2xl font-black text-blue-600">{p.score} <span className="text-sm text-gray-500">/ {questions.length}</span></span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-4">
+                <button 
+                  onClick={() => setIsReviewMode(true)}
+                  className="flex-1 bg-gray-100 text-gray-900 px-4 py-3 rounded-xl font-bold hover:bg-gray-200 transition"
+                >
+                  Review Answers
+                </button>
+                <button 
+                  onClick={() => window.location.href = '/'}
+                  className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg"
+                >
+                  Return to Lobby
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

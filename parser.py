@@ -67,7 +67,7 @@ def process_pdf_file(pdf_path, answer_key_path=None):
                 contents.append(types.Part.from_bytes(data=ans_img_data, mime_type='image/png'))
 
             response = client.models.generate_content(
-                model='gemini-2.5-flash',
+                model='gemini-1.5-flash-002',
                 contents=contents,
                 config=types.GenerateContentConfig(
                     system_instruction=system_instruction,

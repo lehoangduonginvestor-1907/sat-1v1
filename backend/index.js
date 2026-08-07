@@ -51,14 +51,19 @@ io.on('connection', (socket) => {
 
   // Tham gia vào phòng
   socket.on('joinRoom', (data) => {
-    // data có thể là string (code) hoặc object { roomCode, user }
+    // data có thể là string (code) hoặc object { roomCode, user, settings }
     const roomCode = typeof data === 'string' ? data : data.roomCode;
     const user = typeof data === 'string' ? null : data.user;
+    const settings = typeof data === 'string' ? null : data.settings;
 
     socket.join(roomCode);
     
     if (!rooms[roomCode]) {
       rooms[roomCode] = { players: [], state: 'waiting' };
+    }
+    
+    if (settings && !rooms[roomCode].settings) {
+      rooms[roomCode].settings = settings;
     }
     
     if (rooms[roomCode].players.length < 2 && !rooms[roomCode].players.find(p => p.id === socket.id)) {
@@ -75,25 +80,27 @@ io.on('connection', (socket) => {
       socket.emit('matchStarted', {
         questions: rooms[roomCode].questions
       });
-    }
-  });
-
-  // Bắt đầu trận đấu
-  socket.on('startMatch', (roomCode) => {
-    if (rooms[roomCode]) {
+    } else if (rooms[roomCode].players.length === 2 && rooms[roomCode].state === 'waiting') {
+      // AUTO START MATCH WHEN 2 PLAYERS JOIN
       rooms[roomCode].state = 'playing';
       
-      // Shuffle và chọn 20 câu ngẫu nhiên từ ngân hàng
-      // Nếu ngân hàng ít hơn 20 câu, lấy hết
-      const shuffled = [...questionBank].sort(() => 0.5 - Math.random());
-      const selectedQuestions = shuffled.slice(0, 20);
+      const settings = rooms[roomCode].settings || { domain: 'All', questionCount: 20, timeLimit: 30 };
       
+      let filteredBank = questionBank;
+      if (settings.domain && settings.domain !== 'All') {
+        filteredBank = questionBank.filter(q => q.domain === settings.domain);
+      }
+      
+      // Nếu số câu hỏi tìm được ít hơn yêu cầu, lấy hết
+      const shuffled = [...filteredBank].sort(() => 0.5 - Math.random());
+      const selectedQuestions = shuffled.slice(0, settings.questionCount);
       rooms[roomCode].questions = selectedQuestions;
       
       io.to(roomCode).emit('matchStarted', {
-        questions: selectedQuestions
+        questions: selectedQuestions,
+        timeLimit: settings.timeLimit
       });
-      console.log(`Match started in room ${roomCode} with ${selectedQuestions.length} questions.`);
+      console.log(`Auto Match started in room ${roomCode} with ${selectedQuestions.length} questions, timeLimit: ${settings.timeLimit}.`);
     }
   });
 
@@ -104,6 +111,47 @@ io.on('connection', (socket) => {
       questionIdx,
       isCorrect
     });
+  });
+
+  socket.on('finishMatch', ({ roomCode, answers }) => {
+    if (!rooms[roomCode]) return;
+    const room = rooms[roomCode];
+    const player = room.players.find(p => p.id === socket.id);
+    if (!player) return;
+    
+    player.answers = answers;
+    
+    // Tính điểm
+    let score = 0;
+    const questions = room.questions || [];
+    for (const [idx, letter] of Object.entries(answers)) {
+      const q = questions[parseInt(idx)];
+      if (q) {
+        // Chuyển chữ cái sang index (A=0, B=1, C=2, D=3)
+        const ansIdx = letter === 'A' ? 0 : letter === 'B' ? 1 : letter === 'C' ? 2 : letter === 'D' ? 3 : -1;
+        if (ansIdx === q.correctAnswer) {
+          score++;
+        }
+      }
+    }
+    player.score = score;
+    player.finished = true;
+    console.log(`Player ${player.user?.name} finished with score ${score}`);
+    
+    // Kiểm tra xem cả 2 đã nộp bài chưa
+    const allFinished = room.players.every(p => p.finished);
+    if (allFinished && room.players.length === 2) {
+      room.state = 'ended';
+      const results = room.players.map(p => ({
+        id: p.id,
+        name: p.user?.name || 'Player',
+        score: p.score || 0
+      }));
+      io.to(roomCode).emit('matchEnded', { results });
+      console.log(`Match ended in room ${roomCode}`);
+    } else {
+      socket.to(roomCode).emit('opponentFinished');
+    }
   });
 
   socket.on('disconnect', () => {
