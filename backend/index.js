@@ -66,7 +66,14 @@ io.on('connection', (socket) => {
       rooms[roomCode].settings = settings;
     }
     
-    if (rooms[roomCode].players.length < 2 && !rooms[roomCode].players.find(p => p.id === socket.id)) {
+    // Tìm xem user (dựa vào tên) đã có trong phòng chưa
+    const existingPlayerIdx = rooms[roomCode].players.findIndex(p => p.user?.name === user?.name && user?.name);
+    
+    if (existingPlayerIdx !== -1) {
+      // Nếu đã có, cập nhật socket id mới nhất
+      rooms[roomCode].players[existingPlayerIdx].id = socket.id;
+    } else if (rooms[roomCode].players.length < 2 && !rooms[roomCode].players.find(p => p.id === socket.id)) {
+      // Nếu chưa có và phòng chưa đầy, thêm người mới
       rooms[roomCode].players.push({ id: socket.id, user });
     }
 
