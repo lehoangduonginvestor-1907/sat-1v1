@@ -1,10 +1,7 @@
-'use client';
-
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useSession, signIn, signOut } from 'next-auth/react';
 import io from 'socket.io-client';
-import { Copy, Check, LogOut } from 'lucide-react';
+import { Copy, Check, Edit2 } from 'lucide-react';
 
 let socket: any;
 
@@ -12,17 +9,25 @@ function LobbyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const joinCode = searchParams.get('join');
-  const { data: session, status } = useSession();
 
   const [roomCode, setRoomCode] = useState('');
   const [joinedRoom, setJoinedRoom] = useState<string | null>(null);
   const [players, setPlayers] = useState<any[]>([]);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [nickname, setNickname] = useState('');
+  const [isEditingName, setIsEditingName] = useState(false);
 
   useEffect(() => {
-    // Chỉ kết nối socket khi đã đăng nhập
-    if (!session?.user) return;
+    // Load nickname from localStorage
+    const savedName = localStorage.getItem('sat_nickname');
+    if (savedName) {
+      setNickname(savedName);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!nickname) return;
 
     socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
 
@@ -45,7 +50,7 @@ function LobbyContent() {
     if (joinCode && typeof window !== 'undefined') {
        socket.emit('joinRoom', { 
          roomCode: joinCode, 
-         user: { name: session.user.name, image: session.user.image } 
+         user: { name: nickname, image: null } 
        });
        setJoinedRoom(joinCode);
     }
@@ -53,25 +58,25 @@ function LobbyContent() {
     return () => {
       if (socket) socket.disconnect();
     };
-  }, [joinCode, router, joinedRoom, session]);
+  }, [joinCode, router, joinedRoom, nickname]);
 
   const handleJoin = () => {
-    if (roomCode.trim() === '' || !session?.user) return;
+    if (roomCode.trim() === '' || !nickname) return;
     socket.emit('joinRoom', { 
       roomCode, 
-      user: { name: session.user.name, image: session.user.image } 
+      user: { name: nickname, image: null } 
     });
     setJoinedRoom(roomCode);
     setError('');
   };
 
   const handleCreate = () => {
-    if (!session?.user) return;
+    if (!nickname) return;
     const randomCode = Math.floor(1000 + Math.random() * 9000).toString();
     setRoomCode(randomCode);
     socket.emit('joinRoom', { 
       roomCode: randomCode, 
-      user: { name: session.user.name, image: session.user.image } 
+      user: { name: nickname, image: null } 
     });
     setJoinedRoom(randomCode);
     setError('');
@@ -95,23 +100,39 @@ function LobbyContent() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (status === 'loading') {
-    return <div className="min-h-screen flex items-center justify-center font-bold text-gray-500">Loading Session...</div>;
-  }
+  const handleSaveNickname = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const name = formData.get('nickname') as string;
+    if (name.trim()) {
+      setNickname(name.trim());
+      localStorage.setItem('sat_nickname', name.trim());
+      setIsEditingName(false);
+    }
+  };
 
-  if (!session) {
+  if (!nickname || isEditingName) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-black p-4">
         <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md text-center border border-gray-100">
           <h1 className="text-4xl font-black mb-3 tracking-tight text-gray-900">SAT Arena</h1>
-          <p className="text-gray-500 mb-8 font-medium">Log in to enter the 1v1 battlefield.</p>
-          <button 
-            onClick={() => signIn('google')}
-            className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-200 text-gray-700 px-6 py-4 rounded-xl font-bold hover:bg-gray-50 hover:border-gray-300 transition-all"
-          >
-            <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
-            Sign in with Google
-          </button>
+          <p className="text-gray-500 mb-8 font-medium">Enter a badass nickname to join.</p>
+          <form onSubmit={handleSaveNickname} className="space-y-4">
+            <input 
+              name="nickname"
+              defaultValue={nickname}
+              placeholder="e.g. Math Destroyer"
+              autoFocus
+              className="w-full border-2 border-gray-300 px-4 py-3 rounded-lg text-center font-bold outline-none focus:border-blue-500 text-lg"
+              maxLength={20}
+            />
+            <button 
+              type="submit"
+              className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all"
+            >
+              Continue
+            </button>
+          </form>
         </div>
       </div>
     );
@@ -122,10 +143,12 @@ function LobbyContent() {
       
       {/* Header Profile */}
       <div className="absolute top-4 right-4 flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
-         <img src={session.user?.image || ''} alt="Avatar" className="w-8 h-8 rounded-full" />
-         <span className="font-bold text-sm hidden sm:block">{session.user?.name}</span>
-         <button onClick={() => signOut()} className="ml-2 text-gray-400 hover:text-red-500" title="Sign Out">
-            <LogOut size={16} />
+         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 text-white flex items-center justify-center font-bold">
+           {nickname.charAt(0).toUpperCase()}
+         </div>
+         <span className="font-bold text-sm hidden sm:block">{nickname}</span>
+         <button onClick={() => setIsEditingName(true)} className="ml-2 text-gray-400 hover:text-blue-500" title="Change Nickname">
+            <Edit2 size={16} />
          </button>
       </div>
 
@@ -199,7 +222,9 @@ function LobbyContent() {
               <ul className="space-y-3">
                 {players.map((p, index) => (
                   <li key={index} className="bg-white px-4 py-2 rounded-lg shadow-sm font-semibold flex items-center gap-3">
-                    <img src={p.user?.image || 'https://www.gravatar.com/avatar/?d=mp'} alt="Avatar" className="w-8 h-8 rounded-full bg-gray-200" />
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-400 to-gray-600 text-white flex items-center justify-center font-bold text-xs">
+                       {p.user?.name?.charAt(0).toUpperCase() || '?'}
+                    </div>
                     <span className="flex-1 text-left">{p.user?.name || `Player ${index + 1}`} {socket?.id === p.id && "(You)"}</span>
                     <span className="w-2 h-2 rounded-full bg-green-500"></span>
                   </li>

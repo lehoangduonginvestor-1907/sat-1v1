@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X } from 'lucide-react';
 import io from 'socket.io-client';
 
@@ -50,7 +49,6 @@ const MOCK_QUESTIONS = [
 function ArenaContent() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get('room');
-  const { data: session } = useSession();
 
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   
@@ -109,11 +107,13 @@ function ArenaContent() {
 
   // Socket effect
   useEffect(() => {
-    if (roomCode && session?.user) {
+    const savedName = localStorage.getItem('sat_nickname') || 'Player';
+
+    if (roomCode) {
       socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001');
       socket.emit('joinRoom', { 
         roomCode, 
-        user: { name: session.user.name, image: session.user.image } 
+        user: { name: savedName, image: null } 
       });
 
       socket.on('playerJoined', (data: { players: any[] }) => {
@@ -128,7 +128,7 @@ function ArenaContent() {
     return () => {
       if (socket) socket.disconnect();
     };
-  }, [roomCode, session]);
+  }, [roomCode]);
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
@@ -228,7 +228,9 @@ function ArenaContent() {
       {/* ProgressBar Area (New) */}
       <div className="bg-gray-100 flex items-center justify-between px-8 py-1.5 border-b border-gray-300 text-xs font-semibold">
         <div className="flex items-center gap-2 w-1/3">
-           <img src={me?.user?.image || 'https://www.gravatar.com/avatar/?d=mp'} alt="Me" className="w-5 h-5 rounded-full" />
+           <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 text-white flex items-center justify-center font-bold text-[10px]">
+             {me?.user?.name?.charAt(0).toUpperCase() || 'Y'}
+           </div>
            <span className="w-auto truncate max-w-[100px]">{me?.user?.name || 'You'}</span>
            <div className="flex-1 flex gap-1 h-2 ml-2">
              {MOCK_QUESTIONS.map((_, i) => (
@@ -239,7 +241,9 @@ function ArenaContent() {
         </div>
         <div className="text-gray-400 font-bold tracking-widest text-[10px]">1V1 ARENA</div>
         <div className="flex items-center gap-2 w-1/3 flex-row-reverse">
-           <img src={opponent?.user?.image || 'https://www.gravatar.com/avatar/?d=mp'} alt="Opponent" className="w-5 h-5 rounded-full" />
+           <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-red-500 to-orange-500 text-white flex items-center justify-center font-bold text-[10px]">
+             {opponent?.user?.name?.charAt(0).toUpperCase() || 'O'}
+           </div>
            <span className="w-auto text-right truncate max-w-[100px]">{opponent?.user?.name || 'Opponent'}</span>
            <div className="flex-1 flex gap-1 h-2 flex-row-reverse mr-2">
              {MOCK_QUESTIONS.map((_, i) => (
