@@ -2,9 +2,26 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
+
+// Tải ngân hàng câu hỏi vào RAM
+let questionBank = [];
+try {
+  const dataPath = path.join(__dirname, 'data', 'questions.json');
+  if (fs.existsSync(dataPath)) {
+    const data = fs.readFileSync(dataPath, 'utf8');
+    questionBank = JSON.parse(data);
+    console.log(`Loaded ${questionBank.length} questions from question bank.`);
+  } else {
+    console.warn(`Warning: Question bank not found at ${dataPath}. Will use empty array.`);
+  }
+} catch (e) {
+  console.error('Error loading question bank:', e);
+}
 
 const allowedOrigins = process.env.FRONTEND_URL 
   ? process.env.FRONTEND_URL.split(',') 
@@ -52,13 +69,31 @@ io.on('connection', (socket) => {
     io.to(roomCode).emit('playerJoined', {
       players: rooms[roomCode].players
     });
+
+    // Nếu trận đấu đã bắt đầu (khi chuyển sang route /arena và connect lại socket)
+    if (rooms[roomCode].state === 'playing' && rooms[roomCode].questions) {
+      socket.emit('matchStarted', {
+        questions: rooms[roomCode].questions
+      });
+    }
   });
 
   // Bắt đầu trận đấu
   socket.on('startMatch', (roomCode) => {
     if (rooms[roomCode]) {
       rooms[roomCode].state = 'playing';
-      io.to(roomCode).emit('matchStarted');
+      
+      // Shuffle và chọn 20 câu ngẫu nhiên từ ngân hàng
+      // Nếu ngân hàng ít hơn 20 câu, lấy hết
+      const shuffled = [...questionBank].sort(() => 0.5 - Math.random());
+      const selectedQuestions = shuffled.slice(0, 20);
+      
+      rooms[roomCode].questions = selectedQuestions;
+      
+      io.to(roomCode).emit('matchStarted', {
+        questions: selectedQuestions
+      });
+      console.log(`Match started in room ${roomCode} with ${selectedQuestions.length} questions.`);
     }
   });
 

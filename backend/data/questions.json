@@ -1,0 +1,48 @@
+[
+  {
+    "id": "q1",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "passage": "In recommending Bao Phi's collection <span class='italic'>Sông I Sing</span>, a librarian noted that pieces by the spoken-word poet don't lose their <span class='inline-block w-16 border-b border-black'></span> nature when printed: the language has the same pleasant musical quality on the page as it does when performed by Phi.",
+    "question": "Which choice completes the text with the most logical and precise word or phrase?",
+    "options": ["scholarly", "melodic", "jarring", "personal"],
+    "correctAnswer": 1
+  },
+  {
+    "id": "q2",
+    "domain": "Craft and Structure",
+    "skill": "Text Structure and Purpose",
+    "passage": "The following text is from Herman Melville's 1854 novel <span class='italic'>The Lightning-rod Man</span>.\n\nThe stranger still stood in the exact middle of the cottage, where he had first planted himself. <u class='font-semibold'>His singularity impelled a closer scrutiny.</u> A lean, gloomy figure. Hair dark and lank, mattedly streaked over his brow. His sunken pitfalls of eyes were ringed by indigo halos, and played with an innocuous sort of lightning...",
+    "question": "Which choice best states the function of the underlined sentence in the overall structure of the text?",
+    "options": [
+      "It elaborates on the previous sentence's description of the character.",
+      "It introduces the setting that is described in the sentences that follow.",
+      "It establishes a contrast with the description in the previous sentence.",
+      "It sets up the character description presented in the sentences that follow."
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "q3",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "passage": "A researcher is studying the effects of temperature on the growth rate of a specific type of algae. They notice that the algae grows fastest at 25°C, but its growth rate drops significantly when the temperature exceeds 30°C.",
+    "question": "Based on the text, what can be reasonably inferred about the algae's growth?",
+    "options": [
+      "It cannot survive at temperatures below 20°C.",
+      "It thrives best in a warm, but not excessively hot, environment.",
+      "Its growth rate is entirely dependent on sunlight rather than temperature.",
+      "It requires a constant temperature of exactly 25°C to survive."
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "q4",
+    "domain": "Advanced Math",
+    "skill": "Equivalent Expressions",
+    "passage": "",
+    "question": "If $3x - 5 = 16$, what is the value of $x$?",
+    "options": ["3", "7", "11", "21"],
+    "correctAnswer": 1
+  }
+]

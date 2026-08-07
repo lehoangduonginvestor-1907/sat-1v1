@@ -14,42 +14,13 @@ declare global {
   }
 }
 
-// Mock Data
-const MOCK_QUESTIONS = [
-  {
-    id: 'q1',
-    passage: "In recommending Bao Phi's collection <span class='italic'>Sông I Sing</span>, a librarian noted that pieces by the spoken-word poet don't lose their <span class='inline-block w-16 border-b border-black'></span> nature when printed: the language has the same pleasant musical quality on the page as it does when performed by Phi.",
-    question: "Which choice completes the text with the most logical and precise word or phrase?",
-    options: ['scholarly', 'melodic', 'jarring', 'personal']
-  },
-  {
-    id: 'q2',
-    passage: "The following text is from Herman Melville's 1854 novel <span class='italic'>The Lightning-rod Man</span>.\n\nThe stranger still stood in the exact middle of the cottage, where he had first planted himself. <u class='font-semibold'>His singularity impelled a closer scrutiny.</u> A lean, gloomy figure. Hair dark and lank, mattedly streaked over his brow. His sunken pitfalls of eyes were ringed by indigo halos, and played with an innocuous sort of lightning...",
-    question: "Which choice best states the function of the underlined sentence in the overall structure of the text?",
-    options: [
-      "It elaborates on the previous sentence's description of the character.",
-      "It introduces the setting that is described in the sentences that follow.",
-      "It establishes a contrast with the description in the previous sentence.",
-      "It sets up the character description presented in the sentences that follow."
-    ]
-  },
-  {
-    id: 'q3',
-    passage: "A researcher is studying the effects of temperature on the growth rate of a specific type of algae. They notice that the algae grows fastest at 25°C, but its growth rate drops significantly when the temperature exceeds 30°C.",
-    question: "Based on the text, what can be reasonably inferred about the algae's growth?",
-    options: [
-      "It cannot survive at temperatures below 20°C.",
-      "It thrives best in a warm, but not excessively hot, environment.",
-      "Its growth rate is entirely dependent on sunlight rather than temperature.",
-      "It requires a constant temperature of exactly 25°C to survive."
-    ]
-  }
-];
+
 
 function ArenaContent() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get('room');
 
+  const [questions, setQuestions] = useState<any[]>([]);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   
   // State: Answers and Eliminations (Dictionary keyed by question index)
@@ -77,7 +48,11 @@ function ArenaContent() {
   // Text Selection / Highlight State
   const [selectionMenu, setSelectionMenu] = useState<{ x: number, y: number, range: Range | null } | null>(null);
 
-  const q = MOCK_QUESTIONS[currentQuestionIdx];
+  if (!questions || questions.length === 0) {
+    return <div className="min-h-screen flex items-center justify-center font-bold text-gray-500">Loading Question Bank...</div>;
+  }
+
+  const currentQuestion = questions[currentQuestionIdx];
   const selectedOption = answers[currentQuestionIdx] || null;
   const eliminated = eliminations[currentQuestionIdx] || [];
   const isBookmarked = bookmarks[currentQuestionIdx] || false;
@@ -123,6 +98,10 @@ function ArenaContent() {
       socket.on('opponentProgress', (data: { questionIdx: number, isCorrect: boolean }) => {
         setOpponentAnswers(prev => ({ ...prev, [data.questionIdx]: true }));
       });
+
+      socket.on('matchStarted', (data: { questions: any[] }) => {
+        setQuestions(data.questions);
+      });
     }
 
     return () => {
@@ -160,10 +139,6 @@ function ArenaContent() {
         setAnswers({ ...answers, [currentQuestionIdx]: '' });
       }
     }
-  };
-
-  const toggleBookmark = () => {
-    setBookmarks({ ...bookmarks, [currentQuestionIdx]: !isBookmarked });
   };
 
   // Handle Text Selection for Highlight
@@ -233,11 +208,11 @@ function ArenaContent() {
            </div>
            <span className="w-auto truncate max-w-[100px]">{me?.user?.name || 'You'}</span>
            <div className="flex-1 flex gap-1 h-2 ml-2">
-             {MOCK_QUESTIONS.map((_, i) => (
+             {questions.map((_, i) => (
                 <div key={i} className={`flex-1 rounded-sm ${answers[i] ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
              ))}
            </div>
-           <span className="w-8 text-right">{Object.keys(answers).length}/{MOCK_QUESTIONS.length}</span>
+           <span className="w-8 text-right">{Object.keys(answers).length}/{questions.length}</span>
         </div>
         <div className="text-gray-400 font-bold tracking-widest text-[10px]">1V1 ARENA</div>
         <div className="flex items-center gap-2 w-1/3 flex-row-reverse">
@@ -246,11 +221,11 @@ function ArenaContent() {
            </div>
            <span className="w-auto text-right truncate max-w-[100px]">{opponent?.user?.name || 'Opponent'}</span>
            <div className="flex-1 flex gap-1 h-2 flex-row-reverse mr-2">
-             {MOCK_QUESTIONS.map((_, i) => (
+             {questions.map((_, i) => (
                 <div key={i} className={`flex-1 rounded-sm ${opponentAnswers[i] ? 'bg-red-500' : 'bg-gray-300'}`}></div>
              ))}
            </div>
-           <span className="w-8 text-left">{Object.keys(opponentAnswers).length}/{MOCK_QUESTIONS.length}</span>
+           <span className="w-8 text-left">{Object.keys(opponentAnswers).length}/{questions.length}</span>
         </div>
       </div>
 
@@ -351,9 +326,11 @@ function ArenaContent() {
         )}
 
         {/* Left Column: Passage */}
-        <div className="w-1/2 p-10 overflow-y-auto border-r-2 border-gray-300 relative" onMouseUp={handleTextSelection}>
-          <div className="max-w-2xl mx-auto text-[17px] leading-relaxed text-gray-900" 
-               dangerouslySetInnerHTML={{ __html: q.passage.replace(/\n/g, '<br/>') }}>
+        <div className="w-1/2 p-10 overflow-y-auto border-r-2 border-gray-300 relative">
+          <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800" onMouseUp={handleTextSelection}>
+            {/* Parse LaTeX or standard text here. For now we use basic display */}
+            {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: currentQuestion.passage.replace(/\n/g, '<br/>') }}></p>}
+            <p className="font-semibold text-black">{currentQuestion.question}</p>
           </div>
           
           {/* Resize handle visual */}
@@ -369,33 +346,33 @@ function ArenaContent() {
         <div className="w-1/2 p-10 overflow-y-auto bg-gray-50/30">
           <div className="max-w-2xl mx-auto">
             
-            {/* Question Header */}
-            <div className="flex justify-between items-center mb-4 border-b-2 border-black border-dashed pb-2">
-              <div className="flex items-center gap-3">
-                <div className="bg-black text-white font-bold w-6 h-6 flex items-center justify-center text-sm">
-                  {currentQuestionIdx + 1}
-                </div>
-                <button 
-                  onClick={toggleBookmark}
-                  className={`flex items-center text-sm font-semibold hover:text-black group transition ${isBookmarked ? 'text-black' : 'text-gray-600'}`}
-                >
-                  <Bookmark size={16} fill={isBookmarked ? 'black' : 'none'} className={`mr-1.5 ${isBookmarked ? 'text-black' : 'text-gray-400 group-hover:text-black'}`} />
-                  Mark for Review
-                </button>
-              </div>
-              <div className="bg-blue-600 text-white rounded-sm px-1.5 py-0.5 text-xs font-bold line-through cursor-pointer select-none">
-                ABC
-              </div>
+            {/* Question Header & Navigation */}
+            <div className="flex justify-between items-center text-sm font-bold bg-white text-gray-800 px-4 py-3 shadow-md rounded-lg mb-6">
+              <button className="flex items-center gap-2 font-bold px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-black transition-colors" disabled={currentQuestionIdx === 0} onClick={() => setCurrentQuestionIdx(prev => Math.max(0, prev - 1))}>
+                <ChevronUp size={20} /> Back
+              </button>
+              
+              <button 
+                onClick={() => setBookmarks(prev => ({...prev, [currentQuestionIdx]: !prev[currentQuestionIdx]}))}
+                className="flex items-center gap-2 font-bold px-4 py-2 hover:bg-gray-100 rounded-lg text-black transition-colors"
+              >
+                <Bookmark size={18} className={bookmarks[currentQuestionIdx] ? 'fill-black' : ''} />
+                {bookmarks[currentQuestionIdx] ? 'Bookmarked' : 'Mark for Review'}
+              </button>
+
+              <button className="flex items-center gap-2 font-bold px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors shadow-sm" disabled={currentQuestionIdx === questions.length - 1} onClick={() => setCurrentQuestionIdx(prev => Math.min(questions.length - 1, prev + 1))}>
+                Next <ChevronDown size={20} />
+              </button>
             </div>
 
-            {/* Question Text */}
-            <p className="text-[17px] mb-6 text-gray-900 font-medium">
-              {q.question}
-            </p>
+            <div className="font-bold flex items-center gap-2 mb-4">
+              <span className="text-blue-600">Question {currentQuestionIdx + 1}</span>
+              {bookmarks[currentQuestionIdx] && <Bookmark size={14} className="text-red-500 fill-red-500" />}
+            </div>
 
             {/* Options */}
             <div className="space-y-4">
-              {q.options.map((text, idx) => {
+              {currentQuestion.options.map((text: string, idx: number) => {
                 const label = String.fromCharCode(65 + idx); // A, B, C, D
                 const isSelected = selectedOption === label;
                 const isEliminated = eliminated.includes(label);
@@ -449,7 +426,7 @@ function ArenaContent() {
         
         <div className="w-1/3 flex justify-center">
           <button className="bg-black text-white px-4 py-1.5 rounded flex items-center font-semibold text-sm hover:bg-gray-800">
-            Question {currentQuestionIdx + 1} of {MOCK_QUESTIONS.length} <ChevronUp size={16} className="ml-2" />
+            Question {currentQuestionIdx + 1} of {questions.length} <ChevronUp size={16} className="ml-2" />
           </button>
         </div>
 
@@ -462,8 +439,8 @@ function ArenaContent() {
             Back
           </button>
           <button 
-            onClick={() => setCurrentQuestionIdx(prev => Math.min(MOCK_QUESTIONS.length - 1, prev + 1))}
-            disabled={currentQuestionIdx === MOCK_QUESTIONS.length - 1}
+            onClick={() => setCurrentQuestionIdx(prev => Math.min(questions.length - 1, prev + 1))}
+            disabled={currentQuestionIdx === questions.length - 1}
             className="px-6 py-1.5 font-bold bg-[#1d4ed8] text-white hover:bg-blue-700 disabled:bg-gray-400 rounded text-sm transition shadow-sm"
           >
             Next

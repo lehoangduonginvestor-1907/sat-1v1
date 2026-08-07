@@ -2,9 +2,11 @@ import os
 import fitz  # PyMuPDF
 import json
 import time
+import uuid
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from pydantic import BaseModel
 
 # Tải API key từ file .env
 load_dotenv()
@@ -15,22 +17,26 @@ if not API_KEY:
 
 client = genai.Client(api_key=API_KEY)
 
-system_instruction = """Bạn là một chuyên gia phân tích dữ liệu giáo dục. Nhiệm vụ của bạn là nhận diện nội dung từ hình ảnh của một câu hỏi thi Digital SAT và chuyển nó thành cấu trúc JSON.
-Bạn phải tuân thủ nghiêm ngặt định dạng JSON sau:
-{
-  "question_id": "Mã ID câu hỏi (nếu có, ví dụ e312081b)",
-  "domain": "Domain của câu hỏi (ví dụ Advanced Math)",
-  "skill": "Kỹ năng (ví dụ Equivalent expressions)",
-  "difficulty": "Độ khó (ví dụ Easy, Medium, Hard dựa trên số ô vuông, 1 ô = Easy, 2 ô = Medium, 3 ô = Hard)",
-  "question_text": "Nội dung câu hỏi. Vui lòng chuyển tất cả công thức toán học thành mã LaTeX (bọc trong dấu $$ hoặc $).",
-  "options": {
-    "A": "Nội dung đáp án A",
-    "B": "Nội dung đáp án B",
-    "C": "Nội dung đáp án C",
-    "D": "Nội dung đáp án D"
-  }
-}
-Lưu ý: Chỉ trả về đoạn mã JSON hợp lệ, không chứa bất kỳ ký tự nào khác (không bọc trong markdown ```json). Nếu câu hỏi không phải trắc nghiệm (Grid-in), phần options để null.
+class Question(BaseModel):
+    id: str
+    domain: str
+    skill: str
+    passage: str
+    question: str
+    options: list[str]
+    correctAnswer: int
+
+system_instruction = """Bạn là một chuyên gia phân tích dữ liệu giáo dục và giải đề thi Digital SAT chuyên nghiệp.
+Nhiệm vụ của bạn là nhận diện nội dung câu hỏi từ hình ảnh và trích xuất thành định dạng JSON theo đúng schema.
+Nếu câu hỏi có chứa đáp án đúng được khoanh hoặc đánh dấu trong hình, hãy lấy đó làm correctAnswer (index từ 0 đến 3 cho A, B, C, D).
+Nếu câu hỏi chưa có đáp án, bạn hãy TỰ GIẢI để tìm ra đáp án đúng và điền index của đáp án đó vào trường correctAnswer.
+Lưu ý:
+- "id" có thể lấy mã ID của câu hỏi ở góc màn hình. Nếu không có, hãy tạo 1 chuỗi ngẫu nhiên.
+- "domain" và "skill" lấy từ context của câu hỏi (Ví dụ: Math, Advanced Math).
+- "passage" là phần ngữ cảnh hoặc đoạn văn. Đối với câu hỏi toán học, nếu không có đoạn văn, hãy lấy phần bối cảnh, hoặc để chuỗi rỗng.
+- Chuyển tất cả công thức toán học thành mã LaTeX (bọc trong dấu $ hoặc $$).
+- Mảng "options" chứa 4 đáp án dạng chuỗi (KHÔNG bao gồm chữ cái A., B., C., D. ở đầu mỗi chuỗi). 
+- Nếu là câu điền đáp án (Grid-in) không có trắc nghiệm, trả về mảng rỗng [] và correctAnswer = 0.
 """
 
 def extract_page_to_image(pdf_path, page_num):
@@ -54,24 +60,29 @@ def process_pdf_file(pdf_path):
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=[
-                    "Hãy trích xuất câu hỏi trong ảnh này thành JSON.", 
+                    "Hãy trích xuất và giải câu hỏi trong ảnh này thành mảng JSON theo đúng định dạng. Lưu ý 1 trang có thể có nhiều câu hỏi.", 
                     types.Part.from_bytes(data=img_data, mime_type='image/png')
                 ],
                 config=types.GenerateContentConfig(
                     system_instruction=system_instruction,
-                    temperature=0.1
+                    temperature=0.1,
+                    response_mime_type="application/json",
+                    response_schema=list[Question]
                 )
             )
             
             json_str = response.text.strip()
-            if json_str.startswith("```json"):
-                json_str = json_str[7:-3].strip()
-                
             parsed_data = json.loads(json_str)
-            results.append(parsed_data)
             
-            # Tránh Rate limit (Free tier của Gemini giới hạn 5 req/phút)
-            print("  Đợi 15 giây để tránh Rate Limit...", flush=True)
+            # Gán UUID cho những câu không có ID
+            for item in parsed_data:
+                if not item.get("id") or item["id"] == "string":
+                    item["id"] = str(uuid.uuid4())[:8]
+            
+            results.extend(parsed_data)
+            
+            # Tránh Rate limit
+            print("  Đợi 15 giây để tránh Rate Limit (5 req/min)...", flush=True)
             time.sleep(15) 
             
         except Exception as e:
@@ -80,15 +91,19 @@ def process_pdf_file(pdf_path):
     return results
 
 if __name__ == "__main__":
-    # Ví dụ chạy thử với 1 file
     test_file = r"D:\Question Bank (Unformatted)\Math\Advanced Math\Equivalent Expressions\Equivalent Expressions 1.pdf"
     
     if os.path.exists(test_file):
         data = process_pdf_file(test_file)
         
-        with open("output_test.json", "w", encoding="utf-8") as f:
+        # Đảm bảo thư mục backend/data tồn tại
+        os.makedirs(r"D:\web-sat-challenge\backend\data", exist_ok=True)
+        out_path = r"D:\web-sat-challenge\backend\data\questions.json"
+        
+        with open(out_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
             
-        print("Done. Result saved to output_test.json", flush=True)
+        print(f"\nDone! Parsed {len(data)} questions successfully.")
+        print(f"Result saved to: {out_path}", flush=True)
     else:
         print("Test file not found.", flush=True)
