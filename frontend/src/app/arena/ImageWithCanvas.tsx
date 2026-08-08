@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { MessageSquare } from 'lucide-react';
+import { MessageSquare, ZoomIn, ZoomOut } from 'lucide-react';
 
 export type Point = { x: number, y: number };
 export type Stroke = { points: Point[], note?: string };
@@ -23,6 +23,7 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [noteData, setNoteData] = useState<{strokeIdx: number, x: number, y: number} | null>(null);
   const [noteText, setNoteText] = useState("");
+  const [zoomScale, setZoomScale] = useState(1);
 
   const strokes = annotations[questionId] || [];
 
@@ -179,11 +180,37 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
   };
 
   return (
-    <div ref={containerRef} className="relative inline-block w-full">
+    <div className="relative w-full h-full flex justify-center">
+      <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-white p-2 rounded-lg shadow-lg border border-gray-200">
+        <button 
+          onClick={() => setZoomScale(prev => Math.max(0.5, prev - 0.25))}
+          className="p-1 hover:bg-gray-100 rounded text-gray-700"
+          title="Zoom Out"
+        >
+          <ZoomOut size={20} />
+        </button>
+        <span className="text-sm font-semibold w-12 text-center text-gray-700">
+          {Math.round(zoomScale * 100)}%
+        </span>
+        <button 
+          onClick={() => setZoomScale(prev => Math.min(3, prev + 0.25))}
+          className="p-1 hover:bg-gray-100 rounded text-gray-700"
+          title="Zoom In"
+        >
+          <ZoomIn size={20} />
+        </button>
+      </div>
+
+      <div 
+        ref={containerRef} 
+        className="relative inline-block origin-top transition-all duration-200"
+        style={{ width: `${100 * zoomScale}%` }}
+      >
       <img 
         src={src} 
         alt="Question text" 
-        className="max-w-full h-auto rounded border border-gray-200 select-none"
+        className="h-auto rounded border border-gray-200 select-none"
+        style={{ width: '100%', maxWidth: 'none' }}
         onError={onError}
         draggable={false}
       />
@@ -259,6 +286,7 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

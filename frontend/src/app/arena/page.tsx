@@ -369,7 +369,7 @@ function ArenaContent() {
         )}
 
         {/* Left Column: Passage */}
-        <div className="w-1/2 p-10 overflow-y-auto border-r-2 border-gray-300 relative bg-white">
+        <div className="w-1/2 p-10 overflow-auto border-r-2 border-gray-300 relative bg-white">
           {!imageError ? (
             <div className="flex justify-center w-full min-h-full">
               <ImageWithCanvas 
