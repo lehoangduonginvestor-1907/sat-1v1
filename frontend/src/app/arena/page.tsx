@@ -4,8 +4,9 @@ import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X, CheckCircle2 } from 'lucide-react';
 import io from 'socket.io-client';
+import ImageWithCanvas, { Stroke } from './ImageWithCanvas';
 
 let socket: any;
 
@@ -48,7 +49,9 @@ function ArenaContent() {
   const calcInstanceRef = useRef<any>(null);
 
   // Text Selection / Highlight State
-  const [selectionMenu, setSelectionMenu] = useState<{ x: number, y: number, range: Range | null } | null>(null);
+  const [annotations, setAnnotations] = useState<Record<string, Stroke[]>>({});
+  const [isDrawingMode, setIsDrawingMode] = useState(false);
+
   // Post-match states
   const [isFinished, setIsFinished] = useState(false);
   const [isOpponentFinished, setIsOpponentFinished] = useState(false);
@@ -56,6 +59,7 @@ function ArenaContent() {
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [explanationError, setExplanationError] = useState(false);
+  const [selectionMenu, setSelectionMenu] = useState<{x: number, y: number, range: Range} | null>(null);
 
   useEffect(() => {
     setImageError(false);
@@ -207,51 +211,8 @@ function ArenaContent() {
     return formatted;
   };
 
-  // Handle Text Selection for Highlight
-  const handleTextSelection = () => {
-    const selection = window.getSelection();
-    if (selection && selection.toString().trim().length > 0) {
-      const range = selection.getRangeAt(0);
-      const rect = range.getBoundingClientRect();
-      setSelectionMenu({
-        x: rect.left + rect.width / 2,
-        y: rect.top - 40,
-        range: range
-      });
-    } else {
-      setSelectionMenu(null);
-    }
-  };
-
-  const applyHighlightAndNote = () => {
-    if (selectionMenu?.range) {
-      try {
-        const span = document.createElement('span');
-        span.className = 'bg-yellow-300 border-b-2 border-yellow-500 cursor-pointer';
-        span.title = "Click to remove highlight";
-        // Gỡ highlight khi click vào
-        span.addEventListener('click', function() {
-          if (this.parentNode) {
-            this.outerHTML = this.innerHTML;
-          }
-        });
-
-        // Note: surroundContents might fail if selection crosses elements, 
-        // but works well for basic text selection
-        selectionMenu.range.surroundContents(span);
-        
-        // Clear selection menu and open notes
-        window.getSelection()?.removeAllRanges();
-        setSelectionMenu(null);
-        setNotesOpen(true);
-      } catch (e) {
-        console.error("Highlight failed (likely crossed HTML elements):", e);
-        setSelectionMenu(null);
-      }
-    }
-  };
-
-
+  // Deprecated text selection logic - removed
+  const applyHighlightAndNote = () => {};
 
   const me = players.find(p => p.id === socket?.id);
   const opponent = players.find(p => p.id !== socket?.id);
@@ -324,8 +285,8 @@ function ArenaContent() {
             <span className="text-[10px] font-semibold uppercase">Calculator</span>
           </button>
           <button 
-            onClick={() => setNotesOpen(!notesOpen)}
-            className={`flex flex-col items-center hover:text-black ${notesOpen ? 'text-blue-600' : 'text-gray-600'}`}
+            className={`flex flex-col items-center px-2 py-1 rounded transition-colors ${isDrawingMode ? 'bg-blue-100 text-blue-700 shadow-sm' : 'text-gray-600 hover:text-blue-600'}`}
+            onClick={() => setIsDrawingMode(!isDrawingMode)}
           >
             <Highlighter size={20} className="mb-1" />
             <span className="text-[10px] font-semibold uppercase">Highlights & Notes</span>
@@ -378,7 +339,12 @@ function ArenaContent() {
             style={{ left: selectionMenu.x, top: selectionMenu.y }}
             onMouseDown={(e) => { e.stopPropagation(); applyHighlightAndNote(); }}
           >
-            <Highlighter size={14} /> Annotate
+            <button 
+            className={`flex flex-col items-center gap-1 transition-colors px-2 rounded ${isDrawingMode ? 'text-white bg-blue-600 shadow-sm' : 'text-gray-500 hover:text-blue-600'}`}
+            onClick={() => setIsDrawingMode(!isDrawingMode)}
+          >
+            <Highlighter size={14} /> {isDrawingMode ? 'Drawing...' : 'Annotate'}
+          </button>
             {/* Pointer triangle */}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-black"></div>
           </div>
@@ -388,16 +354,18 @@ function ArenaContent() {
         <div className="w-1/2 p-10 overflow-y-auto border-r-2 border-gray-300 relative bg-white">
           {!imageError ? (
             <div className="flex justify-center w-full min-h-full">
-              <img 
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com'}/images/${currentQuestion.id}.png`} 
-                alt={`Question ${currentQuestion.id}`} 
-                className="max-w-full h-auto object-contain"
+              <ImageWithCanvas 
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com'}/images/${currentQuestion.id}.png`}
+                questionId={currentQuestion.id}
+                annotations={annotations}
+                setAnnotations={setAnnotations}
+                isDrawingMode={isDrawingMode}
                 onError={() => setImageError(true)}
               />
             </div>
           ) : (
-            <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800" onMouseUp={handleTextSelection}>
-              {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: formatPassage(currentQuestion.passage) }}></p>}
+            <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800">
+              {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: currentQuestion.passage }}></p>}
               <p className="font-semibold text-black">{currentQuestion.question}</p>
             </div>
           )}
@@ -473,7 +441,7 @@ function ArenaContent() {
                       <span className={`text-[17px] leading-relaxed ${isEliminated && !isReviewMode ? 'line-through text-gray-400' : 
                         isSelected ? 'text-blue-900 font-medium' : 'text-gray-700'
                       }`}>
-                        {imageError ? text : `Option ${label}`}
+                        {text}
                       </span>
 
                     </button>
@@ -503,7 +471,7 @@ function ArenaContent() {
                   <div className="text-blue-800 leading-relaxed text-sm">
                     {!explanationError ? (
                       <img 
-                        src={`http://localhost:3001/explanations/${currentQuestion.id}.png`} 
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com'}/explanations/${currentQuestion.id}.png`} 
                         alt="Explanation" 
                         className="max-w-full h-auto rounded border border-gray-200"
                         onError={() => setExplanationError(true)}
