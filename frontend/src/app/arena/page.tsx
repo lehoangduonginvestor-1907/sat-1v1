@@ -272,12 +272,24 @@ function ArenaContent() {
              {me?.user?.name?.charAt(0).toUpperCase() || 'Y'}
            </div>
            <span className="w-auto truncate max-w-[100px]">{me?.user?.name || 'You'}</span>
-           <div className="flex-1 flex gap-1 h-2 ml-2">
+           <div className="flex-1 flex gap-1 h-8 ml-2 items-center overflow-x-auto px-1">
              {questions.map((_, i) => (
-                <div key={i} className={`flex-1 rounded-sm ${answers[i] ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
+                <button 
+                  key={i} 
+                  onClick={() => setCurrentQuestionIdx(i)}
+                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold transition-all shadow-sm ${
+                    currentQuestionIdx === i 
+                      ? 'bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-1' 
+                      : answers[i] 
+                        ? 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200' 
+                        : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100'
+                  }`}
+                >
+                  {i + 1}
+                </button>
              ))}
            </div>
-           <span className="w-8 text-right">{Object.keys(answers).length}/{questions.length}</span>
+           <span className="w-10 text-right font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">{Object.keys(answers).length}/{questions.length}</span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center">
           <h2 className="text-xl font-black text-gray-900 tracking-tight">
@@ -293,12 +305,21 @@ function ArenaContent() {
              {opponent?.user?.name?.charAt(0).toUpperCase() || 'O'}
            </div>
            <span className="w-auto text-right truncate max-w-[100px]">{opponent?.user?.name || 'Opponent'}</span>
-           <div className="flex-1 flex gap-1 h-2 flex-row-reverse mr-2">
+           <div className="flex-1 flex gap-1 h-8 mr-2 items-center flex-row-reverse overflow-x-auto px-1">
              {questions.map((_, i) => (
-                <div key={i} className={`flex-1 rounded-sm ${opponentAnswers[i] ? 'bg-red-500' : 'bg-gray-300'}`}></div>
+                <div 
+                  key={i} 
+                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold shadow-sm ${
+                    opponentAnswers[i] 
+                      ? 'bg-red-100 text-red-800 border border-red-300' 
+                      : 'bg-white text-gray-400 border border-gray-200'
+                  }`}
+                >
+                  {i + 1}
+                </div>
              ))}
            </div>
-           <span className="w-8 text-left">{Object.keys(opponentAnswers).length}/{questions.length}</span>
+           <span className="w-10 text-left font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded-md border border-red-200">{Object.keys(opponentAnswers).length}/{questions.length}</span>
         </div>
       </div>
 
