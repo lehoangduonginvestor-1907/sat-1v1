@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
@@ -61,6 +61,10 @@ function ArenaContent() {
   const [matchResults, setMatchResults] = useState<any>(null);
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [leftPaneWidth, setLeftPaneWidth] = useState(50);
+  const [isResizing, setIsResizing] = useState(false);
+
+  // ...
   const [explanationError, setExplanationError] = useState(false);
   const [selectionMenu, setSelectionMenu] = useState<{x: number, y: number, range: Range} | null>(null);
 
@@ -104,6 +108,37 @@ function ArenaContent() {
       }
     }
   }, [calcOpen]);
+
+  // Handle Pane Resizing
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!isResizing) return;
+    const newWidth = (e.clientX / window.innerWidth) * 100;
+    if (newWidth > 20 && newWidth < 80) {
+      setLeftPaneWidth(newWidth);
+    }
+  }, [isResizing]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      // add a class to body to prevent text selection while dragging
+      document.body.classList.add('select-none', 'cursor-col-resize');
+    } else {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.classList.remove('select-none', 'cursor-col-resize');
+    }
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.classList.remove('select-none', 'cursor-col-resize');
+    };
+  }, [isResizing, handleMouseMove, handleMouseUp]);
 
   // Socket effect
   useEffect(() => {
@@ -369,7 +404,10 @@ function ArenaContent() {
         )}
 
         {/* Left Column: Passage */}
-        <div className="w-1/2 p-10 overflow-auto border-r-2 border-gray-300 relative bg-white">
+        <div 
+          className="p-10 overflow-auto border-r-2 border-gray-300 relative bg-white flex-shrink-0"
+          style={{ width: `${leftPaneWidth}%` }}
+        >
           {!imageError ? (
             <div className="flex justify-center w-full min-h-full">
               <ImageWithCanvas 
@@ -389,7 +427,13 @@ function ArenaContent() {
           )}
           
           {/* Resize handle visual */}
-          <div className="absolute top-1/2 right-[-10px] w-5 h-8 bg-gray-600 text-white flex items-center justify-center rounded-sm cursor-col-resize z-10 transform -translate-y-1/2">
+          <div 
+            className="absolute top-1/2 right-[-10px] w-5 h-8 bg-gray-600 text-white flex items-center justify-center rounded-sm cursor-col-resize z-10 transform -translate-y-1/2 hover:bg-blue-600 transition-colors shadow-md"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              setIsResizing(true);
+            }}
+          >
             <div className="flex gap-0.5">
               <div className="w-0.5 h-3 bg-white"></div>
               <div className="w-0.5 h-3 bg-white"></div>
@@ -398,7 +442,10 @@ function ArenaContent() {
         </div>
 
         {/* Right Column: Question & Options */}
-        <div className="w-1/2 p-10 overflow-y-auto bg-gray-50/30">
+        <div 
+          className="p-10 overflow-y-auto bg-gray-50/30 flex-shrink-0"
+          style={{ width: `${100 - leftPaneWidth}%` }}
+        >
           <div className="max-w-2xl mx-auto">
             
             {/* Question Header & Navigation */}
