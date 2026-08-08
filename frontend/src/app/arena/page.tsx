@@ -273,7 +273,8 @@ function ArenaContent() {
     }
 
     const ans = answers[i];
-    const isCorrect = ans === questions[i].answer;
+    const correctLabel = String.fromCharCode(65 + questions[i].correctAnswer);
+    const isCorrect = ans === correctLabel;
 
     if (isReviewMode) {
       if (isCurrent) {
