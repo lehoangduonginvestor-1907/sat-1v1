@@ -11,7 +11,8 @@
       "State a preference about where to eat.",
       "Change the subject to talk about something else."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "02fd3da7",
@@ -25,7 +26,8 @@
       "Requiring people to vote does not necessarily lead to election outcomes that better represent the preferences of the country as a whole.",
       "Countries that require voting must also make the process of voting easier for their citizens."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "8d802289",
@@ -39,7 +41,8 @@
       "Audiences were mostly unfamiliar with the jazz music in Ailey’s works.",
       "Ailey blended multiple genres of music together when choreographing dance pieces."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "835d1ae6",
@@ -53,7 +56,8 @@
       "Some vessels may have been damaged during their excavation and thus provide little insight into Moche culture.",
       "Markings on depictions of human faces are not necessarily intended to portray particular details about the physical appearance of individuals."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "81da17d3",
@@ -67,7 +71,8 @@
       "Fontana likely inspired the reference to an easel and palette in Carracci’s painting.",
       "Self-Portrait at the Keyboard was painted earlier than Carracci’s painting and also refers to the artist’s craft."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "c68ceeff",
@@ -81,7 +86,8 @@
       "The climate of the West African coast in the 1500s prevented cassava’s spread in the region.",
       "The most commonly used methods to cook cassava today date to the 1500s."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "5a4b147c",
@@ -95,7 +101,8 @@
       "Historians have confirmed which route Sybil Ludington took.",
       "Sybil Ludington was likely not a real person."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "9645f55e",
@@ -109,7 +116,8 @@
       "As shortsighted, because bluegrass could enlarge its audience by including influences from mainstream genres",
       "As illogical, because the purists overlook crucial aspects of how the bluegrass sound first originated."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "dc043599",
@@ -123,7 +131,8 @@
       "The author of Text 1 claims that the moon’s surface is more similar to Earth’s surface than the author of Text 2 claims.",
       "The author of Text 1 believes that the moon formed more slowly than the author of Text 2 believes."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "2c50ed1a",
@@ -137,7 +146,8 @@
       "The author of Text 1 considers Soyinka’s plays to showcase his strongest writing, whereas the author of Text 2 believes that Soyinka’s poetry is where he is most skilled.",
       "The author of Text 1 argues that Soyinka’s early plays were his most politically charged, whereas the author of Text 2 claims that Soyinka’s most recent plays are the most politicized."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "22105871",
@@ -151,7 +161,8 @@
       "By pointing out that even humans sometimes struggle to have fun while engaging in play",
       "By noting that if the bees were truly playing, any positive feelings they may have experienced were probably quite basic"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "159ef46d",
@@ -165,7 +176,8 @@
       "As justifiable, because Lewis incorporated memoir into The Taste of Country Cooking, thus undermining its status as a cookbook",
       "As inevitable, because The Taste of Country Cooking was marketed to readers of food writing and not to readers of other genres"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "7b55e895",
@@ -179,7 +191,8 @@
       "Little is known about how tropical mountain birds build their nests.",
       "Tropical mountain bird species that live at high elevations tend to be genetically similar."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "c106b9f7",
@@ -193,7 +206,8 @@
       "Sculpting representations of historical figures was a short-lived trend.",
       "Lewis’s works are varied in the subjects they depict."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "88bb0f6f",
@@ -207,7 +221,8 @@
       "The author of Text 2 believes that the results described by Strassburg’s team are achievable in the near future, whereas the author of Text 1 argues that they likely aren’t.",
       "The author of Text 2 focuses on rewilding’s effect on carbon emissions, whereas the author of Text 1 focuses on its effect on biodiversity."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "8de51658",
@@ -221,7 +236,8 @@
       "It is consistent with the current understanding of physics at a microscopic level but not at a macroscopic level.",
       "It supports a claim about an isolated system of atoms in a laboratory, but that claim should not be extrapolated to a general claim about the universe."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "82c05b34",
@@ -235,7 +251,8 @@
       "Changing consumer behaviors are leading to changes in music-related businesses.",
       "The rising consumer demand for live music festivals also generates higher demand for music streaming platforms."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "f1c9d2c1",
@@ -249,7 +266,8 @@
       "Theater practitioners who worked with Appia greatly admired his work.",
       "Appia was unfamiliar with the use of music and sound in theater."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "eae66bf9",
@@ -263,7 +281,8 @@
       "By praising it for connecting the composition of Chicxulub crater samples to the composition of certain asteroids",
       "By concurring that carbonaceous chondrites are prevalent in soil samples from sites distant from the Chicxulub crater"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "9a94eb77",
@@ -277,7 +296,8 @@
       "By supplying additional ways in which urbanization research is difficult",
       "By noting that a possible solution to the problem is available"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "03080769",
@@ -291,7 +311,8 @@
       "By arguing that if it is valid to assert that some facts are true based on instinct, it is also valid to assert that some proofs are inadequate based on instinct",
       "By pointing out that Moore would assert that external world skepticism is at odds with other beliefs those proponents must unavoidably hold"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "12d81fc1",
@@ -305,7 +326,8 @@
       "By approving of the theory’s emphasis on how the script changed over time",
       "By cautioning that the theory overlooks certain important aspects of how the script functioned"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "27d9bb69",
@@ -319,7 +341,8 @@
       "By pointing out that it is challenging to determine when information-seeking serves no goal beyond acquiring information",
       "By disputing the idea that curiosity can help explain apparently purposeless information-seeking behaviors"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "f52cc78c",
@@ -333,7 +356,8 @@
       "By asserting that it overlooks polar bear populations that have not yet been affected by loss of seal-hunting habitats",
       "By arguing that it fails to account for polar bears’ reliance on a single seal-hunting strategy"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "97e5bf55",
@@ -347,7 +371,8 @@
       "The Two Noble Kinsmen belongs in one-volume compilations of Shakespeare’s complete plays.",
       "Philip Massinger’s style in the first and last acts of The Two Noble Kinsmen is an homage to Shakespeare’s style."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "105ea6de",
@@ -361,7 +386,8 @@
       "By arguing that the situation described in Text 1 may not be representative but conceding that the effects of nanomaterial conjugation are harder to predict than researchers had expected",
       "By denying that the circumstance described in Text 1 is likely to occur but acknowledging that many aspects of nanomaterial conjugation are still poorly understood"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "c4737d6a",
@@ -375,7 +401,8 @@
       "By insisting that pastoralism can have both beneficial and deleterious effects on a region’s vegetation and climate",
       "By asserting that more research needs to be conducted into factors that likely contributed to the desertification of the Sahara region"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "a87c3925",
@@ -389,7 +416,8 @@
       "Fermentation introduces proteins responsible for the increase of umami flavor in soy sauce, and those proteins also increase the perception of saltiness.",
       "The broths in the 2007 experiment most likely did not have a substantial amount of the dipeptides that played a key part in the 2022 experiment."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "f3c45b4f",
@@ -403,7 +431,8 @@
       "They would contend that if analyses of surrounding layers and bones in the Sterkfontein Caves were combined, then the dating of the fossils there would be more accurate.",
       "They would argue that their techniques are better suited than other methods to the unique challenges posed by the Sterkfontein Caves."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "96f3accc",
@@ -417,7 +446,8 @@
       "It is not based on evidence and reflects film historians’ belief that they are more sophisticated than today’s audiences.",
       "It reflects a misconception that is widely believed because it captures early film audiences’ sense that the new medium was alarming."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "f7c02e89",
@@ -431,7 +461,8 @@
       "By suggesting that the scholars mentioned in Text 2 rely more heavily on credits as a source of information than film and television researchers do",
       "By observing that a widespread practice in film and television largely prevents the kind of problem faced by the scholars mentioned in Text 2"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "e4e2aeb3",
@@ -445,7 +476,8 @@
       "As disregarding points of structural and stylistic divergence between the works of Ellison and those of Morrison",
       "As being indebted to the tradition of resisting literary conventions that privilege written forms, such as novels, over sermons and other oral forms"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "6a1dc7c5",
@@ -459,7 +491,8 @@
       "By acknowledging that Orlando clearly differs from Woolf’s other major novels but insisting on its centrality to her body of work nonetheless",
       "By concurring that the reputation of Orlando as a minor work has led readers to overlook this novel but maintaining that the reputation is unearned"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "17bf10de",
@@ -473,7 +506,8 @@
       "The author of Text 1 asserts that the writing style of The Guns of August makes it worthwhile to read despite any perceived deficiency in Tuchman’s research, while the author of Text 2 focuses exclusively on the weakness of Tuchman’s interpretation of events.",
       "The author of Text 1 claims that Tuchman would agree that World War I was largely due to events in Eastern Europe, while the author of Text 2 maintains that Tuchman would say that Eastern European leaders were not committed to military plans in the same way that other leaders were."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "c966ad55",
@@ -487,7 +521,8 @@
       "It indicates that Shakti has lost her sense of direction in the woods.",
       "It emphasizes Shakti’s sense of belonging in the landscape."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "066a3295",
@@ -501,7 +536,8 @@
       "It emphasizes the main goal of the research introduced in the previous sentence.",
       "It provides context that clarifies the significance of the information that follows in the rest of the sentence."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "e13171c4",
@@ -515,7 +551,8 @@
       "It argues that autobiographies are particularly important sources of information about geography in the United States before the Civil War.",
       "It suggests that most historians believe that Neshnabé villagers were more successful in assisting freedom seekers than other people were."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "e929fe98",
@@ -529,7 +566,8 @@
       "To describe the musical styles that inspired many of Price’s symphonies",
       "To compare Price’s scores with those of classical European composers"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "809addda",
@@ -543,7 +581,8 @@
       "It conveys the speaker’s sense of feeling a pull toward home while traveling in an unfamiliar place.",
       "It reveals that upon returning after an extended absence, the speaker longs for the way a location once felt."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "a68239ed",
@@ -557,7 +596,8 @@
       "It cautions readers that the text’s directions for how to achieve self-knowledge are hard to follow.",
       "It concedes that the definition of self-knowledge advanced in the text is unpopular."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "a2dd51c1",
@@ -571,7 +611,8 @@
       "To argue that building deconstruction is not as effective as other measures at reducing demolition waste",
       "To discuss laws aimed to reduce demolition waste in Portland and compare them to similar laws in other cities"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "48e4021d",
@@ -585,7 +626,8 @@
       "It suggests that the narrator’s brothers are talented piano players.",
       "It describes the event that led the narrator’s parents to buy a piano."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "47904792",
@@ -599,7 +641,8 @@
       "To establish that tool use doesn’t indicate intelligence",
       "To argue that a variety of animals use tools"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "ac5bf490",
@@ -613,7 +656,8 @@
       "It presents an example of how Mago and Grande generally played together as children.",
       "It provides a reason for why Mago is unwilling to play with Grande."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "0ed94d4c",
@@ -627,7 +671,8 @@
       "To give an example of how Ormes presented the experiences of Black Americans in her comic strips",
       "To claim that several characters in Torchy Brown were based on people that Ormes knew personally"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "5e732e67",
@@ -641,7 +686,8 @@
       "The text describes a general situation, then illustrates that situation with specific examples.",
       "The text discusses several notable individuals, then explains commonly overlooked differences between those individuals."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "56ec23a0",
@@ -655,7 +701,8 @@
       "It describes a famous painting and then compares it to a lesser-known painting from the same time period.",
       "It gives an opinion on an artist and then suggests multiple reasons why the artist’s work has been largely overlooked."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "1782cdd7",
@@ -669,7 +716,8 @@
       "It describes findings that challenge a previously held view about how fish that inhabit streams in agricultural environments attempt to avoid predators.",
       "It presents a study that addresses an unresolved question about the presence of forests along streams in agricultural environments."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "02e49a0c",
@@ -683,7 +731,8 @@
       "It summarizes previous research on the evolution of crocodiles.",
       "It criticizes a widely held belief about genetic studies of reptiles."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "764331f8",
@@ -697,7 +746,8 @@
       "It explores some of the narrator’s psychological characteristics.",
       "It indicates how sad Celestine is by describing a behavior she engages in."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "40270820",
@@ -711,7 +761,8 @@
       "It compares the sizes of two types of trees over several years.",
       "It introduces a researcher and gives information about what she researches."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "236fee8e",
@@ -725,7 +776,8 @@
       "It traces the steps that were taken to locate and recover the objects that are described in the previous sentence.",
       "It outlines a hypothesis that additional evidence discussed in the following sentence casts some doubt on."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "2903a041",
@@ -739,7 +791,8 @@
       "It outlines the steps taken in a scientific study, then presents a hypothesis based on that study.",
       "It examines how a group of scientists reached a conclusion, then shows how other scientists have challenged that conclusion."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "190857f0",
@@ -753,7 +806,8 @@
       "The text describes a behavior shared by two species, then discusses other behaviors shared by them.",
       "The text poses a question about two species, then presents a possible answer."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "df46a2ee",
@@ -767,7 +821,8 @@
       "It contrasts Mr. Verloc with his surroundings.",
       "It reveals a private opinion Mr. Verloc holds."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "ff97fd53",
@@ -781,7 +836,8 @@
       "To discuss why the Nuyorican Poets Cafe expanded its scope to include art and music",
       "To provide an overview of the founding and mission of the Nuyorican Poets Cafe"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "6f5fc289",
@@ -795,7 +851,8 @@
       "To reveal how the predictability of the town makes it easy for people lose track of time",
       "To argue that the simplicity of life in the town makes it a pleasant place to live"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "c6bd3447",
@@ -809,7 +866,8 @@
       "To draw attention to individuals’ discontent with the group’s conversation about art",
       "To emphasize the extent of individuals’ struggles to articulate thoughts on art"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "f2c48e47",
@@ -823,7 +881,8 @@
       "The speaker provides examples of an admirable way of approaching nature and then challenges that approach.",
       "The speaker describes attempts to control nature and then offers a reminder that not all nature is controllable."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "c0e1b70a",
@@ -837,7 +896,8 @@
       "To reveal the narrator’s recognition that she is hesitant to ask questions about certain aspects of a culture she is newly encountering",
       "To emphasize the narrator’s wonder at discovering that the physical distance between two countries is greater than she had expected"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "f631132b",
@@ -851,7 +911,8 @@
       "The text lists the literary characteristics that are common to many classics of children’s literature and then indicates the narrative subjects that are most appropriate for young children.",
       "The text presents a philosophy about what material is most suitable for children’s literature and then describes a book influenced by that philosophy."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "6d44060a",
@@ -865,7 +926,8 @@
       "It summarizes the history of a field of thought by discussing two works and then proposes a topic of further research for specialists in that field.",
       "It describes two influential works and then explains why one is more widely read than the other."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "48555763",
@@ -879,7 +941,8 @@
       "It establishes a contrast with the description in the previous sentence.",
       "It sets up the character description presented in the sentences that follow."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "e7247766",
@@ -893,7 +956,8 @@
       "It contrasts how horizontal gene transfer occurs among vertebrates with how it occurs among invertebrates.",
       "It describes a means by which horizontal gene transfer might occur among vertebrates."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "8bc66f89",
@@ -907,7 +971,8 @@
       "It identifies the reason particular bird species dig nests in Atacama Desert soil.",
       "It explains how certain birds promote seed germination in Atacama Desert soil."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "b4d29611",
@@ -921,7 +986,8 @@
       "It lists the advantages of a particular research method, then acknowledges a historian’s criticism of that method.",
       "It characterizes a particular topic as especially challenging to research, then suggests a related topic for historians to pursue instead."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "f6352bd3",
@@ -935,7 +1001,8 @@
       "It presents contradictory conclusions drawn by archaeologists, then evaluates a study that has apparently resolved that contradiction.",
       "It identifies a gap in scientific research, then presents a strategy used by some archaeologists to remedy that gap."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "dcd9ad50",
@@ -949,7 +1016,8 @@
       "It stresses the discrepancy between Mr. Ely’s public and private conduct and then alludes to his motivation for hiding his true personality.",
       "It presents the favorable opinion of Mr. Ely that other people hold and then describes the behaviors of Mr. Ely that enable him to maintain that favorable opinion."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "d4732483",
@@ -963,7 +1031,8 @@
       "To evaluate a scholarly work that offers explanations for the impact of urban fashion ideals on Black female farmworkers in late nineteenth- and early twentieth-century Texas",
       "To summarize the findings of a study that explored factors influencing a fashion practice among Black female farmworkers in late nineteenth- and early twentieth-century Texas"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "5f56fdec",
@@ -977,7 +1046,8 @@
       "To convey the speaker’s longing for the ocean to impart a sense of inner tranquility",
       "To justify the speaker’s qualms about being transported by the ocean to a quiet destination"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "b0f7541b",
@@ -991,7 +1061,8 @@
       "It offers a short history of how a person came to be famous.",
       "It explains why one character dislikes another."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "c61a7c4a",
@@ -1005,7 +1076,8 @@
       "It explains a significant problem in the emerging understanding of posture’s effects on cognition and how O’Brien and Ahmed tried to solve that problem.",
       "It discusses the study by O’Brien and Ahmed to illustrate why caution is needed when making claims about the effects of posture on cognition."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "aa5897b8",
@@ -1019,7 +1091,8 @@
       "It describes a recurring theme in Austen’s novels that is the focus of a literary scholar’s analysis summarized in the following sentence.",
       "It provides a synopsis of an interaction in an Austen novel that illustrates a literary concept discussed in the following sentence."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "b4887dae",
@@ -1033,7 +1106,8 @@
       "It names the company where an important mathematician worked, details the mathematician’s career at the company, and provides an example of the recognition he received there.",
       "It mentions a paper, offers a summary of the paper’s findings, and presents a researcher’s commentary on the paper."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "65406d2c",
@@ -1047,7 +1121,8 @@
       "To describe the silversword alliance and explain how the plant family became so varied",
       "To advance the claim that all plants on the Hawaiian Islands are part of the silversword alliance and list possible ancestors of the plants that make up the alliance"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "4ed09415",
@@ -1061,7 +1136,8 @@
       "It presents and explains a study result, indicates that the result is similar to the results of many other studies, and then attributes a conflicting study result to a difference in that study’s methods.",
       "It introduces an observation of a behavioral pattern, presents an explanation for the pattern, and then describes an exception to the pattern that casts doubt on that explanation."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "0b5ecf0e",
@@ -1075,7 +1151,8 @@
       "To assert that private and early public libraries in ancient Rome had an essential similarity",
       "To call into question the notion that private Roman libraries disappeared during the first century BCE"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "34d7bb25",
@@ -1089,7 +1166,8 @@
       "The text presents Mukerjee’s critique of the social sciences and then provides an example of his attempts to address issues he identified in his critique.",
       "The text explains an influential economic theory and then demonstrates how that theory was more important to Mukerjee’s work than other social scientists have acknowledged."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "4eee64fa",
@@ -1103,7 +1181,8 @@
       "It presents evidence in support of the hypothesis that seed germination in lunar habitats is an unattainable goal.",
       "It discusses the findings of a study that evaluated the effects of exposing a plant species to lunar soil conditions."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "a70cbc53",
@@ -1117,7 +1196,8 @@
       "It summarizes the efforts to produce a collection of spoken word poems, presents biographies of two people who worked on the album, and speculates about the meaning behind the poetry.",
       "It connects two artists to the same spoken word poetry project, explains the extent of their collaboration on each poem, and then provides an overview of the technique used to produce the work."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "ad4f7362",
@@ -1131,7 +1211,8 @@
       "To imply that Dido engages both emotionally and intellectually with Aeneas",
       "To suggest that Dido is worried that Aeneas might discover a secret she is keeping from him"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "9b01bcf4",
@@ -1145,7 +1226,8 @@
       "It describes a controversy that Cruse’s work caused within the Black nationalist movement.",
       "It helps explain Cruse’s position with respect to the community of civil rights thinkers."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "d4a8f7cb",
@@ -1159,7 +1241,8 @@
       "delayed by",
       "involved in"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "e386a11d",
@@ -1173,7 +1256,8 @@
       "released",
       "overlooked"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "0f040c50",
@@ -1187,7 +1271,8 @@
       "Extended",
       "Coated"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "9cdcd902",
@@ -1201,7 +1286,8 @@
       "preserving",
       "counting"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "ca47273b",
@@ -1215,7 +1301,8 @@
       "spans",
       "advances"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "4d1a9c0d",
@@ -1229,7 +1316,8 @@
       "fabricates",
       "exemplifies"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "b5898291",
@@ -1243,7 +1331,8 @@
       "representative",
       "available"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "a2835734",
@@ -1257,7 +1346,8 @@
       "definite",
       "reserved"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "d2eb1df1",
@@ -1271,7 +1361,8 @@
       "jarring",
       "personal"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "637d0878",
@@ -1285,7 +1376,8 @@
       "protect",
       "decorate"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "e3ffb854",
@@ -1299,7 +1391,8 @@
       "Improved on",
       "Defended"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "84f9b577",
@@ -1313,7 +1406,8 @@
       "Ignores",
       "Gathers"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "b92c13fa",
@@ -1327,7 +1421,8 @@
       "motivation for",
       "criticism of"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "849bf8d7",
@@ -1341,7 +1436,8 @@
       "opposed",
       "disregarded"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "ba974387",
@@ -1355,7 +1451,8 @@
       "Straightforward",
       "Uninterrupted"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "9d73c9eb",
@@ -1369,7 +1466,8 @@
       "an arbitrary",
       "an unpredictable"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "0d402146",
@@ -1383,7 +1481,8 @@
       "appreciated",
       "disregarded"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "a4f50d30",
@@ -1397,7 +1496,8 @@
       "complaining",
       "requiring"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "8a47383f",
@@ -1411,7 +1511,8 @@
       "familiarize",
       "convey"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "aa7ae735",
@@ -1425,7 +1526,8 @@
       "Running to",
       "Clinging to"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "a318c1ef",
@@ -1439,7 +1541,8 @@
       "abrupt",
       "imminent"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "d74788e1",
@@ -1453,7 +1556,8 @@
       "question about",
       "requirement for"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "82b7c3b2",
@@ -1467,7 +1571,8 @@
       "Stained",
       "Watched"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "aad56f2b",
@@ -1481,7 +1586,8 @@
       "respected",
       "prevented"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "359902ae",
@@ -1495,7 +1601,8 @@
       "An acceptable",
       "An extraordinary"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "f0be91b2",
@@ -1509,7 +1616,8 @@
       "incensed by",
       "cited in"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "757077f9",
@@ -1523,7 +1631,8 @@
       "refute",
       "require"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "84ece3f6",
@@ -1537,7 +1646,8 @@
       "Imitated",
       "Speculated"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "5a278f24",
@@ -1551,7 +1661,8 @@
       "anticipating",
       "reinforcing"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "adc8ea28",
@@ -1565,7 +1676,8 @@
       "prioritize",
       "yield"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "e0656211",
@@ -1579,7 +1691,8 @@
       "renunciation of",
       "mastery over"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "9aa44886",
@@ -1593,7 +1706,8 @@
       "Characteristic",
       "Accomplishment"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "ab1bd603",
@@ -1607,7 +1721,8 @@
       "Come to a decision about",
       "Have an opinion on"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "e8c26398",
@@ -1621,7 +1736,8 @@
       "a contradiction",
       "an analogy"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "8b46bb51",
@@ -1635,7 +1751,8 @@
       "discovered",
       "doubted"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "ce8c03a8",
@@ -1649,7 +1766,8 @@
       "advantageous",
       "unremarkable"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "d3ca5d59",
@@ -1663,7 +1781,8 @@
       "profound",
       "accessible"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "35fd0eb4",
@@ -1677,7 +1796,8 @@
       "substantial",
       "unnecessary"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "fce80a36",
@@ -1691,7 +1811,8 @@
       "expand on",
       "catalog"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "62a18353",
@@ -1705,7 +1826,8 @@
       "Get his mother to match",
       "Get his mother to reunite with"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "1374a9fa",
@@ -1719,7 +1841,8 @@
       "extol",
       "substantiate"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "cd2ce51f",
@@ -1733,7 +1856,8 @@
       "comprises",
       "provokes"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "d8d1ecaa",
@@ -1747,7 +1871,8 @@
       "impede",
       "construct"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "bce627d9",
@@ -1761,7 +1886,8 @@
       "ongoing",
       "uniform"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "1fbf276a",
@@ -1775,7 +1901,8 @@
       "underscore",
       "invalidate"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "9c35759f",
@@ -1789,7 +1916,8 @@
       "perceive",
       "conform to"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "86fbc64d",
@@ -1803,7 +1931,8 @@
       "attract",
       "confirm"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "22a41819",
@@ -1817,7 +1946,8 @@
       "dogmatic",
       "ambiguous"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "5e57efec",
@@ -1831,7 +1961,8 @@
       "independent of",
       "subsumed in"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "6c086e70",
@@ -1845,7 +1976,8 @@
       "endorse",
       "counteract"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "e459076b",
@@ -1859,7 +1991,8 @@
       "Developed",
       "Settled"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "5a97d9cd",
@@ -1873,7 +2006,8 @@
       "decoupled from",
       "antecedent to"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "54804e10",
@@ -1887,7 +2021,8 @@
       "commonalities with",
       "animosities toward"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "10c236ce",
@@ -1901,7 +2036,8 @@
       "supposition",
       "synopsis"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "c14daa3c",
@@ -1915,7 +2051,8 @@
       "entrenching",
       "substantiating"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "3566120b",
@@ -1929,7 +2066,8 @@
       "Tolerate",
       "Encourage"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "bbb77c84",
@@ -1943,7 +2081,8 @@
       "curtailed",
       "obviated"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "a60b0004",
@@ -1957,7 +2096,8 @@
       "illustrated",
       "prescribed"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "a5e747f0",
@@ -1971,7 +2111,8 @@
       "empirical",
       "facile"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "5dce6cab",
@@ -1985,7 +2126,8 @@
       "an inconclusive",
       "an unbiased"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "83fd3cf4",
@@ -1999,7 +2141,8 @@
       "mitigate",
       "validate"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "e4f312c5",
@@ -2013,7 +2156,8 @@
       "anomaly",
       "corroboration"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "4b54bbf0",
@@ -2027,7 +2171,8 @@
       "appraising",
       "engendering"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "3d658a5a",
@@ -2041,7 +2186,8 @@
       "immature",
       "dispersed"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "f83f0aab",
@@ -2055,7 +2201,8 @@
       "diverse",
       "localized"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "3f753a8e",
@@ -2069,7 +2216,8 @@
       "criteria for",
       "forfeiture of"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "4fa7e50e",
@@ -2083,7 +2231,8 @@
       "overshadowed by",
       "irrelevant to"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "e8fb0744",
@@ -2097,7 +2246,8 @@
       "satisfactory",
       "negligible"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "af76771f",
@@ -2111,7 +2261,8 @@
       "The dinosaur fossil specimens Sue and Big Mike are both members of the genus Tyrannosaurus.",
       "While Sue is housed at the Field Museum of Natural History, Big Mike is housed at the Museum of the Rockies."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "064c8999",
@@ -2125,7 +2276,8 @@
       "Chemists Fritz Haber and Carl Bosch invented an industrial process to manufacture ammonia to be used in fertilizers.",
       "In 1910, chemists Fritz Haber and Carl Bosch invented the Haber-Bosch process, which requires high temperatures and pressures."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "25a197dd",
@@ -2139,7 +2291,8 @@
       "Magnesium is present in many foods, including peanuts, almonds, and chia seeds.",
       "Peanuts contain 49 mg/oz of magnesium, a mineral the human body requires for over 300 essential processes."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "e2693197",
@@ -2153,7 +2306,8 @@
       "Depicting three standing, clothed figures, Assertion of Will is a painting by Simphiwe Ndzube.",
       "Simphiwe Ndzube’s Assertion of Will was one of eight artworks exhibited in Oracles of the Pink Universe at the Denver Museum of Art."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "54227b8e",
@@ -2167,7 +2321,8 @@
       "The mountain pygmy possum, a species of mammal, was identified in the wild in 1966.",
       "Sometimes, a species once believed to be extinct is later found living in the wild."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "ca4ff52d",
@@ -2181,7 +2336,8 @@
       "Muslins can be used in a variety of ways, from making luxury clothing to upholstering furniture and creating backdrops for theater sets.",
       "Sheeting muslin is machine made, has a coarse weave, and is used for furniture and theater sets."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "296801d2",
@@ -2195,7 +2351,8 @@
       "In their 2015 study, the researchers found a genetic connection between house mice in the Azores and those in Scandinavia.",
       "According to a 2015 study, the first humans to populate the Azores may have been Vikings from Scandinavia, not mariners from Portugal as previously believed."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "a3204ab0",
@@ -2209,7 +2366,8 @@
       "The carrying capacity of an environment, such as Yellowstone, describes the maximum number of species that the environment can sustain over time.",
       "Yellowstone is a national park that has roughly 100 gray wolves living in it."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "00460c13",
@@ -2223,7 +2381,8 @@
       "Among Cather’s best-known novels are O Pioneers! (1913) and My Ántonia (1918).",
       "Cather attended the University of Nebraska-Lincoln and set some of her novels in Nebraska."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "f4b63a04",
@@ -2237,7 +2396,8 @@
       "Mansourasaurus, a species that lived approximately 80 million years ago, was discovered in 2013 by Egyptian paleontologist Hesham Sallam and a team of university students.",
       "The new species was named Mansourasaurus to recognize the team that discovered it, a professor and students from Mansoura University."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "ff3865b3",
@@ -2251,7 +2411,8 @@
       "A wok is a cooking pan with a round, wide base and high, angled sides.",
       "The design of a wok, a type of cooking pan that originated in China during the Han dynasty, helps the pan cook food evenly and contain oil splatters."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "fbffb352",
@@ -2265,7 +2426,8 @@
       "In Somaliland, the paintings in the Laas Geel caves feature human figures and animals.",
       "The Laas Geel paintings and the Dhagah Nabi Galay paintings are both examples of ancient rock art found in Somaliland."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "ba263620",
@@ -2279,7 +2441,8 @@
       "Beard’s invention made the job of connecting train cars safer, whereas Jones’s invention enabled food transport trucks to carry perishables farther.",
       "Jones’s mobile refrigeration system, which he invented in 1938, made it possible for food transport trucks to carry perishable foods farther."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "eaded344",
@@ -2293,7 +2456,8 @@
       "One painting by Frida Kahlo features two versions of herself, with one version wearing a European-style dress and the other a traditional Tehuana dress.",
       "One of the most influential artists of the twentieth century, Mexican painter Frida Kahlo is best known for her self- portraits, which are vivid and richly symbolic."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "e3484c07",
@@ -2307,7 +2471,8 @@
       "Bioluminescence, the emission of light by living organisms, results from chemical reactions in organisms’ cells.",
       "Jellyfish emit light to startle predators, whereas black dragonfish do so to locate prey."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "d7f31e68",
@@ -2321,7 +2486,8 @@
       "Annie Wu is best known for a 2011 YouTube video performance of Three Beats for Beatbox Flute that has been viewed over two million times.",
       "Composer Greg Pattillo’s original work Three Beats for Beatbox Flute combines flute playing and beatboxing."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "00bb356a",
@@ -2335,7 +2501,8 @@
       "The two red bicycles in Double Phantom/EntroP.R. are fused together so that they share the same rear wheel while facing opposite directions.",
       "Double Phantom/EntroP.R. is a sculpture created by multimedia visual artist Miguel Luciano."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "7f2781fd",
@@ -2349,7 +2516,8 @@
       "According to conservation organizations, C. olivacea has a higher risk of becoming extinct in the near future than C. furcatus.",
       "C. furcatus faces a high risk of extinction, while C. olivacea faces little risk of becoming extinct in the near future."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "b46e0c8a",
@@ -2363,7 +2531,8 @@
       "An analysis of eDNA can detect the presence of invasive species that are difficult to observe, such as constrictor snakes.",
       "Researchers found Burmese python eDNA, or environmental DNA, in water samples; eDNA is the DNA in released cellular materials, such as shed skin cells."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "48d0bb34",
@@ -2377,7 +2546,8 @@
       "Sam Maloof was born in 1916 and died in 2009, and during his life, he made a chair that you can see if you visit the Museum of Fine Arts in Boston.",
       "Furniture designer Sam Maloof was a recipient of one of the John D. and Catherine T. MacArthur Foundation’s “genius grants.”"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "aa7e10d0",
@@ -2391,7 +2561,8 @@
       "Oaxaca, Mexico, is home to temperate forests containing 74 Orchidaceae species.",
       "Arelee Estefanía Muñoz-Hernández and her team wanted to know how many different Orchidaceae species are present in the forests of Oaxaca, Mexico, so they conducted a study to collect orchids."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "84e108cf",
@@ -2405,7 +2576,8 @@
       "Platinum is a rare and expensive metal that is used as a catalyst for chemical reactions; however, platinum catalysts typically require a large amount of platinum to be effective.",
       "While still highly effective, the new platinum catalyst requires far less of the rare and expensive metal than do other platinum catalysts."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "7298633c",
@@ -2419,7 +2591,8 @@
       "Grimanesa Amoros is the artist behind Uros Island—a sculpture made of smooth multicolored LED domes.",
       "Uros Island is an LED light sculpture made by Grimanesa Amoros, as is Fortuna."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "2bf05ae9",
@@ -2433,7 +2606,8 @@
       "The book Taylor wrote about the time she spent with the regiment is still available to readers in print and online.",
       "Taylor was the only Black woman to publish a Civil War memoir."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "6249b173",
@@ -2447,7 +2621,8 @@
       "The researchers hoped to find out if the macaques were intentionally communicating to try to persuade humans to share their food.",
       "The researchers studied how macaques behaved around both humans holding food and empty-handed humans."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "dd11e5ab",
@@ -2461,7 +2636,8 @@
       "As part of her investigation of the Standard Oil Company, muckraker Ida Tarbell conducted interviews.",
       "Published in 1904, muckraker Ida Tarbell’s book The History of the Standard Oil Company exposed the company’s unfair business practices."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "31ac4d2c",
@@ -2475,7 +2651,8 @@
       "Hina Hanta, which means “bright path” in Choctaw, includes a fanner basket in its archive.",
       "The name of the online archive Hina Hanta means “bright path” in Choctaw."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "8432a140",
@@ -2489,7 +2666,8 @@
       "Providing homes to 25% of all marine species, including up to 8,000 species of fish, coral reefs are vital underwater ecosystems and thus of great interest to marine biologists.",
       "As Camille Jazmin Gaynus knows well, coral reefs are vital underwater ecosystems, providing homes to thousands of species of fish."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "146233fc",
@@ -2503,7 +2681,8 @@
       "Flora McNeil began her career as a lighthouse keeper years after Maria Younghans did.",
       "Maria Younghans’s career as a lighthouse keeper ended in 1918, whereas Flora McNeil’s ended in 1920."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "85c0c0f0",
@@ -2517,7 +2696,8 @@
       "An approach to art criticism, historical analysis considers the historical context in which a work was created.",
       "Las Meninas’s depiction of the artist with King Philip IV symbolizes art’s historical ties to power."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "bce57278",
@@ -2531,7 +2711,8 @@
       "Founded by George Ripley near Boston, Massachusetts, Brook Farm was part of a trend in the 1800s, when reformers in the United States built utopias.",
       "Established in 1841, Brook Farm was a utopian community created to “guarantee the highest mental freedom, by providing all with labor... [and] the fruits of their industry,” according to founder George Ripley."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "5d3177aa",
@@ -2545,7 +2726,8 @@
       "The quota system in place in the early 1960s was abolished by the 1965 Hart-Celler Act.",
       "The 1965 Hart-Celler Act abolished the national-origins quota system, which favored immigrants from northern Europe."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "1b94a80a",
@@ -2559,7 +2741,8 @@
       "The fine wool produced by Merino and Rambouillet sheep is used for apparel, whereas the thicker wool of Romney sheep is used in rugs and blankets.",
       "Wool is an economically important fiber—especially in Australia—that can be used to make apparel or even rugs and blankets."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "81315093",
@@ -2573,7 +2756,8 @@
       "Ultramarathons range widely in length, from a few dozen miles to a few hundred.",
       "While the Kepler Challenge is a one-day ultramarathon, the Spreelauf is a six-day ultramarathon."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "164a32e7",
@@ -2587,7 +2771,8 @@
       "In 1914, Claude McKay moved to Harlem, where he would become known as a poet and novelist of the Harlem Renaissance (a literary and cultural movement of the 1920s and 1930s).",
       "Before moving to Harlem, Claude McKay—author of the poetry collection Harlem Shadows (1922) and the novel Home to Harlem (1928)—lived in Jamaica."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "3c925481",
@@ -2601,7 +2786,8 @@
       "Vitamin C, also known as ascorbic acid, can be found in pineapple as well as other fruits.",
       "Since humans cannot make vitamin C in their bodies, they must get it from food."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "25755def",
@@ -2615,7 +2801,8 @@
       "In 2019, researchers studied the effect of torsional heating on various fibers, including samples of SEBS rubber and TPU.",
       "Twisting an object will generally cause its temperature to increase, a process known as torsional heating."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "45eaf7fb",
@@ -2629,7 +2816,8 @@
       "Tecozautla is one of 84 governmental regions, known as municipalities, across Hidalgo.",
       "Tecozautla—a governmental region in the state of Hidalgo, Mexico—provides many public services to its residents."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "0778b4ac",
@@ -2643,7 +2831,8 @@
       "The pineapple (Ananas comosus) and the melon (Cucumis melo) both have chromosomes, but the pineapple has more than the melon does.",
       "The melon, a species of fruit, has twenty-four structures called chromosomes."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "34e1124f",
@@ -2657,7 +2846,8 @@
       "Erosion, transportation, and deposition are three examples of how the wind can create Aeolian landforms and mushroom rocks.",
       "A mushroom rock is a rock formation that owes its shape to the wind, a natural force associated with Aeolus in Greek mythology."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "1469d23a",
@@ -2671,7 +2861,8 @@
       "Known for making many other accordion-style folded books called leporellos, Adnan created December from My Window in 1993.",
       "A leporello, such as Adnan’s December from My Window, is folded accordion style, and due to its zigzag shape it is able to stand on its own when fully expanded."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "ed80971c",
@@ -2685,7 +2876,8 @@
       "According to its website, the A:shiwi A:wan Museum and Heritage Center (founded in the 1990s) works to “emphasize A:shiwi ways of knowing.”",
       "Knowledge has been one of the central themes of the A:shiwi A:wan Museum and Heritage Center from its founding."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "5a5e22b5",
@@ -2699,7 +2891,8 @@
       "To achieve its aims, LIGO uses a pair of massive interferometers that are thousands of miles apart.",
       "A physics study designed to detect and analyze gravitational waves, LIGO uses a pair of massive interferometers that are thousands of miles apart."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "61c0f7b3",
@@ -2713,7 +2906,8 @@
       "The bird species Gygis alba, which belongs to the order Charadriiformes, and Gavia stellata, of the order Gaviiformes, were included in a 2017 study that compared the average lengths of their eggs.",
       "Mary Caswell Stoddard led a research study that determined the average lengths of eggs, including those of Gygis alba birds (4.46 cm) and Gavia stellata birds (7.22 cm)."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "92dec236",
@@ -2727,7 +2921,8 @@
       "Like many of Tubbs’s sculptures, both Erasure and Home Grown include discarded objects: Erasure uses audiocassette tapes, and Home Grown uses plastic forks.",
       "Tubbs completed Erasure in 2008 and Home Grown in 2009."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "afec1a70",
@@ -2741,7 +2936,8 @@
       "After analyzing the points where sticks touched, the researchers found that the structures became stiffer when pressure was applied.",
       "As analyzed by Bhosale’s team, bird nests are uniquely flexible yet cohesive engineered structures."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "16631d34",
@@ -2755,7 +2951,8 @@
       "Audio features describe acoustic traits such as pitch intervals, which may vary within a song, whereas descriptive tags describe fixed traits such as genre, which are reliable predictors of popularity.",
       "The MSD’s descriptive tags are reliable predictors of a song’s popularity, as the traits they describe are fixed."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "6c9df5d1",
@@ -2769,7 +2966,8 @@
       "The 1807 Slave Trade Act resulted in part from a book by Equiano, while the 1906 Pure Food and Drug Act resulted in part from a book by Sinclair.",
       "The Interesting Narrative of the Life of Olaudah Equiano and The Jungle are two works of literature that contributed to new legislation (concerning the slave trade and food safety, respectively)."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "b07a7634",
@@ -2783,7 +2981,8 @@
       "In DLS, UV light images are projected into a liquid resin pool to cure a 3D object layer by layer; once solidified, the object is baked in an oven.",
       "In DLS, UV light is projected into layers of liquid resin until the resin solidifies and passes through a “dead zone,” wherein the curing is completed."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "3fa48bf3",
@@ -2797,7 +2996,8 @@
       "According to Benoit’s analysis of the 1990 discovery, Indigenous peoples in southern Africa may have brought the fossilized phalanx to the cave as long ago as 1100 CE.",
       "In 1990, more than three centuries after Plot claimed in his book that he had found fossilized dinosaur bones, archaeologists uncovered evidence in southern Africa that disproved his claims."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "8fe4f4ab",
@@ -2811,7 +3011,8 @@
       "Writings from the Greek philosopher Aristotle and the Indian mathematician Aryabhata were preserved at the House of Wisdom.",
       "The House of Wisdom collected writings from different countries and created paper versions in Arabic to be studied and shared."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "964c6055",
@@ -2825,7 +3026,8 @@
       "While Ibn al-Haytham largely settled the debate in the eleventh century, Aristotle supported the theory of intromission centuries before.",
       "Before the eleventh century, the ancient Greek philosopher Aristotle supported the intromission theory, which held that objects emit a form of radiation that reaches the eyes."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "64e88c58",
@@ -2839,7 +3041,8 @@
       "“Walk so silently that the bottoms of your feet become ears” is one example of the instructions found in Oliveros’s Sonic Meditations.",
       "While both meditations consist of instructions, Meditation XVIII instructs participants to “listen,” whereas Meditation V instructs participants to “walk.”"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "af88c47a",
@@ -2853,7 +3056,8 @@
       "Wong, cocreator of the YouTube channel RocketJump, would go on to see his web series be nominated for a Producers Guild Award.",
       "In 2012, Video Game High School premiered on RocketJump; it would later be nominated for an award."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "5fa51c86",
@@ -2867,7 +3071,8 @@
       "Even though Hanoi (population 7,781,631) is larger than Ulaanbaatar (population 907,802), Ulaanbaatar accounts for more of its country’s population.",
       "The populations of the capitals of Mongolia and Vietnam are 907,802 (Ulaanbaatar) and 7,781,631 (Hanoi), respectively."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "fdd9a360",
@@ -2881,7 +3086,8 @@
       "After evaluating dozens of CMN studies, Karst and colleagues expressed concern that recent claims about common mycorrhizal networks are “disconnected from evidence.”",
       "Despite the concerns expressed in the 2022 study “The Decay of the Wood-Wide Web?,” the wood-wide web theory remains popular."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "10cd0327",
@@ -2895,7 +3101,8 @@
       "Researchers found that gas giants featuring a thermal inversion were likely to contain heat-absorbing metals, which may reside in the planets’ upper atmospheres.",
       "Gas giants were likely to contain heat-absorbing metals when they featured a layer of atmosphere warmer than the layer beneath it, researchers found; this phenomenon is known as a thermal inversion."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "5b8b69a2",
@@ -2909,7 +3116,8 @@
       "Humans may have first arrived in the Americas by sea, traveling between Pacific Ocean islands and coastlines and subsisting on a variety of resources.",
       "As glaciers melted and sea levels rose, many Pacific Ocean islands and coastal zones were submerged."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "5222ffab",
@@ -2923,7 +3131,8 @@
       "Using mathematical models, Padmanabhan and Chen devised a study to better understand the workings of the brain’s olfactory system.",
       "According to Padmanabhan and Chen, the brain can toggle between capturing olfactory information at a given moment and tracking changes in that information over time."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "3dcc7140",
@@ -2937,7 +3146,8 @@
       "Based on a recent count, Sweden has a relatively small number of islands with at least 50 permanent residents.",
       "Nissologists’ different definitions can result in huge disparities in counts of islands, as the example of Sweden shows."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "622a351d",
@@ -2951,7 +3161,8 @@
       "Sámi rights to lands, waters, and resources received international attention and legal protections as a result of the Alta conflict.",
       "The Alta conflict had a lasting impact, resulting in international attention and legal protections for Sámi rights to lands, waters, and resources."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "5645f119",
@@ -2965,7 +3176,8 @@
       "Locke-Rodriguez and colleagues found that FTWs using marigolds not only helped remove phosphorus from the water but also yielded market-quality blooms.",
       "FTWs using marigolds, Locke-Rodriguez and colleagues found, yielded 65 flower blooms and removed 52% of phosphorus from the water."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "db3ad406",
@@ -2979,7 +3191,8 @@
       "Having entered the poststarburst phase, a quenched galaxy is one that no longer forms stars.",
       "A starburst galaxy will lose star-forming gas and eventually become quenched."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "c34d6bff",
@@ -2993,7 +3206,8 @@
       "Although Hedgeman worked behind the scenes to make sure a woman speaker was included, Bates was the sole woman to speak at the march.",
       "Many African American women, including Bates and Hedgeman, fought for civil rights, but only one spoke at the march."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "b0620764",
@@ -3007,7 +3221,8 @@
       "Many stars have both a designation and a proper name; for instance, PSR B1257+12 is also known as Lich, and HD 179949 is also known as Gumala.",
       "Exoplanet names have diverse origins, a fact that can be seen in the cases of Phobetor, a name drawn from Greek mythology, and Mastika, which means “gem” or “jewel” in Malay."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "87d34a39",
@@ -3021,7 +3236,8 @@
       "Founded in 1944, the NCAI was created by representatives of tribal governments from fifty sovereign Indigenous tribes.",
       "The NCAI’s advocacy was key to the passing of Public Law 96-638, legislation formally acknowledging Indigenous tribes’ right to self-governance."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "20733eac",
@@ -3035,7 +3251,8 @@
       "However,",
       "In conclusion,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "f07570bb",
@@ -3049,7 +3266,8 @@
       "However,",
       "Likewise,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "01c8c433",
@@ -3063,7 +3281,8 @@
       "Consequently,",
       "For example,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "db8fe023",
@@ -3077,7 +3296,8 @@
       "In conclusion,",
       "For example,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "fc5e83cc",
@@ -3091,7 +3311,8 @@
       "For example,",
       "In the second place,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "49ecf985",
@@ -3105,7 +3326,8 @@
       "By contrast,",
       "Similarly,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "f33f0892",
@@ -3119,7 +3341,8 @@
       "secondly,",
       "for example,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "a6155e60",
@@ -3133,7 +3356,8 @@
       "Thus,",
       "In comparison,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "b7571c0a",
@@ -3147,7 +3371,8 @@
       "Furthermore,",
       "In other words,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "0ee64efc",
@@ -3161,7 +3386,8 @@
       "Specifically,",
       "Similarly,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "56336696",
@@ -3175,7 +3401,8 @@
       "Eventually,",
       "In other words,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "63c73b50",
@@ -3189,7 +3416,8 @@
       "Likewise,",
       "For example,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "3831f2d7",
@@ -3203,7 +3431,8 @@
       "Next,",
       "As a result,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "2b5e0731",
@@ -3217,7 +3446,8 @@
       "Nowadays,",
       "Similarly,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "1c36e3e1",
@@ -3231,7 +3461,8 @@
       "Therefore,",
       "By comparison,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "b5972710",
@@ -3245,7 +3476,8 @@
       "for example,",
       "similarly,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "ac8eb085",
@@ -3259,7 +3491,8 @@
       "Nevertheless,",
       "Earlier,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "4154a7a3",
@@ -3273,7 +3506,8 @@
       "Later,",
       "In other words,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "d3898d32",
@@ -3287,7 +3521,8 @@
       "Specifically,",
       "Conversely,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "420dea42",
@@ -3301,7 +3536,8 @@
       "However,",
       "In other words,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "cf11282b",
@@ -3315,7 +3551,8 @@
       "Similarly,",
       "For instance,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "326017ce",
@@ -3329,7 +3566,8 @@
       "As a result,",
       "Additionally,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "221ecf0f",
@@ -3343,7 +3581,8 @@
       "similarly,",
       "by contrast,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "97e2e364",
@@ -3357,7 +3596,8 @@
       "By comparison,",
       "Instead,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "11df9b99",
@@ -3371,7 +3611,8 @@
       "for example,",
       "similarly,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "30438650",
@@ -3385,7 +3626,8 @@
       "Likewise,",
       "Hence,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "3fd0ab63",
@@ -3399,7 +3641,8 @@
       "Nevertheless,",
       "Accordingly,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "f8c4591b",
@@ -3413,7 +3656,8 @@
       "therefore,",
       "though,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "388b45aa",
@@ -3427,7 +3671,8 @@
       "For example,",
       "Conversely,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "17e49403",
@@ -3441,7 +3686,8 @@
       "Nevertheless,",
       "Next,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "0c13dea9",
@@ -3455,7 +3701,8 @@
       "However,",
       "For instance,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "7c3f0145",
@@ -3469,7 +3716,8 @@
       "in addition,",
       "that is,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "eea351c4",
@@ -3483,7 +3731,8 @@
       "Moreover,",
       "Nevertheless,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "39d1a519",
@@ -3497,7 +3746,8 @@
       "Thus,",
       "Additionally,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "e3edc138",
@@ -3511,7 +3761,8 @@
       "Similarly,",
       "That is,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "00221c00",
@@ -3525,7 +3776,8 @@
       "accordingly,",
       "consequently,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "7ce14583",
@@ -3539,7 +3791,8 @@
       "What’s more,",
       "Conversely,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "f5959727",
@@ -3553,7 +3806,8 @@
       "Of course,",
       "Thus,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "6e0c60da",
@@ -3567,7 +3821,8 @@
       "Ultimately,",
       "Additionally,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "2df7b582",
@@ -3581,7 +3836,8 @@
       "in other words,",
       "meanwhile,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "00e0170f",
@@ -3595,7 +3851,8 @@
       "Nevertheless,",
       "That said,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "c071eca2",
@@ -3609,7 +3866,8 @@
       "moreover,",
       "though,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "176edca6",
@@ -3623,7 +3881,8 @@
       "Granted,",
       "As a result,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "9f1a0d91",
@@ -3637,7 +3896,8 @@
       "nevertheless,",
       "therefore,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "edf30612",
@@ -3651,7 +3911,8 @@
       "as such,",
       "likewise,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "974b5a8c",
@@ -3665,7 +3926,8 @@
       "Specifically,",
       "Moreover,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "47e238be",
@@ -3679,7 +3941,8 @@
       "in addition,",
       "consequently,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "ad729337",
@@ -3693,7 +3956,8 @@
       "In turn,",
       "That is,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "ecb31049",
@@ -3707,7 +3971,8 @@
       "Specifically,",
       "That said,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "8a8236e1",
@@ -3721,7 +3986,8 @@
       "They think that ancient scents would be enjoyable to people today.",
       "They hope to develop new medicines using ancient scent molecules."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "c228bd45",
@@ -3735,7 +4001,8 @@
       "She creates stories and poems for her children.",
       "Reading to her children is her favorite activity."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "2592e0de",
@@ -3749,7 +4016,8 @@
       "The popularity of the bicycle in the late nineteenth century gave rise to the first cycling clubs.",
       "The mass production of the bicycle in the late nineteenth century made it safer for people to use."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "89961e26",
@@ -3763,7 +4031,8 @@
       "A painting of a piñata",
       "A sculpture of Jesse Valadez"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "de0a5b4e",
@@ -3777,7 +4046,8 @@
       "The researchers were unable to create a 3D model of the cave.",
       "The cave’s dimensions prevented the researchers from fully viewing the glyphs."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "6675c5c3",
@@ -3791,7 +4061,8 @@
       "He hopes the photographs will help him recall what his aunt looked like.",
       "He wants to remind his aunt of an event that is shown in an old photograph."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "2edd7ffe",
@@ -3805,7 +4076,8 @@
       "She discovered the pits at the Lewa Wildlife Conservancy.",
       "Some of the pits were shallow and others were quite deep."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "0b696a0c",
@@ -3819,7 +4091,8 @@
       "Rhoden and colleagues created a new computer model that identifies moons with hidden oceans without needing to analyze the moons’ rotation.",
       "Research has revealed that an oddity in the rotation of Mimas could be explained by an ocean hidden beneath its surface."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "23a7038f",
@@ -3833,7 +4106,8 @@
       "Hornets are known to be the main predator of giant honeybees.",
       "Several different species of insects use shimmering to defend against hornets."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "7921b86b",
@@ -3847,7 +4121,8 @@
       "To help adults gain important outdoor skills",
       "To give teenagers advice about starting businesses"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "dc5edbf6",
@@ -3861,7 +4136,8 @@
       "Microplastics are small pieces of plastic that can be found in ocean waters.",
       "Ecologists predict that corals store large amounts of microplastics from ocean waters."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "d8758c3b",
@@ -3875,7 +4151,8 @@
       "Psychologists think young children expect to be rewarded when the children show that they care about fairness.",
       "An experiment showed that the way rewards are given out may affect whether young children think the situation is fair."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "0e3b4967",
@@ -3889,7 +4166,8 @@
       "Fabric scrapbooks were a popular hobby for many women in the nineteenth-century United States.",
       "Alspaugh’s scrapbook provides a detailed account of her life and historical record of fashion trends in the nineteenth- century United States."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "ee41d7e0",
@@ -3903,7 +4181,8 @@
       "Newly discovered fossils suggest that ancient hawk moths and ancient brine shrimp had spines.",
       "Researchers need to focus on finding more fossils of ancient arthropods."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "a842db60",
@@ -3917,7 +4196,8 @@
       "Catlett became commercially successful once she started using linocut printing.",
       "Catlett was one of the first Black artists to use linocut printing."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "1e85caa9",
@@ -3931,7 +4211,8 @@
       "Each member of the family admires a different characteristic of the house.",
       "The house is beautiful and well built, but the children miss their old home in London."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "87aa7bab",
@@ -3945,7 +4226,8 @@
       "The popularity of the portrait miniature likely persisted for longer than art historians have assumed.",
       "As demand for portrait miniatures decreased, portrait artists likely shifted their creative focus to photography."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "602b47c7",
@@ -3959,7 +4241,8 @@
       "Barve discovered that songbirds have adapted to their environment by growing feathers without flat and smooth sections, complicating an earlier hypothesis.",
       "The results of Barve’s study suggest that the ability of birds to withstand cold temperatures is determined more strongly by feather length than feather structure, challenging an established belief."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "11a9f635",
@@ -3973,7 +4256,8 @@
       "It is widely considered by paleontologists to be the most valuable source of information about prehistoric life forms.",
       "It contains specimens from an older time period than those found in the formation in the Minatogawa quarry."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "2312021b",
@@ -3987,7 +4271,8 @@
       "It is caused by something other than the parks’ proximity to city residents.",
       "It could be due to inaccuracies in the survey results."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "e677fa6c",
@@ -4001,7 +4286,8 @@
       "The narrator describes what he saw during a long trip through a frequently visited location.",
       "The narrator explains the difficulties he encountered on a trip and how he overcame them."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "66c47028",
@@ -4015,7 +4301,8 @@
       "Graphene is the most important of the components required to capture an image of a Wigner crystal.",
       "It’s difficult to acquire an image of a Wigner crystal because of the crystal’s honeycomb structure."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "b38935ab",
@@ -4029,7 +4316,8 @@
       "Historians agree that Siemomysł ruled Poland much later than Mieszko II Lambert.",
       "Historians find the orally transmitted stories affirming the existence of Mieszko II Lambert to be more convincing than similar stories about Siemomysł."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "dc3ea63e",
@@ -4043,7 +4331,8 @@
       "Taylor finds it difficult to locate Arizona dock root in the desert.",
       "In the Path of the Four Seasons is widely acclaimed for its many colors and innovative weaving techniques."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "f8befe75",
@@ -4057,7 +4346,8 @@
       "Before Farmer’s research, historians had largely ignored the intellectual dimensions of the Black Power movement.",
       "Other historians of the Black Power movement have criticized Farmer’s use of unconventional primary sources."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "3f05e40f",
@@ -4071,7 +4361,8 @@
       "He uses different kinds of materials depending on what kind of sculpture he plans to create.",
       "He tends to base his art on important historical figures rather than on fictional characters."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "659c6c1d",
@@ -4085,7 +4376,8 @@
       "He isn’t sure that other guests at the inn will be welcoming of sailors.",
       "He doesn’t want to encounter any other sailor unexpectedly."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "adbcbce0",
@@ -4099,7 +4391,8 @@
       "As the anniversary of the beginning of an important relationship approaches, the speaker feels conflicted about how best to commemorate it.",
       "After years of neglecting a once valuable relationship, the speaker worries it may be too late for her to salvage the relationship."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "95146ebb",
@@ -4113,7 +4406,8 @@
       "Archaeologists would have found the sandal eventually without help from the general public.",
       "The sandal would have degraded if it hadn’t been removed from the ice."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "409058ee",
@@ -4127,7 +4421,8 @@
       "Hagfish are not well suited to being raised in captivity.",
       "The ability of hagfish to slime their attackers compensates for their being jawless."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "923ebfe3",
@@ -4141,7 +4436,8 @@
       "Becoming overstocked is the main preoccupation of sellers trying to forecast demand for fashion items.",
       "Retailers can use their own data to accurately predict how tastes and styles are evolving."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "ed314256",
@@ -4155,7 +4451,8 @@
       "The production’s dependence on a particular performance environment would likely make it difficult to reproduce exactly in a different theatrical space.",
       "Audience members who navigate the space according to a recommended itinerary will likely have a better grasp of the play’s narrative than audience members who depart from that itinerary."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "1a2b29c9",
@@ -4169,7 +4466,8 @@
       "Some dislike how freely he discusses his own family.",
       "Most would be unimpressed by him were it not for his professional expertise."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "2fdfe002",
@@ -4183,7 +4481,8 @@
       "They quickly become frustrated when faced with difficult tasks because of a lack of self-control.",
       "They have aspirations that cannot be fulfilled because of certain limitations."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "96802cc0",
@@ -4197,7 +4496,8 @@
       "The cerebellum has primarily been thought to regulate motor functioning, but in recent years neuroscience researchers have been uncovering additional functions.",
       "Technological limitations have historically hindered the study of the cerebellum, but the recent development of new technologies has led to greater insights into its functions."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "35b46381",
@@ -4211,7 +4511,8 @@
       "The theoretical approach represented in the 2022 paper by Dimopoulos et al. assumed that unambiguous proof of antigravity would not be achievable, but the results in the 2023 report undermine that assumption.",
       "Before 2023, researchers’ inordinate focus on theoretical considerations hindered the development of the experimental regimen for direct antihydrogen ballistics observations."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "d0fbf1ae",
@@ -4225,7 +4526,8 @@
       "These corals have likely recovered from an environmental event without the assistance of algae colonies.",
       "These corals are more likely to survive without algae colonies than brown corals are."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "14189fbb",
@@ -4239,7 +4541,8 @@
       "Miranda played a crucial role in influencing the content and distribution of “Letter to the Spanish Americans.”",
       "“Letter to the Spanish Americans” persuaded many people in Latin America to pursue national independence."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "4d3e3c52",
@@ -4253,7 +4556,8 @@
       "It typically entails a greater loss of nanoparticle solution than do other established approaches for ETL fabrication.",
       "It is somewhat imprecise and therefore limits the potential effectiveness of p-i-n planar perovskite solar cells at capturing and storing solar power."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "d1b8a9ad",
@@ -4267,7 +4571,8 @@
       "It has been unfairly dismissed for the inclusion of subject matter that is also found in other musical genres.",
       "It gave rise to a Black women’s musical tradition that has endured even though the genre itself faded in the late twentieth century."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "e80ba20d",
@@ -4281,7 +4586,8 @@
       "Pallikkathayil’s argument suggests that if we have a duty to respect other people’s agential interests and if possession of false beliefs constrains agency, then we have an inviolable duty to speak truthfully.",
       "Pallikkathayil’s argument shows that if our intuition that circumstances may make lying permissible is correct, then it is unclear whether there are any grounds for an opposition to lying in the first place."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "16025337",
@@ -4295,7 +4601,8 @@
       "The speaker is too fatigued to continue a discussion with the friend.",
       "The speaker is thinking about the friend instead of immediately falling asleep."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "34c2e387",
@@ -4309,7 +4616,8 @@
       "They likely have a different view about which activities should be considered capitalist in nature than historians of capitalism do.",
       "They likely view capitalism as having been more beneficial for Africa than historians of capitalism do."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "7812801f",
@@ -4323,7 +4631,8 @@
       "The root systems of fynbos plants allow the plants to take in so many soil nutrients that forest plants are prevented from flourishing in the fynbos.",
       "The root systems of fynbos plants enhance the soil immediately surrounding the plants, allowing them to thrive in an otherwise harsh habitat."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "5eda42a3",
@@ -4337,7 +4646,8 @@
       "To call attention to a certain writer’s careful and elaborately detailed writing process",
       "To recount fond memories of an afternoon spent in nature with a certain writer"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "d2e0cba5",
@@ -4351,7 +4661,8 @@
       "Research suggests that users with high expectations for a new technology can feel content with that technology even after experiencing negative disconfirmation.",
       "Although negative disconfirmation has often been studied, little is known about the cognitive mechanisms shaping users’ reactions to it in the context of new technology adoption."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "7c9a65bb",
@@ -4365,7 +4676,8 @@
       "It allows researchers to use weaker light beams to manipulate particles.",
       "It adds a material to which particles can transfer any heat absorbed from the optical tweezers’ light beam."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "b69d821d",
@@ -4379,7 +4691,8 @@
       "A person who leads a long life that is varied and active may find it difficult to stay in a calm place.",
       "The contrast between the peacefulness of a port at night and its activity during the day reflects the contrast between the calm of old age and the vibrancy of youth."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "0147b080",
@@ -4393,7 +4706,8 @@
       "40 meters tall.",
       "60 meters tall."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "6f626ae5",
@@ -4407,7 +4721,8 @@
       "“I should have made my way straight to you long ago, / I should have blabb’d nothing but you, I should have chanted nothing / but you.”",
       "“I will leave all and come and make the hymns of you, / None has understood you, but I understand you.”"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "85439572",
@@ -4421,7 +4736,8 @@
       "Green chile connoisseurs prefer the flavor of solar-roasted green chiles over the flavor of propane-roasted green chiles.",
       "The skins of solar-roasted green chiles are easier to peel than the skins of propane-roasted green chiles."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "a9040290",
@@ -4435,7 +4751,8 @@
       "so weak that the electricity from wind turbines was about 150 thousand MWh less than predicted.",
       "strong enough to generate about 175 thousand more MWh of electricity from wind turbines."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "6df33868",
@@ -4449,7 +4766,8 @@
       "“We have answered duty’s call.”",
       "“We shall never know defeat.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "0fc0a773",
@@ -4463,7 +4781,8 @@
       "Mississippi Delta has been praised by some art critics.",
       "Each year, more people access the online image of Mississippi Delta than visit the Minneapolis Institute of Art in person."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "9debe79a",
@@ -4477,7 +4796,8 @@
       "Ramah’s average highest temperature was 83°, while Cameron’s was 99°.",
       "the lowest temperature for both Ramah and Tuba City was 50°."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "e7dc27dc",
@@ -4491,7 +4811,8 @@
       "Gidra was initially based out of the Asian American Studies Center at UCLA.",
       "People would often give their copies of Gidra to others once they had finished reading an issue."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "30c3aa98",
@@ -4505,7 +4826,8 @@
       "Fewer than 100 million pounds of copper were produced in Arizona in 1889.",
       "Copper production rose significantly from 1889 to 1909 for Arizona, Michigan, and Montana."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "4042ff0b",
@@ -4519,7 +4841,8 @@
       "but participant 20 reported feeling significantly colder than the other two participants did.",
       "but participant 1 reported feeling warmer than the other two participants did."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "40578580",
@@ -4533,7 +4856,8 @@
       "Some female giraffes have been observed sniffing and licking their newborn offspring.",
       "Giraffes are able to make sounds but are rarely observed communicating with others."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "a9ac31e4",
@@ -4547,7 +4871,8 @@
       "a smaller area than either the Fiescher glacier or the Unteraar glacier.",
       "a larger area than the Fiescher glacier but a smaller area than the Unteraar glacier."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "628e1305",
@@ -4561,7 +4886,8 @@
       "“Valia approached the window and examined the toys.”",
       "“Everything in the room was quiet, so quiet that the only thing to be heard was the rustling of the pages he turned.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "25b70215",
@@ -4575,7 +4901,8 @@
       "star chickweed.",
       "Virginia spring beauty."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "08b28c1a",
@@ -4589,7 +4916,8 @@
       "“The haunted house was scary at first, but I knew everyone was just acting, so I felt less scared after a few minutes.”",
       "“The sense of relief I felt at the end of the haunted house was similar to the feelings I have when I finish a scary movie.”"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "e441da80",
@@ -4603,7 +4931,8 @@
       "The greatest annual number of investigative articles published in the newspaper during the period shown is approximately 1,000 in 2017.",
       "The newspaper published approximately 1,000 investigative articles in 2010 and approximately 1,600 in 2013."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "08ff903e",
@@ -4617,7 +4946,8 @@
       "“Yao Drum was inspired by a ceremonial dance Dai witnessed during her time performing field research among the Yao people in the province of Guizhou in 1941 or 1942.”",
       "“Yao Drum is notable for its intense physicality, with Dai performing sharp jumps, swift turns, and dramatic sweeps of her legs through the air as she moves in circles on the stage.”"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "47f2cddd",
@@ -4631,7 +4961,8 @@
       "“I am the Rock, presumptuous Sea! / I am set to encounter thee. / Angry and loud or gentle and still, / I am set here to limit thy power, and I will!”",
       "“I am the Sea. The earth I sway; / Granite to me is potter’s clay; / Under the touch of my careless waves / It rises in turrets and sinks in caves.”"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "e1ee5f5c",
@@ -4645,7 +4976,8 @@
       "“Patty’s eyes suddenly brightened. She seized [her friends] by [the] elbow and shoved them into the empty schoolroom.”",
       "“Patty did use all the diplomacy at her command. Having dwelt touchingly upon their long friendship, and their sorrow at being separated, she passed lightly to the matter of their new roommates.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "26ee16ba",
@@ -4659,7 +4991,8 @@
       "Educators report that they enjoy teaching courses that involve hip-hop and rap music more than teaching courses that don’t.",
       "Courses that incorporate hip-hop and rap music are among the courses with the highest enrollment and attendance rates."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "37a49687",
@@ -4673,7 +5006,8 @@
       "in the spring, researchers collected more Red Sea goldfish than they collected from the other two species.",
       "in the fall, researchers collected 10 common silver-biddy but collected no milkfish or Red Sea goatfish."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "0113152f",
@@ -4687,7 +5021,8 @@
       "“Kelly’s grandmother, who would repair clothing when he was a child, frequently added mismatched buttons to the clothes to draw attention away from any flaws in the garments.”",
       "“Kelly was destined to be a designer from a young age: he learned how to sew clothing from his aunt Bertha, and his love of drawing was developed by his mother.”"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "f38b40ac",
@@ -4701,7 +5036,8 @@
       "“Coleman once considered leaving her career as a stunt pilot to focus her efforts on giving speeches, which she felt would better support her public image.”",
       "“Although female pilots were typically expected to wear traditional but impractical attire that included dresses or skirts, photographs of Coleman show her wearing pants and leather jackets.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "89f71526",
@@ -4715,7 +5051,8 @@
       "Fernandina.",
       "Maule."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "73c091d2",
@@ -4729,7 +5066,8 @@
       "Many olive trees have growth rings that are difficult to see.",
       "Olive trees thrive in areas with hot, dry summers."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "145da981",
@@ -4743,7 +5081,8 @@
       "The New York Times had a 20% revenue change, while the Denver Post had a −1% revenue change.",
       "The Denver Post had only a −1% revenue change, which was the smallest percentage change of the selected companies."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "ede3f942",
@@ -4757,7 +5096,8 @@
       "9.36 square miles.",
       "39.21 square miles."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "46e45728",
@@ -4771,7 +5111,8 @@
       "the hot-dry season for females and the monsoon season for males.",
       "the monsoon season for both females and males."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "faaf484f",
@@ -4785,7 +5126,8 @@
       "North East area.",
       "North Central area."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "7fdba7ad",
@@ -4799,7 +5141,8 @@
       "The thin disk contains about twice as many stars that can be seen from Earth as the thick disk does.",
       "The stars in the Milky Way tend to have very similar chemical compositions."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "7254379e",
@@ -4813,7 +5156,8 @@
       "“I love getting the opportunity to be outside and around nature, especially on days when the weather is nice.”",
       "“My favorite thing about the garden is the feeling of pride I get when I walk by each day. As I see the plants growing, I feel good knowing I had a small part in creating this beautiful space in the neighborhood.”"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "94c726fb",
@@ -4827,7 +5171,8 @@
       "0.26 million metric tons of copper in 1995.",
       "2.49 million metric tons of copper in 1995."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "5ff1ba73",
@@ -4841,7 +5186,8 @@
       "there was one guild for every 661 inhabitants in Rouen but one guild for every 4,511 inhabitants in Paris.",
       "Paris had 133 guilds and 600,000 inhabitants, or one guild for every 4,511 inhabitants."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "0014477f",
@@ -4855,7 +5201,8 @@
       "32.4 square miles.",
       "595.7 square miles."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "ab94d40a",
@@ -4869,7 +5216,8 @@
       "Participants who were provided with a ranking of the museums spent the least amount of time reading about the Natural History Museum.",
       "Participants who were not provided with a ranking of the museums spent the most time reading about the Victoria and Albert Museum."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "c384987b",
@@ -4883,7 +5231,8 @@
       "Wild giraffes have never been recorded making humming sounds.",
       "Researchers observed other animals in European zoos humming."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "22e4d633",
@@ -4897,7 +5246,8 @@
       "A consistent number of copies of LINE transposons is present across the genomes of most octopus species, with few known corruptions.",
       "O. vulgaris and O. bimaculoides have smaller brains than humans do relative to body size, but their genomes contain sequences from a wider variety of transposon families."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "d5b9ed0d",
@@ -4911,7 +5261,8 @@
       "Participants who saw the low-anger review rated the review as slightly more helpful than participants who saw the control review did, but participants’ attitude toward the reviewed product was slightly worse when participants saw the low-anger review than when they saw the no-anger review.",
       "Compared with participants who saw the low-anger review, participants who saw the high-anger review rated the review as less helpful and had a less positive attitude toward the reviewed product."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "356ad646",
@@ -4925,7 +5276,8 @@
       "Waterbird communities at Curtis, a site with a high percentage of shoreline consisting of bulkheads and riprap, had lower average IWCI scores than did waterbird communities at Onancock, a site with a low percentage of shoreline consisting of bulkheads and riprap.",
       "Waterbird communities at Curtis, a site with equal percentages of shoreline consisting of bulkheads and riprap, had higher average IWCI scores than did waterbird communities at Miles, a site with different percentages of shoreline consisting of bulkheads and riprap."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "8a584241",
@@ -4939,7 +5291,8 @@
       "at 48 hours, more than 70% of seeds treated with H₂S at a concentration of 10 micromoles per liter had germinated, whereas only approximately 50% of untreated seeds had germinated.",
       "at 168 hours, more than 90% of seeds treated with H₂S at concentrations of 10 or 500 micromoles per liter had germinated, whereas less than 70% of untreated seeds had germinated."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "67b59a67",
@@ -4953,7 +5306,8 @@
       "The soil surrounding healthy plants tended to have significantly higher moisture levels than the soil surrounding diseased plants did.",
       "By the end of the experiment, over half the plants had been affected by wilt disease regardless of differences in the types and concentrations of microbes in the surrounding soil."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "7edfb2c5",
@@ -4967,7 +5321,8 @@
       "All of the artifacts were exposed to temperatures above 100°C.",
       "Artifact K3_9 was exposed to a higher temperature than was artifact K5_106."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "0c622cfb",
@@ -4981,7 +5336,8 @@
       "Its physical characteristics are most consistent with it having formed as a result of a massive but short-lived influx of liquid water.",
       "It is surrounded by channels that could have been formed either by running water or by flowing lava."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "5fb6ed10",
@@ -4995,7 +5351,8 @@
       "“The real journey begins, of course, at Chicago, and as these trains leave in the evening the traveller fares forth in the seclusion of his berth.”",
       "“One experiences a certain sense of detachment from ordinary day and daylight duties that is exhilarating.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "c538954d",
@@ -5009,7 +5366,8 @@
       "“It was only necessary to mention any favourite amusement to engage her to talk. She could not be silent when such points were introduced, and she had neither shyness nor reserve in their discussion.”",
       "“They speedily discovered that their enjoyment of dancing and music was mutual, and that it arose from a general conformity of judgment in all that related to either. Encouraged by this to a further examination of his opinions, she proceeded to question him on the subject of books.”"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "f8244f7c",
@@ -5023,7 +5381,8 @@
       "Of the birds included in the table, the brown thrasher has the smallest mean bill surface area and the habitat with the lowest mean minimum temperature in the coldest month, while the long-billed thrasher has the second-largest mean bill surface area and the habitat with the second-highest mean minimum temperature in the coldest month.",
       "Of the birds included in the table, the ocellated thrasher has the largest mean bill surface area and the habitat with the lowest mean maximum temperature in the warmest month, while the Bendire’s thrasher has the second smallest mean bill surface area and the habitat with the highest mean maximum temperature in the warmest month."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "29cde5fa",
@@ -5037,7 +5396,8 @@
       "“It was a beautiful day in balmy May and the sun shone pleasantly on Mr. Cornelius Johnson’s very spruce Prince Albert suit of grey as he alighted from the train in Washington.”",
       "“Mr. Cornelius Johnson always spoke in a large and important tone.”"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "7c21b4b5",
@@ -5051,7 +5411,8 @@
       "8 percent of survey participants in Japan.",
       "16 percent of survey participants in India."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "81af81d4",
@@ -5065,7 +5426,8 @@
       "“I’ll walk where my own nature would be leading: / It vexes me to choose another guide: / Where the grey flocks in ferny glens are feeding; / Where the wild wind blows on the mountain side.”",
       "“To-day, I will seek not the shadowy region; / Its unsustaining vastness waxes drear; / And visions rising, legion after legion, / Bring the unreal world too strangely near.”"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "e1546fd6",
@@ -5079,7 +5441,8 @@
       "for both depth ranges measured in the seawater in the lava-affected area, the average concentrations of nitrate were substantially higher than the average concentrations of phosphate.",
       "in the seawater outside of the lava-affected area, there was little change in the average concentration of nitrate from 75– 125 meters below the surface to 5–45 meters below the surface."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "d74b9bc6",
@@ -5093,7 +5456,8 @@
       "Oulujärvi, which had fewer days of ice in the winter of 2005–06 than it did in the winter of 1980–81.",
       "both Lake Neusiedl and Oulujärvi, which had more than 105 days of ice in the winter of 2005–06."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "a2b0fc3b",
@@ -5107,7 +5471,8 @@
       "less than 20% urban in 1970 to more than 50% urban in 2020.",
       "around 40% urban in 1970 to more than 70% urban in 2020."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "2584bcfb",
@@ -5121,7 +5486,8 @@
       "The average emotionality score of a movie’s reviews was a positive predictor of that movie’s box office earnings.",
       "More than half of the movies that the team examined received an average star rating of 3 out of 5 stars."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "25290c8d",
@@ -5135,7 +5501,8 @@
       "“O thou bright jewel in my aim I strive / To comprehend thee. Thine own words declare / Wisdom is higher than a fool can reach.”",
       "“But, O my soul, sink not into despair, / Virtue is near thee, and with gentle hand / Would now embrace thee, hovers o’er thine head.”"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "cbecb873",
@@ -5149,7 +5516,8 @@
       "fin whales show a longer average filter time than minke whales do.",
       "blue whales show the longest average filter time and the highest average number of lunges per dive."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "99fdf71c",
@@ -5163,7 +5531,8 @@
       "“And the shaggy Nannie goat is calling, calling, calling / From her little trampled corner of the long wide lea / That stretches to the waters of the hill-stream falling / Sheer upon the flat rocks joyously!”",
       "“The tired cars go grumbling by, / The moaning, groaning cars, / And the old milk carts go rumbling by / Under the same dull stars.”"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "ff18829b",
@@ -5177,7 +5546,8 @@
       "improving the local microclimate than to providing medicinal plants.",
       "improving the local microclimate than to providing tourist attractions."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "e2829dd7",
@@ -5191,7 +5561,8 @@
       "CNO-treated females showed more activity relative to saline-treated females than CNO-treated males showed relative to saline-treated males.",
       "CNO-treated females showed a substantial increase and then decline in activity over the monitoring period, whereas CNO-treated males showed a substantial decline in activity followed by a steep increase."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "5d6ab069",
@@ -5205,7 +5576,8 @@
       "The model with a sail had significantly less battery power remaining after completing the tests than the model without a sail did.",
       "The model with a sail took significantly longer to travel a specified distance while submerged than the model without a sail did."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "2df730d0",
@@ -5219,7 +5591,8 @@
       "No turbines installed in 2011 had rotor diameters greater than 115 meters, whereas the majority of turbines installed in 2021 had rotor diameters greater than 130 meters.",
       "Most turbines installed in 2011 had rotor diameters of less than 100 meters, whereas most turbines installed in 2021 had rotor diameters of at least 115 meters."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "1d08c7ee",
@@ -5233,7 +5606,8 @@
       "“Many of Tobar’s notable nonfiction articles are marked by the writer’s use of techniques usually associated with fiction, such as complex narrative structures and the incorporation of symbolism.”",
       "“The protagonist of Tobar’s third novel is a man who wants to be a novelist and keeps notes about interesting people he encounters so he can use them when developing characters for his stories.”"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "dd349efc",
@@ -5247,7 +5621,8 @@
       "82% of participants believe that it is somewhat or very likely that a robot could work effectively as a tour guide, but only 16% believe that it is somewhat or very likely that a robot could work as a surgeon.",
       "62% of participants believe that it is somewhat or very unlikely that a robot could work effectively as a firefighter."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "1db1a9a6",
@@ -5261,7 +5636,8 @@
       "The 2018 yield for plants treated with the control fertilizer was greater than was the 2019 yield for plants treated with the nitrogen fertilizer.",
       "The yield for plants treated with the nitrogen fertilizer increased from 2017 to 2018."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "23e2421a",
@@ -5275,7 +5651,8 @@
       "fewer than 100 suggestions were coded as subtractive, whereas more than 550 suggestions were coded as additive.",
       "around 575 suggestions were coded as additive, whereas around 175 suggestions were coded as subtractive."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "98fd50f2",
@@ -5289,7 +5666,8 @@
       "Most surveyed visitors to the Galleria dell’Accademia indicated that they lived somewhere other than Florence.",
       "Many surveyed visitors to the Galleria dell’Accademia indicated that they would likely view the virtual tours in order to reminisce about their in-person visit."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "fbb84fb0",
@@ -5303,7 +5681,8 @@
       "“Then I, poor creature, have no sort of power over you?”",
       "“Faithful to your principles, now and for ever! Ah, that is how a man should be!”"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "73d457b6",
@@ -5317,7 +5696,8 @@
       "It would have taken careful effort to make evenly spaced lines on bone with the stone tools typically used by Neanderthals.",
       "Decorative art discovered at another Neanderthal site in western France primarily features patterns of unevenly spaced parallel lines."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "87023f34",
@@ -5331,7 +5711,8 @@
       "“It tells of many a squandered day, / Of slighted gems and treasured clay, / Of precious stores not laid away, / Of fields unreaped.”",
       "“And so the years go swiftly by, / Each, coming, brings ambitions high, / And each, departing, leaves a sigh / Linked to the past.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "a15b3219",
@@ -5345,7 +5726,8 @@
       "Only around half the municipalities that responded to inquiries mentioning plans for an announcement before the next election offered incentives.",
       "Of the municipalities that received an inquiry mentioning plans for an announcement date after the next election, more than 1,200 didn’t respond and only around 100 offered incentives."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "0d7f4966",
@@ -5359,7 +5741,8 @@
       "While ctenophore fossils have been discovered in China and the United States, they have never been discovered in the Burgess Shale.",
       "The fossils discovered by Caron and colleagues in the Burgess Shale were better preserved than the fossils discovered by other researchers in China and the United States."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "068f939b",
@@ -5373,7 +5756,8 @@
       "Although several of Plato’s earliest philosophical works discuss aesthetic ideas, the term “mimesis” doesn’t appear in Plato’s discussions of art until Cratylus, a relatively late work.",
       "Although Plato’s writings typically characterize representational art as an inferior reflection of the physical world, Aristotle suggests that mimesis can refer to art’s capacity to envision hypothetical conditions that could, but don’t yet, exist."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "040583a5",
@@ -5387,7 +5771,8 @@
       "bananas treated with ethylene ripen faster at 14°C and 16°C than at 18°C and 20°C.",
       "ethylene was associated with a greater absolute change in ripening time at 14°C, 16°C, and 18°C than at 20°C."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "7a1877be",
@@ -5401,7 +5786,8 @@
       "Hypoxanthine and purine were detected in both the Murchison meteorite sample 2 and in the soil sample.",
       "Isoguanine and hypoxanthine were detected in the Murchison meteorite sample 1 but not in sample 2."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "04cbeca3",
@@ -5415,7 +5801,8 @@
       "“In 1535, the year before enacting the Dissolution of the Monasteries, Henry commissioned a survey of the value of church holdings in England—the work, performed by sheriffs, bishops, and magistrates, began that January and was swiftly completed by the summer.”",
       "“The October 1536 revolt known as the Pilgrimage of Grace had several economic motives: high food prices due to a poor harvest the prior year; the Dissolution of the Monasteries, which closed reliable sources of food and shelter for many; and rents and taxes throughout Northern England that were not merely high but predatory.”"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "ccb1ab92",
@@ -5429,7 +5816,8 @@
       "didn’t consistently demonstrate a significant increase in REM sleep after their period of deprivation in the water.",
       "showed no significant difference between REM sleep after returning to land and REM sleep while in the water."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "be19faa1",
@@ -5443,7 +5831,8 @@
       "At current surface temperatures, more than 80% of the sites have no need for supplemental local home heating from subsurface thermal pollution, but at the maximum plausible surface temperature, more than 70% of sites exhibit significantly greater home heating needs.",
       "At current surface temperatures, more than 80% of sites can meet, at most, 25% of local home heating needs with subsurface thermal pollution, but at the maximum plausible surface temperature, more than 80% of sites can meet greater than 25% of local home heating needs."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "c83e0b43",
@@ -5457,7 +5846,8 @@
       "“Alexandra drove off alone. The rattle of her wagon was lost in the howling of the wind, but her lantern, held firmly between her feet, made a moving point of light along the highway, going deeper and deeper into the dark country.”",
       "“Alexandra drew her shawl closer about her and stood leaning against the frame of the mill, looking at the stars which glittered so keenly through the frosty autumn air. She always loved to watch them, to think of their vastness and distance, and of their ordered march. It fortified her to reflect upon the great operations of nature, and when she thought of the law that lay behind them, she felt a sense of personal security.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "dd1757fd",
@@ -5471,7 +5861,8 @@
       "Neural networks can often accomplish tasks that biological brains do, but they are typically programmed with rules to model multiple types of brain cells simultaneously.",
       "Once a neural network is programmed, it is trained on certain tasks to see if it can independently arrive at processes that are similar to those performed by biological brains."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "09f9edb0",
@@ -5485,7 +5876,8 @@
       "Mbaqanga and quan họ are now performed by a diverse array of musicians with no direct connections to South Africa or Vietnam.",
       "Mbaqanga and quan họ are highly distinct from British and North American popular music genres but similar to each other."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "39e440e4",
@@ -5499,7 +5891,8 @@
       "They show shapes consistent with scattered small farms created by clearing jungle areas near sources of fresh water.",
       "They show shapes consistent with monumental platforms and dense central settlements linked to smaller settlements by a system of canals and roadways."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "156ff681",
@@ -5513,7 +5906,8 @@
       "Recipients of physical transfers tended to purchase food about as frequently as recipients of electronic transfers did.",
       "Some recipients of physical transfers received small amounts of money relatively frequently, while others received large amounts relatively infrequently."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "e946a32e",
@@ -5527,7 +5921,8 @@
       "“Before settling in New York City, where she would go on to become a college professor, Braschi studied both literature and philosophy in several cities around the world.”",
       "“In addition to her creative literary works, Braschi has produced academic pieces analyzing writings by Miguel de Cervantes, Federico García Lorca, and other authors.”"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "dc87adf4",
@@ -5541,7 +5936,8 @@
       "“[Dr. Proudie’s] residence in the metropolis, rendered necessary by duties thus entrusted to him, his high connexions, and the peculiar talents and nature of the man, recommended him to persons in power.”",
       "“[Dr. Proudie] was certainly possessed of sufficient tact to answer the purpose for which he was required without making himself troublesome.”"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "53c6c179",
@@ -5555,7 +5951,8 @@
       "The median age of first marriage for men in England and Wales was lower in 1970 than in 1950 or 1990.",
       "Between 1900 and 2000, the median age of first marriage for women in England and Wales was consistently higher than for women in the United States, as was the case for men."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "df91532e",
@@ -5569,7 +5966,8 @@
       "As adults, former students of the school are just as likely to continue living in their community as individuals who didn’t attend the school.",
       "As they complete secondary and higher education, former students of the school experience no loss of fluency or cultural pride."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "44da37eb",
@@ -5583,7 +5981,8 @@
       "E. coli is frequently found in species preyed on by C. granosus and can survive exposure to the digestive juices of C. granosus.",
       "C. granosus appears to be chemically sensitive to prey infected with E. coli and tends to favor uninfected individuals."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "626a1308",
@@ -5597,7 +5996,8 @@
       "2006 using VISIR at the European Southern Observatory.",
       "2003 using LWS at the W.M. Keck Observatory."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "a44bbd6b",
@@ -5611,7 +6011,8 @@
       "The streams mostly originate from the same source, but their lengths vary considerably due to the different courses they take.",
       "The streams are fed by multiple tributaries that carry significant volumes of sediment and that enter the streams downstream of the sampling sites."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "d5da74be",
@@ -5625,7 +6026,8 @@
       "When plants exposed to air from whitefly-free plants were infested, they produced both jasmonic acid and salicylic acid, whereas when plants exposed to air from whitefly-infested plants were infested, they exclusively produced salicylic acid.",
       "When plants exposed to air from whitefly-infested plants were infested, they produced less jasmonic acid than did control plants, whereas when plants exposed to air from whitefly-free plants were infested, they produced more jasmonic acid and salicylic acid than did control plants."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "63e7799d",
@@ -5639,7 +6041,8 @@
       "BovB cannot be reliably transmitted from a snake species to bacteria that are usually encountered by frog species.",
       "Frog species with BovB show few discernible advantages as compared with frog species that do not carry BovB."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "4a07be59",
@@ -5653,7 +6056,8 @@
       "The pattern of brain activity that long-headed dogs showed when hearing the scrambled recording was different from the pattern of brain activity that short-headed dogs showed when hearing the language they were accustomed to.",
       "Compared with shorter-headed dogs, longer-headed dogs showed a greater difference in brain activity when hearing the language they were accustomed to than when hearing the other language."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "df37c087",
@@ -5667,7 +6071,8 @@
       "The Yale Model T has a lower holding force than the Permanent Magnet Hand despite weighing more.",
       "The Ultra-Fast Robot Hand weighs only slightly more than the Yale Model T does."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "af9e3240",
@@ -5681,7 +6086,8 @@
       "“Send to me my brother; for I have no more the strength to bear up alone against the load of grief that weighs me down.”",
       "“I know my own passion, it escapes me not; but, seeing that the causes are so dire, will never curb these frenzied plaints, while life is in me.”"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "2c06139b",
@@ -5695,7 +6101,8 @@
       "Tadpoles in the low and medium population density conditions had substantially lower average bufadienolide concentrations but had greater average body masses than those in the high population density condition.",
       "Tadpoles in the high population density condition displayed a relatively modest increase in the average amount of bufadienolide but roughly double the average bufadienolide concentration compared to those in the low population density condition."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "31ad8024",
@@ -5709,7 +6116,8 @@
       "A study using obstructions that created medium-sized vortices in low-visibility conditions found that some specimens of dusky smooth-hound (Mustelus canis), which has a relatively narrow head, bumped into the obstructions more often than other specimens of the same fish did.",
       "A study using obstructions that created medium-sized vortices in low-visibility conditions found that the wider-headed bristlemouth (Chaetostoma yurubiense) bumped into obstructions more often than the narrower-headed dusky smooth- hound (Mustelus canis) did."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "b2e54b50",
@@ -5723,7 +6131,8 @@
       "For each of the three ratings, the correlation with velocity is negative while the correlation with density is positive.",
       "For each of the three ratings, correlations with velocity are further from 0 than the corresponding correlations with density are."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "cca6fae9",
@@ -5737,7 +6146,8 @@
       "Delta 15-N values reached their lowest level in February 2017 in both Akumal Bay and Tulum, but no data were available for Akumal Bay in February 2016, when the values reached their highest level in Tulum.",
       "Although all sites showed considerable variation in delta 15-N values, the values remained relatively constant in Akumal Bay from October 2016 to February 2017 and in Tulum from February 2016 to October 2016."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "378c66d5",
@@ -5751,7 +6161,8 @@
       "“Many critics focus on Indigenous influences in A History of Mexico and other key works by Medellín to the exclusion of influences from non-Indigenous art.”",
       "“While A History of Mexico features modernist motifs, it relies primarily on angular human forms in profile—a staple of Maya sculpture—and thus invites classification as Indigenous art.”"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "35ec767c",
@@ -5765,7 +6176,8 @@
       "corn-related vocabulary underwent changes when entering other, unrelated languages, as can be seen by the divergence of the Caddo word from the Chitimacha word it originated in.",
       "words for corn in the languages of the Muskogean family evolved from a common root, with the Muscogee word having lost certain consonant sounds still present in the Chickasaw and Choctaw words."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "24c1b7e4",
@@ -5779,7 +6191,8 @@
       "The periods of undivided Congresses were associated with increases in total outlays, whereas all the periods of divided Congresses were associated with reductions in either nondefense outlays or defense outlays.",
       "All the periods of divided Congresses except one were associated with reductions in total outlays, whereas the periods of undivided Congresses were associated with increases in total outlays."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "56f477fb",
@@ -5793,7 +6206,8 @@
       "Provisioning services are shown for each region, while no cultural services are shown for some regions.",
       "The greatest percentage shown for provisioning services is 88% for the North region, and the least shown for provisioning services is 33% for the Central region."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "09775cbf",
@@ -5807,7 +6221,8 @@
       "Participants judged jewelry spaced far apart at Tiffany & Co. to be similar in value to jewelry spaced far apart at Forever 21, but participants judged jewelry spaced close together at Tiffany & Co. to be more valuable than jewelry spaced close together at Forever 21.",
       "When jewelry was spaced far apart, participants judged the jewelry at Tiffany & Co. to be more valuable than the jewelry at Forever 21, but when jewelry was spaced close together, participants judged the jewelry at Tiffany & Co. to be less valuable than the jewelry at Forever 21."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "8391a002",
@@ -5821,7 +6236,8 @@
       "When the fermented beans were analyzed, they were found to contain two microorganisms, Lactobacillus casei and Lactobacillus plantarum, that are theorized to increase the amount of nitrogen absorbed by the gut after eating beans.",
       "Both fermented and nonfermented black beans contained significantly fewer trypsin inhibitors and tannins after being cooked at high pressure."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "124fdcd7",
@@ -5835,7 +6251,8 @@
       "A survey of archaeologists showed that categorizing pottery fragments limits the amount of time they can dedicate to other important tasks that only human experts can do.",
       "A survey of archaeologists showed that few of them received dedicated training in how to properly categorize pottery fragments."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "01989d77",
@@ -5849,7 +6266,8 @@
       "shallow lakes and ponds are more likely to contain algae than to contain either watermilfoil or duckweed.",
       "having a mix of algae, underwater plants, and floating plants is the best way to reduce the amount of methane in shallow lakes and ponds."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "4603d1f7",
@@ -5863,7 +6281,8 @@
       "cause most musicians who use the model to lower the suggested prices of their songs and albums over time.",
       "more strongly reflect differences in certain musicians’ popularity than traditional pricing models do."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "20000f5f",
@@ -5877,7 +6296,8 @@
       "producing adaptations will become easier and less expensive.",
       "the former copyright holders of Doyle’s estate will return fees they collected."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "6bc0e595",
@@ -5891,7 +6311,8 @@
       "retailers with in-person and online stores should charge the same price for a given product in both places.",
       "online retailers may be able to raise the prices they charge for products that are only available online."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "c4d43991",
@@ -5905,7 +6326,8 @@
       "bronze was used for a short time during the Shang dynasty before different metals were used to make artifacts.",
       "methods used to analyze bronze artifacts are not useful on pieces that are dated after the Shang dynasty."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "dbbbc5dd",
@@ -5919,7 +6341,8 @@
       "would have been more famous if she had created plays that were mainstream instead of experimental.",
       "illustrates the artistic opportunity offered by off-off Broadway theaters."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "8a3ecac6",
@@ -5933,7 +6356,8 @@
       "the average life span of gray wolves is likely to increase over time because of a particular gene variant.",
       "gray-furred wolves will soon replace black-furred wolves across North America."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "4025e00c",
@@ -5947,7 +6371,8 @@
       "require more land for planting than short varieties of wheat and rice typically do.",
       "begin developing more ears of corn on each plant than the tallest variety of corn currently does."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "25893fc7",
@@ -5961,7 +6386,8 @@
       "people are less likely to interact with robots that don’t look like humans.",
       "the robot in the researchers’ study may have uses other than interacting with humans."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "787729be",
@@ -5975,7 +6401,8 @@
       "is buried by nearby animals as they forage along the ridges for food.",
       "evolved to have underground traps to access more prey than would surface traps."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "7a895def",
@@ -5989,7 +6416,8 @@
       "a way for Johnson to learn about plays that were produced in other cities.",
       "subject matter for future plays by Johnson."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "9077be25",
@@ -6003,7 +6431,8 @@
       "very unusual for the period.",
       "better than film acting today."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "5b4829d2",
@@ -6017,7 +6446,8 @@
       "the amount of detail viewed in previous ads.",
       "the time of day that the ad is viewed."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "d748c3fd",
@@ -6031,7 +6461,8 @@
       "lend support to arguments by historians and other researchers who continue to assert that ephemera holds no value for scholars.",
       "illustrate both the relatively low scholarly regard in which ephemera was once held and the later recognition of ephemera’s possible utility."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "db876fd5",
@@ -6045,7 +6476,8 @@
       "F. hypoleuca nestlings’ preference for their own dialect likely drives them when they mature to reproduce with other F. hypoleuca from local rather than nonlocal populations.",
       "F. hypoleuca nestlings show a preference for both local F. hypoleuca dialects and the songs of other local songbirds over the songs of nonlocal birds of any species."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "55688b3c",
@@ -6059,7 +6491,8 @@
       "depictions of food in Dutch paintings of the period should be taken as realistic representations of Dutch eating habits.",
       "Dutch painters of the period may have depicted foods for symbolic reasons rather than to show what Dutch people typically ate."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "6409016a",
@@ -6073,7 +6506,8 @@
       "25,000 people is more than enough for HILDA to find trends in economic well-being.",
       "the fitness study can be done well without years of data collection."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "5432d1de",
@@ -6087,7 +6521,8 @@
       "jazz songs that feature the piano are more likely to have swing than are jazz songs that do not feature the piano.",
       "the timing of downbeats and offbeats may play a crucial role in giving a song swing."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "3882ddf6",
@@ -6101,7 +6536,8 @@
       "the majority of the rocks in the Acasta Gneiss Complex formed through subduction.",
       "the rocks in the Acasta Gneiss Complex are of a more recent origin than scientists previously thought."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "7ae8065c",
@@ -6115,7 +6551,8 @@
       "there is greater corroboration in the archaeological record of ecological practices described in Kwakwaka’wakw songs than of those described in Sakha and Kaluli songs.",
       "although contemporary Kwakwaka’wakw people have a deep understanding of and appreciation for the fishing and farming practices used by their ancestors, they no longer implement those methods."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "350e2336",
@@ -6129,7 +6566,8 @@
       "many Haitian people opposed the revolution and the declaration.",
       "the declaration actually had several intended audiences."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "485962a6",
@@ -6143,7 +6581,8 @@
       "ash was most likely expelled from multiple different volcanoes on Mars’s surface.",
       "the craters found in the Arabia Terra region were necessarily created by events other than volcanic eruptions."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "d8b78a2b",
@@ -6157,7 +6596,8 @@
       "none of the supposed inventors of red velvet cake are likely to have invented it.",
       "the bakery in Dallas, Texas, probably invented red velvet cake."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "299c5303",
@@ -6171,7 +6611,8 @@
       "dances by choreographers who incorporate narrative elements are more accessible to audiences than dances by choreographers who do not.",
       "some directors and actors rely too heavily on dramaturges to complete certain research tasks."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "cac82f9b",
@@ -6185,7 +6626,8 @@
       "some bacteria in A. thaliana leaves and roots may share a common source.",
       "many bacteria in A. thaliana leaves may have been deposited by means other than rain."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "7afdcca2",
@@ -6199,7 +6641,8 @@
       "there is a positive correlation between the physical size of a country and the number of languages spoken in that country.",
       "correlations in a country between languages and regions where they are spoken can replicate themselves in a new country to which the original country’s citizens emigrate."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "f1bfbed3",
@@ -6213,7 +6656,8 @@
       "Bianchi and Morri may have been less sensitive to the degree of morphological variation displayed within a typical species of microorganism than Coll and colleagues were.",
       "the absence of clarity regarding how to differentiate among species of microorganisms may have resulted in Coll and colleagues underestimating the number of microorganism species."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "03701ef3",
@@ -6227,7 +6671,8 @@
       "the casting process takes more time than A. bellulus takes to construct a burrow.",
       "the process of recovering the model distorts the resin’s shape."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "65502c46",
@@ -6241,7 +6686,8 @@
       "functioned as a way for craft guild members to maintain and enhance their professional reputations among their peers.",
       "conferred greater social status when the recipient belonged to one of London’s largest guilds than when the recipient belonged to a craft guild."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "cae97f58",
@@ -6255,7 +6701,8 @@
       "S. caninervis growing under quartz crystals experience lower light intensity and are thus able to retain more moisture.",
       "quartz crystals are capable of supporting S. caninervis growth if the crystals are not too thin."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "e503ae04",
@@ -6269,7 +6716,8 @@
       "rapid delivery is a leading factor in consumer satisfaction, and therefore delivery companies would benefit from investing resources in reducing delivery times.",
       "there may not be sufficient incentive for delivery companies to attempt to solve the problems associated with last-mile logistics."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "22b3da87",
@@ -6283,7 +6731,8 @@
       "the number of doors and windows in French residences was kept to a minimum but increased after 1830.",
       "French people with significant foreign investments were unlikely to have the right to vote."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "5c7e0d62",
@@ -6297,7 +6746,8 @@
       "Geoffrey of Monmouth’s accounts of Arthurian legends in his History are more similar overall in content to the accounts in Culhwch and Olwen than they are to the accounts in Roman de Brut.",
       "the Arthurian legends that the author of Vita Sancti Cadoci drew on would not have featured the Round Table."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "9abc3ba5",
@@ -6311,7 +6761,8 @@
       "Whitten became less interested in exploring the role of gesture in his work as his career progressed.",
       "Whitten’s work from the 1960s is much more realistic than his work from the 1970s is."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "d1539546",
@@ -6325,7 +6776,8 @@
       "tends to be more heavily concentrated in areas of marsh interiors with standing water than at marsh edges.",
       "varies in intensity depending on the size of the panne relative to the size of the surrounding marsh."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "f27559d4",
@@ -6339,7 +6791,8 @@
       "volunteering can help society overall more than it can help individual people.",
       "many young people may not know how to find ways to volunteer their time."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "61228830",
@@ -6353,7 +6806,8 @@
       "could be used for more than military, surveying, or forestry purposes.",
       "enabled communication that didn’t require knowledge of Morse code."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "0dccbf17",
@@ -6367,7 +6821,8 @@
       "forgo analyzing Tanner’s painting in favor of analyzing his political activity.",
       "wrongly assume that Tanner’s painting was intended as a critique of his fellow artists."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "f942646f",
@@ -6381,7 +6836,8 @@
       "security, baggage handling, and boarding procedures used by airlines may need to be implemented for rail systems.",
       "passengers who travel by rail for these routes will need to accept that lead times will be similar to those for air travel."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "a13c1c66",
@@ -6395,7 +6851,8 @@
       "it is more important to understand how widespread prolonged deep sleep is than to understand its function.",
       "many traits that provide significant benefits for an animal also likely pose risks to that animal."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "0dba14e6",
@@ -6409,7 +6866,8 @@
       "publishers increased the variety of their offerings by printing more unique titles but also printed fewer copies of each title.",
       "the costs of writing, editing, and designing a book were less affected by the technologies used than were the costs of manufacturing and distributing a book."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "95dbdf51",
@@ -6423,7 +6881,8 @@
       "compelling them to identify with the film’s director, whose proxy is the camera, and not with the protagonist.",
       "diverting their attention away from the film’s content and toward its stylistic attributes."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "3f236877",
@@ -6437,7 +6896,8 @@
       "preventing independent observers from determining whether the agreements guarantee equitable compensation for Indigenous communities.",
       "discouraging Indigenous communities from learning new methods for harvesting plants and animals from their corporate partners."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "08395130",
@@ -6451,7 +6911,8 @@
       "can be modified to observe the features of solar system objects that are of interest to Young and colleagues.",
       "lacks the sensors to observe the wavelengths of light needed to discern how solar system bodies change over time."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "6b8a7c74",
@@ -6465,7 +6926,8 @@
       "physical gift cards are likely less desirable to gift recipients than digital gift cards are because of the perception that physical gift cards require unnecessary effort to obtain.",
       "gift givers likely perceive digital gift cards as requiring relatively low effort to obtain and thus wrongly assume gift recipients will appreciate them less than they do physical gift cards."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "ce4448b7",
@@ -6479,7 +6941,8 @@
       "rate the experience of listening to construction noise as lasting for less time than it actually lasted.",
       "perceive the volume of the construction noise as growing softer over time."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "4b3d6062",
@@ -6493,7 +6956,8 @@
       "erroneously shift the focus of conservation efforts away from M. boolii itself.",
       "fail to consider the ways in which the survival of M. boolii may be influenced by changes in the populations of other species that inhabit Sonora."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "58e9e497",
@@ -6507,7 +6971,8 @@
       "Haudenosaunee farming techniques were widely used in regions outside the northeastern United States.",
       "Euro-American farmers only began to recognize the benefits of Haudenosaunee farming techniques late in the nineteenth century."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "e185a21f",
@@ -6521,7 +6986,8 @@
       "moving between the ground and the trees would have been difficult without bipedalism.",
       "a knuckle-walking human ancestor could have easily moved bipedally in trees."
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "f9bd4e61",
@@ -6535,7 +7001,8 @@
       "recognize pertinent social and political parallels between Germany during Brecht’s time and England at the time when Churchill was writing Cloud 9.",
       "be dispassionate as they think critically about the social and political questions raised by the play."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "4ba0695d",
@@ -6549,7 +7016,8 @@
       "the period of interbreeding resulted in a greater genetic difference between alpacas and their wild ancestors than between llamas and their wild ancestors.",
       "if they were subjected to genetic testing, modern populations of guanacos and vicuñas would likely show traces of ancient interbreeding as well."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "aaddd60f",
@@ -6563,7 +7031,8 @@
       "having a clearer understanding of the composition of Mars’s crust and the processes by which it formed will provide more insight into how Earth’s crust formed.",
       "Mars’s crust likely formed as a result of other major geological events in addition to the cooling of a magma ocean."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "333b2b65",
@@ -6577,7 +7046,8 @@
       "not, aerobic",
       "not; aerobic"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "6fece68e",
@@ -6591,7 +7061,8 @@
       "life:",
       "life,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "1724dac2",
@@ -6605,7 +7076,8 @@
       "advance;",
       "advance and"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "a1e0c981",
@@ -6619,7 +7091,8 @@
       "of—",
       "of,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "aab78b25",
@@ -6633,7 +7106,8 @@
       "most people prefer in a diet drink?",
       "most people prefer in a diet drink."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "26c8c88c",
@@ -6647,7 +7121,8 @@
       "asteroids; several",
       "asteroids: several"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "89ab0d46",
@@ -6661,7 +7136,8 @@
       "from",
       "from—"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "ea8f4658",
@@ -6675,7 +7151,8 @@
       "movement which",
       "movement. Which"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "c21df211",
@@ -6689,7 +7166,8 @@
       "movie. Such",
       "movie, such"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "7b950fc2",
@@ -6703,7 +7181,8 @@
       "settings and she",
       "settings. She"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "b1e8b87f",
@@ -6717,7 +7196,8 @@
       "unearthed—",
       "unearthed"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "667a0587",
@@ -6731,7 +7211,8 @@
       "Act. Which",
       "Act"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "b6de636f",
@@ -6745,7 +7226,8 @@
       "world,",
       "world, but"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "603755a5",
@@ -6759,7 +7241,8 @@
       "club—",
       "club, and"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "5aa1fffd",
@@ -6773,7 +7256,8 @@
       "did the word “chortle” come from?",
       "the word “chortle” come from."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "1f39ab8b",
@@ -6787,7 +7271,8 @@
       "Umuofia’s traditions will be affected?",
       "will Umuofia’s traditions be affected?"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "ac5536c1",
@@ -6801,7 +7286,8 @@
       "fungi producing",
       "fungi, producing"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "1aa3f174",
@@ -6815,7 +7301,8 @@
       "estimates—",
       "estimates"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "145d5ca7",
@@ -6829,7 +7316,8 @@
       "waterways, and, the fact that",
       "waterways and the fact that"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "be34a3df",
@@ -6843,7 +7331,8 @@
       "California—",
       "California"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "8f6d6ae6",
@@ -6857,7 +7346,8 @@
       "CE, making",
       "CE; making"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "870ae7ec",
@@ -6871,7 +7361,8 @@
       "apiary and",
       "apiary"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "b0a525be",
@@ -6885,7 +7376,8 @@
       "Swentzell:",
       "Swentzell—"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "eef91a50",
@@ -6899,7 +7391,8 @@
       "offense according",
       "offense and according"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "01a32c84",
@@ -6913,7 +7406,8 @@
       "adjustments. Prior",
       "adjustments and prior"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "67667d72",
@@ -6927,7 +7421,8 @@
       "earlier, which in",
       "earlier in"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "b6560e5a",
@@ -6941,7 +7436,8 @@
       "(Ru),",
       "(Ru), but"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "403d7bb5",
@@ -6955,7 +7451,8 @@
       "falling;",
       "falling"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "6b49f5f1",
@@ -6969,7 +7466,8 @@
       "skeptical,",
       "skeptical"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "5cc85f01",
@@ -6983,7 +7481,8 @@
       "world;",
       "world,"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "40c3589d",
@@ -6997,7 +7496,8 @@
       "prose,",
       "prose—"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "c8540a5b",
@@ -7011,7 +7511,8 @@
       "method, called",
       "method called"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "c101fc44",
@@ -7025,7 +7526,8 @@
       "new, sequencing:",
       "new. Sequencing"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "a427a52c",
@@ -7039,7 +7541,8 @@
       "energy collected by solar panels during the day,",
       "energy, collected by solar panels during the day,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "c04e9136",
@@ -7053,7 +7556,8 @@
       "Stanford:",
       "Stanford;"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "fe41f258",
@@ -7067,7 +7571,8 @@
       "soul”; positing",
       "soul.” Positing"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "3ed5ebb4",
@@ -7081,7 +7586,8 @@
       "materialism,”",
       "materialism”"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "707461d8",
@@ -7095,7 +7601,8 @@
       "plant) and by",
       "plant) by"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "626a1642",
@@ -7109,7 +7616,8 @@
       "models which",
       "models which—"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "f78997cf",
@@ -7123,7 +7631,8 @@
       "speculative; though",
       "speculative, though,"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "5bed774c",
@@ -7137,7 +7646,8 @@
       "aesthetics, as",
       "aesthetics. As"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "fba5d8d1",
@@ -7151,7 +7661,8 @@
       "high on",
       "high on:"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "6ea8c23f",
@@ -7165,7 +7676,8 @@
       "regions;",
       "regions"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "aab74a3b",
@@ -7179,7 +7691,8 @@
       "silk and by",
       "silk. By"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "a9e5b788",
@@ -7193,7 +7706,8 @@
       "novel; rather,",
       "novel, rather,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "aecdb820",
@@ -7207,7 +7721,8 @@
       "1950s",
       "1950s,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "790fc366",
@@ -7221,7 +7736,8 @@
       "information; though",
       "information though,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "62120607",
@@ -7235,7 +7751,8 @@
       "quilts; the",
       "quilts. The"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "2bb7416a",
@@ -7249,7 +7766,8 @@
       "however, it",
       "however. It"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "80aa7690",
@@ -7263,7 +7781,8 @@
       "linguist Diane Massam",
       "linguist: Diane Massam"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "5670a657",
@@ -7277,7 +7796,8 @@
       "1929 for one, the",
       "1929, for one. The"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "59094d87",
@@ -7291,7 +7811,8 @@
       "Tribe and",
       "Tribe,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "b15724fc",
@@ -7305,7 +7826,8 @@
       "essays praising",
       "essays. Praising"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "a872c60a",
@@ -7319,7 +7841,8 @@
       "tenets that, developed",
       "tenets, developed"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "594b4a94",
@@ -7333,7 +7856,8 @@
       "geologist;",
       "geologist:"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "fdb16e20",
@@ -7347,7 +7871,8 @@
       "and in the process—",
       "and, in the process"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "6d4b2e1e",
@@ -7361,7 +7886,8 @@
       "playwright Wakako Yamauchi,",
       "playwright Wakako Yamauchi"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "109d5bbb",
@@ -7375,7 +7901,8 @@
       "Culture,",
       "Culture"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "c468db1c",
@@ -7389,7 +7916,8 @@
       "plant",
       "plant:"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "78e978b5",
@@ -7403,7 +7931,8 @@
       "nations: Chile",
       "nations Chile"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "78b88c04",
@@ -7417,7 +7946,8 @@
       "Basic, in 2009; an online television network,",
       "Basic, in 2009, an online television network,"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "3580533b",
@@ -7431,7 +7961,8 @@
       "would have measured",
       "will have been measuring"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "69f031ab",
@@ -7445,7 +7976,8 @@
       "place",
       "to place"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "f4fd123c",
@@ -7459,7 +7991,8 @@
       "promotes",
       "have promoted"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "97df6650",
@@ -7473,7 +8006,8 @@
       "is",
       "are"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "b260c65a",
@@ -7487,7 +8021,8 @@
       "Moons’",
       "Moon"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "7c48a6dd",
@@ -7501,7 +8036,8 @@
       "to suspend",
       "suspended"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "fff4c7f4",
@@ -7515,7 +8051,8 @@
       "that",
       "it"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "e2759b92",
@@ -7529,7 +8066,8 @@
       "has been",
       "was"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "1448f43f",
@@ -7543,7 +8081,8 @@
       "It",
       "Some"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "e31b0056",
@@ -7557,7 +8096,8 @@
       "have been",
       "were"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "31362d2d",
@@ -7571,7 +8111,8 @@
       "had reached",
       "will reach"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "1d971f75",
@@ -7585,7 +8126,8 @@
       "photographer’s early photos",
       "photographers early photos"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "4c9a2aee",
@@ -7599,7 +8141,8 @@
       "is enabling",
       "enables"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Easy"
   },
   {
     "id": "81ac953e",
@@ -7613,7 +8156,8 @@
       "remains",
       "are remaining"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Easy"
   },
   {
     "id": "ec08463d",
@@ -7627,7 +8171,8 @@
       "to include",
       "includes"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "4a90a978",
@@ -7641,7 +8186,8 @@
       "joined",
       "joins"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Easy"
   },
   {
     "id": "588887b9",
@@ -7655,7 +8201,8 @@
       "invents",
       "had invented"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Easy"
   },
   {
     "id": "6e193b19",
@@ -7669,7 +8216,8 @@
       "were smaller, foam versions",
       "is a smaller, foam version"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "819c443d",
@@ -7683,7 +8231,8 @@
       "author’s political writing’s",
       "authors’ political writings’"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "b74f676f",
@@ -7697,7 +8246,8 @@
       "to develop",
       "having developed"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "003f22c8",
@@ -7711,7 +8261,8 @@
       "was",
       "were"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "59209b6d",
@@ -7725,7 +8276,8 @@
       "domestication, researcher Robert Losey has argued,",
       "the argument researcher Robert Losey has made is that domestication"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "684b8bd2",
@@ -7739,7 +8291,8 @@
       "the use of drinking straws by Sumerians in ancient Mesopotamia happened",
       "ancient Mesopotamia was home to Sumerians who used drinking straws"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Medium"
   },
   {
     "id": "c52652c9",
@@ -7753,7 +8306,8 @@
       "it",
       "those"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "36944347",
@@ -7767,7 +8321,8 @@
       "it accumulates",
       "we accumulate"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "8d53e7a0",
@@ -7781,7 +8336,8 @@
       "poem’s putatively written by the novels’",
       "poems putatively written by the novels’"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "20a6a4ed",
@@ -7795,7 +8351,8 @@
       "have studied",
       "study"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "a03008de",
@@ -7809,7 +8366,8 @@
       "have been,",
       "were,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "d2cf0e11",
@@ -7823,7 +8381,8 @@
       "screw’s threads.",
       "screws threads’."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "0bcb4417",
@@ -7837,7 +8396,8 @@
       "they’re",
       "its"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "db2e480a",
@@ -7851,7 +8411,8 @@
       "ascends",
       "is ascending"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "a30567fd",
@@ -7865,7 +8426,8 @@
       "earning",
       "earn"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Medium"
   },
   {
     "id": "b85c19ed",
@@ -7879,7 +8441,8 @@
       "them",
       "it"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "e44db0a0",
@@ -7893,7 +8456,8 @@
       "take",
       "takes"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "b8e13a74",
@@ -7907,7 +8471,8 @@
       "were entering",
       "enter"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Medium"
   },
   {
     "id": "67614549",
@@ -7921,7 +8486,8 @@
       "will leverage",
       "leveraged"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Medium"
   },
   {
     "id": "37e5c794",
@@ -7935,7 +8501,8 @@
       "commercial plastics’ two associated problems are that",
       "commercial plastics have two associated problems:"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "4c335aea",
@@ -7949,7 +8516,8 @@
       "rocks and rap’s",
       "rock and rap’s"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "8b017d4e",
@@ -7963,7 +8531,8 @@
       "the primary components of early medieval rulers’ diets were vegetables and grains, according to a 2022 study.",
       "findings from a 2022 study suggested that vegetables and grains were the primary components of early medieval rulers’ diets."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "f0864217",
@@ -7977,7 +8546,8 @@
       "the military leader whose story is told in Rabinal Achí, K’iche’ Achí,",
       "there was a military leader, K’iche’ Achí, who in Rabinal Achí"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "fced396a",
@@ -7991,7 +8561,8 @@
       "when a market is less concentrated, its HHI score will be much lower.",
       "a less concentrated market will have an HHI score that is much lower."
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "f10b7ce4",
@@ -8005,7 +8576,8 @@
       "fascinates",
       "is fascinating"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "ea0aa676",
@@ -8019,7 +8591,8 @@
       "have been",
       "was"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "dc645172",
@@ -8033,7 +8606,8 @@
       "isn’t",
       "aren’t"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "d2b81427",
@@ -8047,7 +8621,8 @@
       "there are many critics who have focused on Kurosawa’s use of Western literary sources, but they",
       "the focus of many critics has been on Kurosawa’s use of Western literary sources; they"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "3bceeb93",
@@ -8061,7 +8636,8 @@
       "its",
       "it’s"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "dab8b8ee",
@@ -8075,7 +8651,8 @@
       "these crusts reduce global dust emissions by an estimated 60 percent each year, according to a recent study.",
       "a recent study has estimated that these crusts reduce global dust emissions by 60 percent each year."
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "2784cbaf",
@@ -8089,7 +8666,8 @@
       "variables that characterize object’s",
       "variables that characterize objects"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "863065c7",
@@ -8103,7 +8681,8 @@
       "have identified",
       "identifies"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "872a002e",
@@ -8117,7 +8696,8 @@
       "its",
       "it’s"
     ],
-    "correctAnswer": 2
+    "correctAnswer": 2,
+    "difficulty": "Hard"
   },
   {
     "id": "0fe5ce68",
@@ -8131,7 +8711,8 @@
       "are focused",
       "were focused"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "5b8f9cf2",
@@ -8145,7 +8726,8 @@
       "Chraïbi wrote a debut novel that, published two years before Morocco gained its independence,",
       "published two years before Morocco gained its independence, Chraïbi wrote a debut novel that"
     ],
-    "correctAnswer": 1
+    "correctAnswer": 1,
+    "difficulty": "Hard"
   },
   {
     "id": "de3dd17d",
@@ -8159,7 +8741,8 @@
       "having rained",
       "rain"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "d46ac7e7",
@@ -8173,7 +8756,8 @@
       "already serves",
       "had already served"
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "2bca654a",
@@ -8187,7 +8771,8 @@
       "nutrients can be transported through the entanglement of pine trees’ roots and the fungus Tricholoma matsutake’s fungal hyphae.",
       "pine trees and the fungus Tricholoma matsutake can transport nutrients through their entangled tree roots and fungal hyphae."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "b0fb36ad",
@@ -8201,7 +8786,8 @@
       "animate",
       "animating"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "50801257",
@@ -8215,7 +8801,8 @@
       "Union, having finally acknowledged",
       "Union, finally acknowledging"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   },
   {
     "id": "a14eef71",
@@ -8229,7 +8816,8 @@
       "reaching superlubricity occurs when two surfaces’ COF drops below 0.01.",
       "superlubricity is reached when two surfaces’ COF drops below 0.01."
     ],
-    "correctAnswer": 3
+    "correctAnswer": 3,
+    "difficulty": "Hard"
   },
   {
     "id": "dfbf5d33",
@@ -8243,6 +8831,7 @@
       "Henry’s reign resumed,",
       "it was Henry who resumed his reign,"
     ],
-    "correctAnswer": 0
+    "correctAnswer": 0,
+    "difficulty": "Hard"
   }
 ]
