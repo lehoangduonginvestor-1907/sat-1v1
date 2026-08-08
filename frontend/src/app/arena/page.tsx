@@ -262,6 +262,42 @@ function ArenaContent() {
     // Review mode content...
   }
 
+  const getNavButtonClass = (i: number, isOpponent: boolean = false) => {
+    const isCurrent = currentQuestionIdx === i && !isOpponent;
+    
+    if (isOpponent) {
+      const ans = opponentAnswers[i];
+      return ans 
+        ? 'bg-red-100 text-red-800 border border-red-300' 
+        : 'bg-white text-gray-400 border border-gray-200';
+    }
+
+    const ans = answers[i];
+    const isCorrect = ans === questions[i].answer;
+
+    if (isReviewMode) {
+      if (isCurrent) {
+         return isCorrect 
+           ? 'bg-green-600 text-white ring-2 ring-green-400 ring-offset-1'
+           : 'bg-red-600 text-white ring-2 ring-red-400 ring-offset-1';
+      }
+      if (ans) {
+         return isCorrect 
+           ? 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200'
+           : 'bg-red-100 text-red-800 border border-red-300 hover:bg-red-200';
+      }
+      return 'bg-red-50 text-red-400 border border-red-200 hover:bg-red-100'; // Unanswered
+    }
+
+    if (isCurrent) {
+       return 'bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-1';
+    }
+    if (ans) {
+       return 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200';
+    }
+    return 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100';
+  };
+
   return (
     <div className="flex flex-col h-screen w-full bg-white overflow-hidden text-black font-sans selection:bg-blue-200">
       
@@ -277,13 +313,7 @@ function ArenaContent() {
                 <button 
                   key={i} 
                   onClick={() => setCurrentQuestionIdx(i)}
-                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold transition-all shadow-sm ${
-                    currentQuestionIdx === i 
-                      ? 'bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-1' 
-                      : answers[i] 
-                        ? 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200' 
-                        : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100'
-                  }`}
+                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold transition-all shadow-sm ${getNavButtonClass(i)}`}
                 >
                   {i + 1}
                 </button>
@@ -309,11 +339,7 @@ function ArenaContent() {
              {questions.map((_, i) => (
                 <div 
                   key={i} 
-                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold shadow-sm ${
-                    opponentAnswers[i] 
-                      ? 'bg-red-100 text-red-800 border border-red-300' 
-                      : 'bg-white text-gray-400 border border-gray-200'
-                  }`}
+                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold shadow-sm ${getNavButtonClass(i, true)}`}
                 >
                   {i + 1}
                 </div>
