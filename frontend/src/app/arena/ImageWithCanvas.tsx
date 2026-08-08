@@ -180,7 +180,7 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
   };
 
   return (
-    <div className="relative w-full h-full flex justify-center">
+    <div className="relative w-full min-h-full text-center">
       <div className="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-white p-2 rounded-lg shadow-lg border border-gray-200">
         <button 
           onClick={() => setZoomScale(prev => Math.max(0.5, prev - 0.25))}
@@ -203,7 +203,7 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
 
       <div 
         ref={containerRef} 
-        className="relative inline-block origin-top transition-all duration-200"
+        className="relative inline-block origin-top transition-all duration-200 text-left"
         style={{ width: `${100 * zoomScale}%` }}
       >
       <img 

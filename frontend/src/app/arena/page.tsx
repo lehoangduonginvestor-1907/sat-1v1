@@ -409,7 +409,7 @@ function ArenaContent() {
           style={{ width: `${leftPaneWidth}%` }}
         >
           {!imageError ? (
-            <div className="flex justify-center w-full min-h-full">
+            <div className="block w-full min-h-full">
               <ImageWithCanvas 
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com'}/images/${currentQuestion.id}.png`}
                 questionId={currentQuestion.id}
@@ -425,26 +425,26 @@ function ArenaContent() {
               <p className="font-semibold text-black">{currentQuestion.question}</p>
             </div>
           )}
-          
-          {/* Resize handle visual */}
-          <div 
-            className="absolute top-1/2 right-[-10px] w-5 h-8 bg-gray-600 text-white flex items-center justify-center rounded-sm cursor-col-resize z-10 transform -translate-y-1/2 hover:bg-blue-600 transition-colors shadow-md"
-            onMouseDown={(e) => {
-              e.preventDefault();
-              setIsResizing(true);
-            }}
-          >
-            <div className="flex gap-0.5">
-              <div className="w-0.5 h-3 bg-white"></div>
-              <div className="w-0.5 h-3 bg-white"></div>
-            </div>
+        </div>
+
+        {/* Drag Handle */}
+        <div 
+          className="w-1.5 bg-gray-200 hover:bg-blue-500 cursor-col-resize transition-colors flex items-center justify-center relative z-10"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            setIsResizing(true);
+          }}
+        >
+          <div className="flex gap-0.5 pointer-events-none">
+            <div className="w-px h-8 bg-gray-400"></div>
+            <div className="w-px h-8 bg-gray-400"></div>
           </div>
         </div>
 
         {/* Right Column: Question & Options */}
         <div 
-          className="p-10 overflow-y-auto bg-gray-50/30 flex-shrink-0"
-          style={{ width: `${100 - leftPaneWidth}%` }}
+          className="p-10 overflow-y-auto bg-gray-50/30 flex-1"
+          style={{ width: `calc(${100 - leftPaneWidth}% - 6px)` }}
         >
           <div className="max-w-2xl mx-auto">
             
