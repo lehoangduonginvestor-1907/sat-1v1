@@ -441,7 +441,7 @@ function ArenaContent() {
                       <span className={`text-[17px] leading-relaxed ${isEliminated && !isReviewMode ? 'line-through text-gray-400' : 
                         isSelected ? 'text-blue-900 font-medium' : 'text-gray-700'
                       }`}>
-                        {text}
+                        {imageError ? text : `Option ${label}`}
                       </span>
 
                     </button>
