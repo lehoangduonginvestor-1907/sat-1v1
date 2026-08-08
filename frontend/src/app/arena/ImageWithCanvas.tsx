@@ -18,6 +18,7 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
   const containerRef = useRef<HTMLDivElement>(null);
   
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isErasing, setIsErasing] = useState(false);
   const [currentStroke, setCurrentStroke] = useState<Point[]>([]);
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [noteData, setNoteData] = useState<{strokeIdx: number, x: number, y: number} | null>(null);
@@ -88,32 +89,82 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (!isDrawingMode || !canvasRef.current) return;
-    setIsDrawing(true);
-    setCurrentStroke([getCoordinates(e)]);
+    
+    if (e.button === 2) {
+      // Right click: Erase
+      setIsErasing(true);
+      eraseStrokeAt(e);
+      return;
+    }
+
+    if (e.button === 0) {
+      // Left click: Draw
+      setIsDrawing(true);
+      setCurrentStroke([getCoordinates(e)]);
+    }
+  };
+
+  const eraseStrokeAt = (e: React.PointerEvent) => {
+    const pt = getCoordinates(e);
+    const canvas = canvasRef.current!;
+    // Adjust aspect ratio for distance calculation so x and y distances are comparable
+    const aspect = canvas.width / canvas.height;
+    const threshold = 0.02; // 2% of canvas dimension
+
+    const newStrokes = strokes.filter(stroke => {
+      // Check if any point in this stroke is close to `pt`
+      for (const p of stroke.points) {
+        const dx = (p.x - pt.x);
+        const dy = (p.y - pt.y) / aspect;
+        if (Math.hypot(dx, dy) < threshold) {
+          return false; // Erase this stroke
+        }
+      }
+      return true; // Keep this stroke
+    });
+
+    if (newStrokes.length !== strokes.length) {
+      setAnnotations(prev => ({ ...prev, [questionId]: newStrokes }));
+    }
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!isDrawing || !isDrawingMode || !canvasRef.current) return;
-    setCurrentStroke(prev => [...prev, getCoordinates(e)]);
+    if (!isDrawingMode || !canvasRef.current) return;
+    
+    if (isErasing) {
+      eraseStrokeAt(e);
+      return;
+    }
+
+    if (isDrawing) {
+      setCurrentStroke(prev => [...prev, getCoordinates(e)]);
+    }
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
-    if (!isDrawing || !isDrawingMode) return;
-    setIsDrawing(false);
+    if (!isDrawingMode) return;
     
-    if (currentStroke.length > 2) {
-      const newStrokes = [...strokes, { points: currentStroke }];
-      setAnnotations(prev => ({ ...prev, [questionId]: newStrokes }));
-      
-      const rect = canvasRef.current!.getBoundingClientRect();
-      setNoteData({
-        strokeIdx: newStrokes.length - 1,
-        x: e.clientX,
-        y: e.clientY
-      });
-      setShowNotePopup(true);
+    if (isErasing) {
+      setIsErasing(false);
+      return;
     }
-    setCurrentStroke([]);
+
+    if (isDrawing) {
+      setIsDrawing(false);
+      if (currentStroke.length > 2) {
+        const newStrokes = [...strokes, { points: currentStroke }];
+        setAnnotations(prev => ({ ...prev, [questionId]: newStrokes }));
+        
+        const rect = canvasRef.current!.getBoundingClientRect();
+        setNoteData({
+          strokeIdx: newStrokes.length - 1,
+          x: e.clientX,
+          y: e.clientY
+        });
+        setShowNotePopup(true);
+      }
+      setCurrentStroke([]);
+    }
   };
 
   const handleSaveNote = () => {
@@ -140,6 +191,7 @@ export default function ImageWithCanvas({ src, questionId, annotations, setAnnot
         ref={canvasRef}
         className={`absolute top-0 left-0 w-full h-full ${isDrawingMode ? 'cursor-crosshair' : 'pointer-events-none'}`}
         style={{ touchAction: 'none' }}
+        onContextMenu={(e) => e.preventDefault()}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
