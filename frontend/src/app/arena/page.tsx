@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X, CheckCircle2 } from 'lucide-react';
+import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X, CheckCircle2, MessageSquare } from 'lucide-react';
 import io from 'socket.io-client';
 
 let socket: any;
@@ -55,9 +55,11 @@ function ArenaContent() {
   const [matchResults, setMatchResults] = useState<any>(null);
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [explanationError, setExplanationError] = useState(false);
 
   useEffect(() => {
     setImageError(false);
+    setExplanationError(false);
   }, [currentQuestionIdx]);
   const { width, height } = useWindowSize();
 
@@ -498,12 +500,23 @@ function ArenaContent() {
                   <h4 className="font-bold text-blue-900 flex items-center gap-2 mb-2">
                     <CheckCircle2 size={20} className="text-blue-600" /> Explanation
                   </h4>
-                  <p className="text-blue-800 leading-relaxed text-sm">
-                    {currentQuestion.explanation || 
-                     `The correct answer is Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)}. ` +
-                     `Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)} best satisfies the requirement of the question based on the provided text.`
-                    }
-                  </p>
+                  <div className="text-blue-800 leading-relaxed text-sm">
+                    {!explanationError ? (
+                      <img 
+                        src={`http://localhost:3001/explanations/${currentQuestion.id}.png`} 
+                        alt="Explanation" 
+                        className="max-w-full h-auto rounded border border-gray-200"
+                        onError={() => setExplanationError(true)}
+                      />
+                    ) : (
+                      <p>
+                        {currentQuestion.explanation || 
+                         `The correct answer is Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)}. ` +
+                         `Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)} best satisfies the requirement of the question based on the provided text.`
+                        }
+                      </p>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
