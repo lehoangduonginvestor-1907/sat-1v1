@@ -382,7 +382,7 @@ function ArenaContent() {
               />
             </div>
           ) : (
-            <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800">
+            <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800 font-serif">
               {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: currentQuestion.passage }}></p>}
               <p className="font-semibold text-black">{currentQuestion.question}</p>
             </div>
@@ -441,7 +441,7 @@ function ArenaContent() {
                     <button
                       onClick={() => !isReviewMode && handleSelectOption(label)}
                       disabled={isEliminated || isReviewMode}
-                      className={`flex-1 flex items-center p-3 rounded-lg border-2 text-left transition-all
+                      className={`flex-1 flex items-center p-3 rounded-lg border-2 text-left transition-all font-serif
                         ${showAsCorrect ? 'border-green-500 bg-green-50 ring-1 ring-green-500' :
                           showAsWrong ? 'border-red-500 bg-red-50 ring-1 ring-red-500' :
                           isEliminated ? 'border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed' : 
