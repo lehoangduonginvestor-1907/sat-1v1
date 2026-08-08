@@ -97,12 +97,17 @@ io.on('connection', (socket) => {
       
       let filteredBank = questionBank;
       if (settings.domain && settings.domain !== 'All') {
-        filteredBank = questionBank.filter(q => q.domain === settings.domain);
+        filteredBank = filteredBank.filter(q => q.domain === settings.domain);
+      }
+      if (settings.difficulty && settings.difficulty !== 'All') {
+        filteredBank = filteredBank.filter(q => q.difficulty === settings.difficulty);
       }
       
-      // Nếu số câu hỏi tìm được ít hơn yêu cầu, lấy hết
+      // Shuffle và chọn ngẫu nhiên từ ngân hàng đã lọc
       const shuffled = [...filteredBank].sort(() => 0.5 - Math.random());
-      const selectedQuestions = shuffled.slice(0, settings.questionCount);
+      // Lấy số lượng theo yêu cầu, nếu kho không đủ thì lấy tất cả
+      const targetCount = settings.questionCount || 20;
+      const selectedQuestions = shuffled.slice(0, targetCount);
       rooms[roomCode].questions = selectedQuestions;
       
       io.to(roomCode).emit('matchStarted', {
