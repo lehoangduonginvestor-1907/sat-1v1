@@ -189,27 +189,37 @@ function LobbyContent() {
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="p-6 bg-blue-50 rounded-lg border-2 border-blue-200 relative text-center">
-              <p className="text-sm text-gray-600 font-semibold mb-2">Send this link to your friend to join</p>
-                <div className="flex items-center gap-2 bg-white border border-gray-300 rounded p-1.5">
-                  <input 
-                    type="text" 
-                    readOnly 
-                    value={inviteLink}
-                    className="flex-1 text-xs text-gray-600 bg-transparent outline-none px-1"
-                  />
-                  <button 
-                    onClick={copyToClipboard}
-                    className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded text-gray-700 transition"
-                    title="Copy Invite Link"
-                  >
-                    {copied ? <Check size={14} className="text-green-600" /> : <Copy size={14} />}
-                  </button>
+            {matchSettings.mode !== 'practice' ? (
+              <div className="p-6 bg-blue-50 rounded-lg border-2 border-blue-200 relative text-center">
+                <p className="text-sm text-gray-600 font-semibold mb-2">Send this link to your friend to join</p>
+                  <div className="flex items-center gap-2 bg-white border border-gray-300 rounded p-1.5">
+                    <input 
+                      type="text" 
+                      readOnly 
+                      value={inviteLink}
+                      className="flex-1 text-xs text-gray-600 bg-transparent outline-none px-1"
+                    />
+                    <button 
+                      onClick={copyToClipboard}
+                      className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded text-gray-700 transition"
+                      title="Copy Invite Link"
+                    >
+                      {copied ? <Check size={14} className="text-green-600" /> : <Copy size={14} />}
+                    </button>
+                  </div>
+              </div>
+            ) : (
+              <div className="p-6 bg-green-50 rounded-lg border-2 border-green-200 relative text-center">
+                <p className="text-sm text-green-700 font-bold mb-2">Preparing Practice Match...</p>
+                <div className="mt-4 flex items-center justify-center gap-2 text-sm text-green-600 font-semibold">
+                  <div className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+                  Generating questions
                 </div>
-            </div>
+              </div>
+            )}
 
             <div className="bg-gray-100 p-4 rounded-lg">
-              <h3 className="font-bold mb-3">Players ({players.length}/2)</h3>
+              <h3 className="font-bold mb-3">Players ({players.length}/{matchSettings.mode === 'practice' ? '1' : '2'})</h3>
               <ul className="space-y-3">
                 {players.map((p, index) => (
                   <li key={index} className="bg-white px-4 py-2 rounded-lg shadow-sm font-semibold flex items-center gap-3">
@@ -221,7 +231,7 @@ function LobbyContent() {
                   </li>
                 ))}
               </ul>
-              {players.length < 2 && (
+              {players.length < 2 && matchSettings.mode !== 'practice' && (
                 <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500 font-semibold">
                   <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
                   Waiting for opponent...
