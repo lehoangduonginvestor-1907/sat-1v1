@@ -54,6 +54,11 @@ function ArenaContent() {
   const [isOpponentFinished, setIsOpponentFinished] = useState(false);
   const [matchResults, setMatchResults] = useState<any>(null);
   const [isReviewMode, setIsReviewMode] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  useEffect(() => {
+    setImageError(false);
+  }, [currentQuestionIdx]);
   const { width, height } = useWindowSize();
 
 
@@ -378,12 +383,22 @@ function ArenaContent() {
         )}
 
         {/* Left Column: Passage */}
-        <div className="w-1/2 p-10 overflow-y-auto border-r-2 border-gray-300 relative">
-          <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800" onMouseUp={handleTextSelection}>
-            {/* Parse LaTeX or standard text here. For now we use basic display */}
-            {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: formatPassage(currentQuestion.passage) }}></p>}
-            <p className="font-semibold text-black">{currentQuestion.question}</p>
-          </div>
+        <div className="w-1/2 p-10 overflow-y-auto border-r-2 border-gray-300 relative bg-white">
+          {!imageError ? (
+            <div className="flex justify-center w-full min-h-full">
+              <img 
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com'}/images/${currentQuestion.id}.png`} 
+                alt={`Question ${currentQuestion.id}`} 
+                className="max-w-full h-auto object-contain"
+                onError={() => setImageError(true)}
+              />
+            </div>
+          ) : (
+            <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800" onMouseUp={handleTextSelection}>
+              {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: formatPassage(currentQuestion.passage) }}></p>}
+              <p className="font-semibold text-black">{currentQuestion.question}</p>
+            </div>
+          )}
           
           {/* Resize handle visual */}
           <div className="absolute top-1/2 right-[-10px] w-5 h-8 bg-gray-600 text-white flex items-center justify-center rounded-sm cursor-col-resize z-10 transform -translate-y-1/2">
@@ -454,10 +469,11 @@ function ArenaContent() {
                         {label}
                       </div>
                       <span className={`text-[17px] leading-relaxed ${isEliminated && !isReviewMode ? 'line-through text-gray-400' : 
-                          showAsCorrect ? 'text-green-900 font-medium' :
-                          showAsWrong ? 'text-red-900 line-through' : 'text-gray-900'}`}>
-                        {text}
+                        isSelected ? 'text-blue-900 font-medium' : 'text-gray-700'
+                      }`}>
+                        {imageError ? text : `Option ${label}`}
                       </span>
+
                     </button>
                     
                     {/* Eliminate Toggle Button */}
