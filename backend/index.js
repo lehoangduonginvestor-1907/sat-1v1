@@ -89,32 +89,36 @@ io.on('connection', (socket) => {
       socket.emit('matchStarted', {
         questions: rooms[roomCode].questions
       });
-    } else if (rooms[roomCode].players.length === 2 && rooms[roomCode].state === 'waiting') {
-      // AUTO START MATCH WHEN 2 PLAYERS JOIN
-      rooms[roomCode].state = 'playing';
+    } else if (rooms[roomCode].state === 'waiting') {
+      const settings = rooms[roomCode].settings || { mode: '1v1', domain: 'All', questionCount: 20, timeLimit: 30 };
+      const isPractice = settings.mode === 'practice';
       
-      const settings = rooms[roomCode].settings || { domain: 'All', questionCount: 20, timeLimit: 30 };
-      
-      let filteredBank = questionBank;
-      if (settings.domain && settings.domain !== 'All') {
-        filteredBank = filteredBank.filter(q => q.domain === settings.domain);
+      // AUTO START MATCH: 2 players for 1v1, 1 player for practice
+      if ((isPractice && rooms[roomCode].players.length === 1) || (!isPractice && rooms[roomCode].players.length === 2)) {
+        rooms[roomCode].state = 'playing';
+        
+        let filteredBank = questionBank;
+        if (settings.domain && settings.domain !== 'All') {
+          filteredBank = filteredBank.filter(q => q.domain === settings.domain);
+        }
+        if (settings.difficulty && settings.difficulty !== 'All') {
+          filteredBank = filteredBank.filter(q => q.difficulty === settings.difficulty);
+        }
+        
+        // Shuffle và chọn ngẫu nhiên từ ngân hàng đã lọc
+        const shuffled = [...filteredBank].sort(() => 0.5 - Math.random());
+        // Lấy số lượng theo yêu cầu, nếu kho không đủ thì lấy tất cả
+        const targetCount = settings.questionCount || 20;
+        const selectedQuestions = shuffled.slice(0, targetCount);
+        rooms[roomCode].questions = selectedQuestions;
+        
+        io.to(roomCode).emit('matchStarted', {
+          questions: selectedQuestions,
+          timeLimit: settings.timeLimit,
+          mode: settings.mode
+        });
+        console.log(`Auto Match started in room ${roomCode} with ${selectedQuestions.length} questions, timeLimit: ${settings.timeLimit}, mode: ${settings.mode}.`);
       }
-      if (settings.difficulty && settings.difficulty !== 'All') {
-        filteredBank = filteredBank.filter(q => q.difficulty === settings.difficulty);
-      }
-      
-      // Shuffle và chọn ngẫu nhiên từ ngân hàng đã lọc
-      const shuffled = [...filteredBank].sort(() => 0.5 - Math.random());
-      // Lấy số lượng theo yêu cầu, nếu kho không đủ thì lấy tất cả
-      const targetCount = settings.questionCount || 20;
-      const selectedQuestions = shuffled.slice(0, targetCount);
-      rooms[roomCode].questions = selectedQuestions;
-      
-      io.to(roomCode).emit('matchStarted', {
-        questions: selectedQuestions,
-        timeLimit: settings.timeLimit
-      });
-      console.log(`Auto Match started in room ${roomCode} with ${selectedQuestions.length} questions, timeLimit: ${settings.timeLimit}.`);
     }
   });
 
@@ -152,9 +156,11 @@ io.on('connection', (socket) => {
     player.finished = true;
     console.log(`Player ${player.user?.name} finished with score ${score}`);
     
-    // Kiểm tra xem cả 2 đã nộp bài chưa
+    // Kiểm tra xem cả 2 đã nộp bài chưa (hoặc 1 người nếu là practice)
+    const isPractice = room.settings?.mode === 'practice';
     const allFinished = room.players.every(p => p.finished);
-    if (allFinished && room.players.length === 2) {
+    
+    if (allFinished && (isPractice || room.players.length === 2)) {
       room.state = 'ended';
       const results = room.players.map(p => ({
         id: p.id,

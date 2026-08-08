@@ -20,6 +20,7 @@ function LobbyContent() {
   const [isEditingName, setIsEditingName] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [matchSettings, setMatchSettings] = useState({
+    mode: '1v1', // '1v1' or 'practice'
     subject: 'Verbal',
     domain: 'All',
     difficulty: 'All',
@@ -262,6 +263,18 @@ function LobbyContent() {
             <h2 className="text-2xl font-black mb-6 text-gray-900">Match Settings</h2>
             
             <form onSubmit={confirmCreateRoom} className="space-y-5">
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Mode</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button type="button" className={`py-2 rounded-lg font-bold border-2 ${matchSettings.mode === '1v1' ? 'border-red-600 bg-red-50 text-red-700' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`} onClick={() => setMatchSettings({...matchSettings, mode: '1v1'})}>
+                    1v1 Arena
+                  </button>
+                  <button type="button" className={`py-2 rounded-lg font-bold border-2 ${matchSettings.mode === 'practice' ? 'border-green-600 bg-green-50 text-green-700' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`} onClick={() => setMatchSettings({...matchSettings, mode: 'practice'})}>
+                    Practice Solo
+                  </button>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Subject</label>
                 <div className="grid grid-cols-2 gap-3">

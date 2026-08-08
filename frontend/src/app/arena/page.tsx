@@ -42,6 +42,9 @@ function ArenaContent() {
   // Notes State
   const [notesOpen, setNotesOpen] = useState(false);
   const [notesText, setNotesText] = useState("");
+  const [isStarted, setIsStarted] = useState(false);
+  const [matchMode, setMatchMode] = useState('1v1');
+  const [showReviewMap, setShowReviewMap] = useState(false);
 
   // Calculator State
   const [calcOpen, setCalcOpen] = useState(false);
@@ -130,8 +133,11 @@ function ArenaContent() {
         setMatchResults(data.results);
       });
 
-      socket.on('matchStarted', (data: { questions: any[], timeLimit?: number }) => {
+      socket.on('matchStarted', (data: { questions: any[], timeLimit?: number, mode?: string }) => {
         setQuestions(data.questions);
+        if (data.mode) {
+          setMatchMode(data.mode);
+        }
         if (data.timeLimit) {
           setTimeLeft(data.timeLimit * 60);
         }
@@ -215,7 +221,11 @@ function ArenaContent() {
   const applyHighlightAndNote = () => {};
 
   const me = players.find(p => p.id === socket?.id);
-  const opponent = players.find(p => p.id !== socket?.id);
+  const opponent = matchMode === 'practice' ? null : players.find(p => p.id !== socket?.id);
+
+  if (isReviewMode) {
+    // Review mode content...
+  }
 
   return (
     <div className="flex flex-col h-screen w-full bg-white overflow-hidden text-black font-sans selection:bg-blue-200">
@@ -234,8 +244,16 @@ function ArenaContent() {
            </div>
            <span className="w-8 text-right">{Object.keys(answers).length}/{questions.length}</span>
         </div>
-        <div className="text-gray-400 font-bold tracking-widest text-[10px]">1V1 ARENA</div>
-        <div className="flex items-center gap-2 w-1/3 flex-row-reverse">
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <h2 className="text-xl font-black text-gray-900 tracking-tight">
+            {matchMode === 'practice' ? 'PRACTICE MODE' : '1V1 ARENA'}
+          </h2>
+          <div className="text-sm font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full mt-1 border border-gray-200 shadow-inner">
+            Room: {roomCode}
+          </div>
+        </div>
+        
+        <div className={`flex items-center gap-2 w-1/3 flex-row-reverse ${matchMode === 'practice' ? 'opacity-0 pointer-events-none' : ''}`}>
            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-red-500 to-orange-500 text-white flex items-center justify-center font-bold text-[10px]">
              {opponent?.user?.name?.charAt(0).toUpperCase() || 'O'}
            </div>
@@ -555,7 +573,16 @@ function ArenaContent() {
             <div className="bg-white p-10 rounded-2xl shadow-2xl text-center max-w-sm w-full animate-in zoom-in">
               <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
               <h2 className="text-2xl font-black mb-2 text-gray-900">Test Submitted!</h2>
-              <p className="text-gray-500 font-medium">{isOpponentFinished ? "Opponent has also finished. Waiting for results..." : "Waiting for your opponent to finish..."}</p>
+              <p className="text-gray-500 font-medium">
+                {matchMode === 'practice' ? 'Calculating your score...' : (isOpponentFinished ? "Opponent has also finished. Waiting for results..." : "Waiting for your opponent to finish...")}
+              </p>
+              
+              {isOpponentFinished && matchMode !== 'practice' && (
+                <div className="bg-green-100 text-green-700 text-sm font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 mt-4">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                  Opponent has finished
+                </div>
+              )}
             </div>
           ) : (
             <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg relative animate-in zoom-in fade-in duration-300 text-center">
