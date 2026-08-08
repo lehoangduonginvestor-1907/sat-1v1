@@ -105,8 +105,13 @@ io.on('connection', (socket) => {
           filteredBank = filteredBank.filter(q => q.difficulty === settings.difficulty);
         }
         
-        // Shuffle và chọn ngẫu nhiên từ ngân hàng đã lọc
-        const shuffled = [...filteredBank].sort(() => 0.5 - Math.random());
+        // Shuffle bằng thuật toán Fisher-Yates để đảm bảo tính ngẫu nhiên hoàn hảo
+        const shuffled = [...filteredBank];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        
         // Lấy số lượng theo yêu cầu, nếu kho không đủ thì lấy tất cả
         const targetCount = settings.questionCount || 20;
         const selectedQuestions = shuffled.slice(0, targetCount);
