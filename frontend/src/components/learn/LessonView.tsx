@@ -26,6 +26,7 @@ function Blocks({ blocks, onCheck }: { blocks: Block[]; onCheck: (n: number, cor
           case 'h2': return <h2 key={i} id={b.id} className="lr-h2"><Inline text={b.text} /></h2>;
           case 'h3': return <h3 key={i} id={b.id} className="lr-h3"><Inline text={b.text} /></h3>;
           case 'p': return <p key={i} className="lr-p"><Inline text={b.text} /></p>;
+          case 'math': return <div key={i} className="lr-display-math" dangerouslySetInnerHTML={{ __html: b.html }} />;
           case 'ul': return <ul key={i} className="lr-list list-disc">{b.items.map((it, j) => <li key={j}><Inline text={it} /></li>)}</ul>;
           case 'ol': return <ol key={i} className="lr-list list-decimal">{b.items.map((it, j) => <li key={j}><Inline text={it} /></li>)}</ol>;
           case 'table':

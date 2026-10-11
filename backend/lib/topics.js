@@ -118,8 +118,21 @@ function readingTopics(q) {
   }
 }
 
+// Math: chỉ dựa vào chữ + MathML (câu CBQB có công thức dạng ảnh sprite nên nhận ra được ít hơn)
+function mathTopics(q) {
+  const html = [q.stimulus, q.stem, ...(q.options || []), q.rationale || ''].join(' ');
+  const text = strip(html).toLowerCase();
+  const tags = [];
+  if (/exponential|compound|half-life|doubles|triples|decay|growth factor|percent (?:each|every|per) (?:year|month|day|hour)/.test(text)) tags.push('exponential');
+  if (/quadratic|parabola|vertex|discriminant/.test(text) || /<mn>2<\/mn><\/msup>/.test(html)) tags.push('quadratic');
+  if (/<msqrt|<mroot|square root|radical/.test(html + text)) tags.push('radicals');
+  if (/exponent/.test(text) || (/<msup>/.test(html) && !/<mn>2<\/mn><\/msup>/.test(html))) tags.push('exponents');
+  return tags;
+}
+
 function topicsOf(q) {
-  if (q.section !== 'Reading and Writing' || q.type !== 'mcq') return [];
+  if (q.section === 'Math') return mathTopics(q);
+  if (q.type !== 'mcq') return [];
   if (q.skill === 'Boundaries') return boundaryTopics(q);
   if (q.skill === 'Form, Structure, and Sense') return formTopics(q);
   return readingTopics(q);

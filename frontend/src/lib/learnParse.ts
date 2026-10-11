@@ -7,17 +7,35 @@
 //   :::check                             câu hỏi nhanh: đề, "- [x] đúng", "- [ ] sai", "> giải thích"
 //
 // Định dạng trong dòng (**đậm**, *nghiêng*, [[gạch chân]], ~~gạch bỏ~~, ____ ô trống) do LessonView hiển thị.
+// Công thức: $x^2$ trong dòng, $$...$$ trên một dòng riêng; đổi sang MathML ngay lúc build (temml), \$ = dấu đô la.
+
+import temml from 'temml';
 
 export type BoxKind = 'rule' | 'tip' | 'trap' | 'note' | 'steps';
 
 export type Block =
   | { t: 'h2' | 'h3'; text: string; id: string }
   | { t: 'p'; text: string }
+  | { t: 'math'; html: string }
   | { t: 'ul' | 'ol'; items: string[] }
   | { t: 'table'; head: string[]; rows: string[][] }
   | { t: 'box'; kind: BoxKind; title: string; blocks: Block[] }
   | { t: 'examples'; items: { ok: boolean; text: string; note: string }[] }
   | { t: 'check'; n: number; prompt: string; options: string[]; answer: number; explanation: string };
+
+// Công thức trong dòng được bọc giữa hai ký tự điều khiển U+0001 … U+0002 để Inline chèn MathML nguyên vẹn
+export const MATH_OPEN = '\u0001';
+export const MATH_CLOSE = '\u0002';
+
+function tex(source: string, displayMode: boolean) {
+  return temml.renderToString(source, { displayMode, throwOnError: true });
+}
+
+function math(text: string): string {
+  return text
+    .replace(/(?<!\\)\$((?:[^$\\]|\\.)+?)\$/g, (_, src: string) => MATH_OPEN + tex(src, false) + MATH_CLOSE)
+    .replace(/\\\$/g, '$');
+}
 
 const BOXES = new Set<BoxKind>(['rule', 'tip', 'trap', 'note', 'steps']);
 
@@ -42,7 +60,7 @@ function parseCheck(lines: string[], n: number): Block {
     }
   }
   if (answer < 0 || options.length < 2) throw new Error(`Quick check ${n} needs options and one "- [x]" answer: ${prompt.join(' ')}`);
-  return { t: 'check', n, prompt: prompt.join(' '), options, answer, explanation: explanation.join(' ') };
+  return { t: 'check', n, prompt: math(prompt.join(' ')), options: options.map(math), answer, explanation: math(explanation.join(' ')) };
 }
 
 function parseExamples(lines: string[]): Block {
@@ -51,7 +69,7 @@ function parseExamples(lines: string[]): Block {
     .map(l => {
       const m = l.trim().match(/^([✓✗])\s*(.*?)(?:\s+\/\/\s+(.*))?$/);
       if (!m) throw new Error(`Example lines start with ✓ or ✗: ${l}`);
-      return { ok: m[1] === '✓', text: m[2], note: m[3] || '' };
+      return { ok: m[1] === '✓', text: math(m[2]), note: math(m[3] || '') };
     });
   return { t: 'examples', items };
 }
@@ -88,9 +106,16 @@ export function parseLesson(source: string): Block[] {
         continue;
       }
 
+      const display = trimmed.match(/^\$\$(.+)\$\$$/);
+      if (display) {
+        blocks.push({ t: 'math', html: tex(display[1], true) });
+        i++;
+        continue;
+      }
+
       const heading = trimmed.match(/^(##|###) (.*)$/);
       if (heading) {
-        blocks.push({ t: heading[1] === '##' ? 'h2' : 'h3', text: heading[2], id: slugify(heading[2]) });
+        blocks.push({ t: heading[1] === '##' ? 'h2' : 'h3', text: math(heading[2]), id: slugify(heading[2]) });
         i++;
         continue;
       }
@@ -98,7 +123,7 @@ export function parseLesson(source: string): Block[] {
       if (trimmed.startsWith('|')) {
         const rows: string[][] = [];
         while (i < lines.length && lines[i].trim().startsWith('|')) {
-          if (!/^\|?\s*:?-{2,}/.test(lines[i].trim())) rows.push(splitRow(lines[i]));
+          if (!/^\|?\s*:?-{2,}/.test(lines[i].trim())) rows.push(splitRow(lines[i]).map(math));
           i++;
         }
         blocks.push({ t: 'table', head: rows[0], rows: rows.slice(1) });
@@ -115,16 +140,16 @@ export function parseLesson(source: string): Block[] {
           else items[items.length - 1] += ` ${l}`; // dòng nối tiếp của mục trước
           i++;
         }
-        blocks.push({ t: ordered ? 'ol' : 'ul', items });
+        blocks.push({ t: ordered ? 'ol' : 'ul', items: items.map(math) });
         continue;
       }
 
       const para: string[] = [];
-      while (i < lines.length && lines[i].trim() && !/^(:::|##|\||- |\d+\. )/.test(lines[i].trim())) {
+      while (i < lines.length && lines[i].trim() && !/^(:::|##|\||- |\d+\. |\$\$)/.test(lines[i].trim())) {
         para.push(lines[i].trim());
         i++;
       }
-      blocks.push({ t: 'p', text: para.join(' ') });
+      blocks.push({ t: 'p', text: math(para.join(' ')) });
     }
     return blocks;
   }

@@ -24,9 +24,9 @@ export default function LearnPage() {
         <section>
           <h1 className="text-[28px] font-bold mb-2">Lessons</h1>
           <p className="text-[var(--bb-muted)] max-w-3xl">
-            Step-by-step lessons for every Reading and Writing question type, each followed by practice on official College Board questions.
+            Step-by-step lessons for every Reading, Writing and Math question type, each followed by practice on official College Board questions.
             The lessons follow the chapter order of Erica Meltzer&apos;s <em>The Ultimate Guide to SAT Grammar</em> and <em>The Complete Guide to Digital SAT Reading</em>,
-            rewritten in our own words with original examples. Page numbers point to those books if you want to read further.
+            and Nielson Phu&apos;s <em>The College Panda&apos;s SAT Math</em>, rewritten in our own words with original examples. Page numbers point to those books if you want to read further.
           </p>
         </section>
 

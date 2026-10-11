@@ -23,7 +23,7 @@ export interface Unit {
 }
 
 export interface Course {
-  slug: 'grammar' | 'reading';
+  slug: 'grammar' | 'reading' | 'math';
   title: string;
   short: string;
   description: string;
@@ -206,6 +206,103 @@ export const COURSES: Course[] = [
     ],
   },
 ];
+
+// Khóa Math theo thứ tự chương của The College Panda's SAT Math (Nielson Phu)
+const M = {
+  oneVar: 'Linear Equations in One Variable',
+  linFn: 'Linear Functions',
+  twoVar: 'Linear Equations in Two Variables',
+  systems: 'Systems of Linear Equations',
+  ineq: 'Linear Inequalities',
+  nonlinFn: 'Nonlinear Functions',
+  nonlinEq: 'Nonlinear Equations and Systems',
+  equiv: 'Equivalent Expressions',
+  ratios: 'Ratios, Rates, Proportions, and Units',
+  percent: 'Percentages',
+  oneData: 'One-Variable Data',
+  twoData: 'Two-Variable Data',
+  prob: 'Probability',
+  sample: 'Sample Statistics and Margin of Error',
+  claims: 'Evaluating Statistical Claims',
+  area: 'Area and Volume',
+  lines: 'Lines, Angles, and Triangles',
+  trig: 'Right Triangles and Trigonometry',
+  circles: 'Circles',
+};
+
+const lesson = (slug: string, title: string, chapter: number, pages: string, minutes: number, summary: string,
+  skills: string[], label: string, topics?: string[]): LessonMeta =>
+  ({ slug, title, chapter: `Chapter ${chapter}`, pages, minutes, summary, practice: { skills, topics, label } });
+
+COURSES.push({
+  slug: 'math',
+  title: 'Math: Algebra to Data Analysis',
+  short: 'Math',
+  description: 'Every Math topic on the digital SAT, from exponents and linear equations to circles, trigonometry and statistics, with Desmos strategies and practice by skill.',
+  book: "The College Panda's SAT Math (Digital SAT edition)",
+  units: [
+    {
+      title: 'Algebra Foundations',
+      lessons: [
+        {
+          slug: 'sat-math-and-desmos', title: 'How SAT Math Works and Using Desmos', chapter: 'Introduction', pages: '1', minutes: 8,
+          summary: 'The adaptive structure of the Math section, Desmos moves worth mastering, and what Desmos can’t do.',
+        },
+        lesson('exponents-and-radicals', 'Exponents and Radicals', 1, '11', 12, 'The laws of exponents, fractional exponents, and simplifying square roots.', [M.equiv, M.nonlinEq], 'exponent and radical questions', ['radicals', 'exponents']),
+        lesson('expressions', 'Expressions', 2, '22', 11, 'Combine like terms, expand, factor, and rewrite fractions.', [M.equiv], 'Equivalent Expressions questions'),
+        lesson('solving-equations', 'Manipulating and Solving Equations', 3, '32', 12, 'Isolate a variable cleanly and avoid the classic algebra slips.', [M.oneVar, M.nonlinEq], 'equation-solving questions'),
+        lesson('other-equation-questions', 'Other Types of Equation Questions', 4, '47', 10, 'Matching coefficients, no-solution and infinite-solution equations, absolute value.', [M.oneVar, M.equiv], 'questions on solution counts and matching terms'),
+      ],
+    },
+    {
+      title: 'Functions and Linear Relationships',
+      lessons: [
+        lesson('functions', 'Functions', 5, '57', 12, 'Inputs and outputs, composite functions, graphs, zeros and factors.', [M.nonlinFn, M.linFn], 'function questions'),
+        lesson('lines', 'Lines and Linear Relationships', 6, '70', 11, 'Slope, intercepts, the forms of a line, parallel and perpendicular lines.', [M.linFn, M.twoVar], 'linear function and line questions'),
+        lesson('interpreting-linear-models', 'Interpreting Linear Equations and Models', 7, '82', 9, 'What the slope and intercept mean in a real-world model.', [M.twoVar, M.linFn], 'questions interpreting linear models'),
+      ],
+    },
+    {
+      title: 'Problem Solving',
+      lessons: [
+        lesson('percent', 'Percent', 8, '94', 10, 'Percent change, multiplication factors, and percent word problems.', [M.percent], 'Percentages questions'),
+        lesson('exponential-vs-linear', 'Exponential vs. Linear Growth', 9, '103', 11, 'Compound growth and decay versus constant change.', [M.nonlinFn, M.linFn], 'exponential and linear growth questions', ['exponential']),
+        lesson('rates-and-ratios', 'Rates, Conversions, and Ratios', 10, '114', 10, 'Unit conversions, average rate of change, and ratios.', [M.ratios], 'Ratios, Rates, Proportions, and Units questions'),
+        lesson('word-problems', 'Word Problems', 11, '124', 9, 'Turn words into equations step by step.', [M.oneVar, M.twoVar, M.systems], 'algebra word problems'),
+      ],
+    },
+    {
+      title: 'Advanced Algebra',
+      lessons: [
+        lesson('quadratic-equations', 'Quadratic Equations', 12, '135', 11, 'Factoring, the quadratic formula, and the sum and product of solutions.', [M.nonlinEq], 'quadratic equation questions', ['quadratic']),
+        lesson('systems-of-equations', 'Systems of Equations', 13, '144', 12, 'Substitution, elimination, and systems with no or infinitely many solutions.', [M.systems], 'Systems of Linear Equations questions'),
+        lesson('inequalities', 'Inequalities', 14, '159', 11, 'Solving and graphing inequalities, systems, and min/max word problems.', [M.ineq], 'Linear Inequalities questions'),
+        lesson('function-transformations', 'Function Transformations', 15, '175', 7, 'Shift a graph left, right, up, and down.', [M.nonlinFn], 'Nonlinear Functions questions'),
+        lesson('quadratic-functions', 'Quadratic Functions', 16, '181', 12, 'Standard, vertex, and factored form; parabolas; the discriminant.', [M.nonlinFn, M.nonlinEq], 'quadratic function questions', ['quadratic']),
+      ],
+    },
+    {
+      title: 'Geometry and Trigonometry',
+      lessons: [
+        lesson('angles', 'Angles', 17, '197', 8, 'Angle rules, parallel lines, and polygons.', [M.lines], 'Lines, Angles, and Triangles questions'),
+        lesson('triangles', 'Triangles', 18, '204', 13, 'Area, special right triangles, congruence, and similarity.', [M.lines, M.trig], 'triangle questions'),
+        lesson('circles', 'Circles', 19, '223', 12, 'Arcs, sectors, inscribed angles, and the equation of a circle.', [M.circles], 'Circles questions'),
+        lesson('radians', 'Radians', 20, '237', 6, 'Converting between degrees and radians.', [M.circles, M.trig], 'circle and trigonometry questions'),
+        lesson('trigonometry', 'Trigonometry', 21, '242', 10, 'SOH-CAH-TOA, complementary angles, and the unit circle basics.', [M.trig], 'Right Triangles and Trigonometry questions'),
+        lesson('area-and-volume', 'Area, Perimeter, and Volume', 22, '254', 11, 'Formulas for 2D and 3D shapes, scaling, and density.', [M.area], 'Area and Volume questions'),
+      ],
+    },
+    {
+      title: 'Data Analysis',
+      lessons: [
+        lesson('reading-data', 'Reading Data', 23, '266', 7, 'Read tables, bar graphs, and line graphs precisely.', [M.oneData, M.twoData], 'data display questions'),
+        lesson('probability', 'Probability', 24, '272', 9, 'Probability from tables and conditional probability.', [M.prob], 'Probability questions'),
+        lesson('statistics-1', 'Statistics I: Center and Spread', 25, '282', 11, 'Mean, median, mode, range, standard deviation, and data displays.', [M.oneData], 'One-Variable Data questions'),
+        lesson('statistics-2', 'Statistics II: Sampling and Studies', 26, '297', 11, 'Sampling, margin of error, scatterplots, and experiments vs. observational studies.', [M.sample, M.claims, M.twoData], 'statistics and study-design questions'),
+      ],
+    },
+  ],
+});
 
 export function findCourse(slug: string) {
   return COURSES.find(c => c.slug === slug);

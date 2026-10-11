@@ -411,7 +411,7 @@ function PracticeContent() {
     if (!lesson?.lesson.practice) return;
     const { skills, topics } = lesson.lesson.practice;
     const count = [5, 10, 15].includes(Number(params.get('count'))) ? Number(params.get('count')) : 10;
-    launch({ ...defaultConfig('Verbal', 'custom'), count, instant: true, timer: 'off', includeBluebook: params.get('bluebook') === '1' },
+    launch({ ...defaultConfig(lesson.course.slug === 'math' ? 'Math' : 'Verbal', 'custom'), count, instant: true, timer: 'off', includeBluebook: params.get('bluebook') === '1' },
       { skills, topics: topics || [], excludeIds: Object.keys(getHistory()) });
   }, [lesson, params, launch]);
 

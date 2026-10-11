@@ -169,10 +169,11 @@ function HomeContent() {
 
         <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7">
           <div className="flex items-center gap-3 mb-2"><GraduationCap className="text-[var(--bb-blue)]" /><h2 className="text-xl font-bold">Learn</h2></div>
-          <p className="text-[var(--bb-muted)] mb-5">Lessons for every Reading and Writing question type, from transitions and punctuation to inferences and graphs. Each lesson ends with practice on official questions.</p>
+          <p className="text-[var(--bb-muted)] mb-5">Lessons for every Reading, Writing and Math question type, from transitions and punctuation to quadratics, circles and statistics. Each lesson ends with practice on official questions.</p>
           <div className="flex flex-wrap gap-3">
             <Link href="/learn/grammar/transitions" className="bb-primary">Writing: Grammar &amp; Expression</Link>
             <Link href="/learn/reading/how-sat-reading-works" className="bb-primary">Reading</Link>
+            <Link href="/learn/math/sat-math-and-desmos" className="bb-primary">Math</Link>
             <Link href="/learn" className="bb-secondary">All Lessons</Link>
           </div>
         </section>
