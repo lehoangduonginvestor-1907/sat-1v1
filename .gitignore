@@ -16,3 +16,7 @@ dist/
 
 .DS_Store
 *.pem
+
+# Bộ dữ liệu tải về bằng backend/tools/fetch_sources.py
+backend/data/sources/
+__pycache__/

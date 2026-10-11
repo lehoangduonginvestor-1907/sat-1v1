@@ -1,0 +1,1198 @@
+{
+  "conflicts": [
+    {
+      "id": "9ee22c16",
+      "chosen": {
+        "type": "spr",
+        "acceptedAnswers": [
+          "3540"
+        ]
+      },
+      "votes": [
+        {
+          "pdf": [
+            "3540"
+          ],
+          "cbqb": [
+            "3",
+            "540"
+          ],
+          "girff": [
+            "3540"
+          ]
+        }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "id": "1035faea",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "28c2253f",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "2a549721",
+      "reason": "Math missing in College Board source"
+    },
+    {
+      "id": "2df730d0",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "30aa51b7",
+      "reason": "Math missing in College Board source"
+    },
+    {
+      "id": "3f775bbf",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "4b642eef",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "520e6f5b",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "53c6c179",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "55818046",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "58687a66",
+      "reason": "Math missing in College Board source"
+    },
+    {
+      "id": "651d83bb",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "6626cac3",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "6f5540a5",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "707db2d3",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "858809e7",
+      "reason": "Math missing in College Board source"
+    },
+    {
+      "id": "90095507",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "95cad55f",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "9fdc4eaa",
+      "reason": "Math missing in College Board source"
+    },
+    {
+      "id": "a04050d8",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "ae2287e2",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "b1228811",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "c7e73ece",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "c9fb15ad",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "ccb1ab92",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "e29586d5",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "ecd09c38",
+      "reason": "Retired from the Question Bank"
+    },
+    {
+      "id": "f3f06c3a",
+      "reason": "Math missing in College Board source"
+    }
+  ],
+  "difficulty_conflicts": [
+    {
+      "id": "00221c00",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "00460c13",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "0113152f",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "01989d77",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "01c8c433",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "03080769",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "03701ef3",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "0778b4ac",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium"
+    },
+    {
+      "id": "08b28c1a",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "08ff903e",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "0bcb4417",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "0c13dea9",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "0c622cfb",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "10cd0327",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "11a9f635",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "11df9b99",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "12d81fc1",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "14189fbb",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "145337bc",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy"
+    },
+    {
+      "id": "145da981",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "16631d34",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "1724dac2",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "1782cdd7",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "1853bb35",
+      "girff": "Medium",
+      "mdn": "Hard"
+    },
+    {
+      "id": "190857f0",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium"
+    },
+    {
+      "id": "1e562f24",
+      "girff": "Easy",
+      "mdn": "Medium"
+    },
+    {
+      "id": "20a6a4ed",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium"
+    },
+    {
+      "id": "22105871",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "22b3da87",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "22e4d633",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "2584bcfb",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "27d9bb69",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "2903a041",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "290cdc2c",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy"
+    },
+    {
+      "id": "296801d2",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "299c5303",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "2c50ed1a",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "2df7b582",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "2fdfe002",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "3122fc7b",
+      "girff": "Hard",
+      "mdn": "Medium"
+    },
+    {
+      "id": "31ad8024",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard"
+    },
+    {
+      "id": "333b2b65",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "34d7bb25",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "3566120b",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "37a49687",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "3882ddf6",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "3f753a8e",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "441558e7",
+      "girff": "Easy",
+      "mdn": "Medium"
+    },
+    {
+      "id": "45df91ee",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "4603d1f7",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "4b09f783",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "4c9a2aee",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "4eee64fa",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "50801257",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "54804e10",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "55688b3c",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "5b6af6b1",
+      "girff": "Easy",
+      "mdn": "Medium"
+    },
+    {
+      "id": "5ff1ba73",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "603755a5",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "61228830",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "62a18353",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "63c73b50",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "64e88c58",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "67667d72",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "69f031ab",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "6b49f5f1",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "6c9df5d1",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "6d44060a",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "6f5fc289",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "6f6dfe3e",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "mdn": "Medium"
+    },
+    {
+      "id": "7254379e",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "787729be",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "7a1877be",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "7afdcca2",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium"
+    },
+    {
+      "id": "7fdba7ad",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "81da17d3",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "835d1ae6",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "84ece3f6",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "85439572",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "88bb0f6f",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "8de51658",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "9077be25",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "95dbdf51",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "9645f55e",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "96802cc0",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "97e2e364",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "97e5bf55",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "98fd50f2",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium"
+    },
+    {
+      "id": "9f1a0d91",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "a14eef71",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "a26c29f7",
+      "girff": "Easy",
+      "mdn": "Medium"
+    },
+    {
+      "id": "a30567fd",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "a70cbc53",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "a9040290",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "aa5897b8",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "ad729337",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "adb0c96c",
+      "girff": "Medium",
+      "mdn": "Hard"
+    },
+    {
+      "id": "adc8ea28",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium"
+    },
+    {
+      "id": "aecdb820",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard"
+    },
+    {
+      "id": "afec1a70",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "b0a525be",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "b1e8b87f",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "b4887dae",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "b4c6cff6",
+      "girff": "Easy",
+      "mdn": "Medium"
+    },
+    {
+      "id": "b74f676f",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "ba263620",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "c04e9136",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "c101fc44",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "c106b9f7",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "c14daa3c",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "c21df211",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "c4737d6a",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "c4d43991",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "c52652c9",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "c538954d",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "c984f1a5",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard"
+    },
+    {
+      "id": "cac82f9b",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "d0fbf1ae",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "d2e0cba5",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "d3898d32",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "d3ca5d59",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "d46ac7e7",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "d5b9ed0d",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "d7f31e68",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "d8ace155",
+      "girff": "Easy",
+      "mdn": "Medium"
+    },
+    {
+      "id": "d8d1ecaa",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "d9137a84",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "db2e480a",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "db3ad406",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "dcc4886a",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium"
+    },
+    {
+      "id": "de2c2f57",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "mdn": "Hard"
+    },
+    {
+      "id": "de3dd17d",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "df46a2ee",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "e1546fd6",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "e2829dd7",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "e459076b",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "e4f312c5",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "e677fa6c",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "e7247766",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "e7dc27dc",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "e8779461",
+      "girff": "Easy",
+      "mdn": "Medium"
+    },
+    {
+      "id": "e929fe98",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "eef91a50",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "f07570bb",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "f38b40ac",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "f4b63a04",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "f4fd123c",
+      "cbqb": "Hard",
+      "girff": "Hard",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "f942646f",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "fa2771d5",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard"
+    },
+    {
+      "id": "fbffb352",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "fc5ef8d3",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy"
+    },
+    {
+      "id": "fcb78856",
+      "girff": "Medium",
+      "mdn": "Easy"
+    },
+    {
+      "id": "fce80a36",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    },
+    {
+      "id": "fdd9a360",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Hard",
+      "mdn": "Hard"
+    },
+    {
+      "id": "ff3865b3",
+      "cbqb": "Medium",
+      "girff": "Medium",
+      "pdf": "Easy",
+      "mdn": "Easy"
+    },
+    {
+      "id": "ff97fd53",
+      "cbqb": "Easy",
+      "girff": "Easy",
+      "pdf": "Medium",
+      "mdn": "Medium"
+    }
+  ],
+  "single_source": []
+}
