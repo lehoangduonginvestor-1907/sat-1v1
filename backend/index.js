@@ -12,14 +12,9 @@ console.log(`Loaded ${bank.length} questions from question bank.`);
 
 const app = express();
 
-const allowedOrigins = process.env.FRONTEND_URL
-  ? process.env.FRONTEND_URL.split(',')
-  : ["http://localhost:3000", "https://sat-1v1-cyan.vercel.app", "*"];
-
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST']
-}));
+// API chỉ trả dữ liệu công khai, không dùng cookie: cho phép mọi origin (giống socket.io bên dưới).
+// Danh sách origin cũ (FRONTEND_URL) chặn nhầm frontend Vercel khi giá trị không khớp tuyệt đối.
+app.use(cors({ origin: '*', methods: ['GET', 'POST'] }));
 
 const server = http.createServer(app);
 

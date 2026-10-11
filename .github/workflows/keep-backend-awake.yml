@@ -1,0 +1,16 @@
+# Render (gói miễn phí) cho backend ngủ sau 15 phút không có request; lần mở đầu tiên sau đó
+# phải chờ ~1 phút. Ping mỗi 10 phút để giữ backend thức (lịch của GitHub có thể trễ vài phút).
+name: Keep backend awake
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping backend
+        run: curl -fsS --max-time 120 --retry 2 https://sat-1v1.onrender.com/ > /dev/null
