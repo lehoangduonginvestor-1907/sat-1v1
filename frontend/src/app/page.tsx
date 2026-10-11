@@ -18,6 +18,8 @@ interface MatchSettings {
   questionCount: number;
   timeLimit: number;
   includeBluebook: boolean;
+  mode: 'classic' | 'finish';
+  turns: number; // số lượt mỗi người (Finish Line)
 }
 
 function NicknameForm({ initial, onSave, onCancel }: { initial: string; onSave: (name: string) => void; onCancel?: () => void }) {
@@ -36,7 +38,7 @@ function NicknameForm({ initial, onSave, onCancel }: { initial: string; onSave: 
 }
 
 function CreateMatchModal({ onClose, onCreate }: { onClose: () => void; onCreate: (s: MatchSettings) => void }) {
-  const [s, setS] = useState<MatchSettings>({ subject: 'Verbal', domain: 'All', difficulty: 'All', questionCount: 10, timeLimit: 12, includeBluebook: false });
+  const [s, setS] = useState<MatchSettings>({ subject: 'Verbal', domain: 'All', difficulty: 'All', questionCount: 10, timeLimit: 12, includeBluebook: false, mode: 'classic', turns: 2 });
   const select = 'w-full border-[1.5px] border-[#5f5f5f] rounded-lg px-3 py-2.5 outline-none focus:border-[var(--bb-blue)] bg-white';
   const subjectButton = (subject: MatchSettings['subject'], label: string) => (
     <button type="button" onClick={() => setS({ ...s, subject, domain: 'All' })}
@@ -51,6 +53,18 @@ function CreateMatchModal({ onClose, onCreate }: { onClose: () => void; onCreate
         <h2 className="text-2xl font-bold mb-5">New 1v1 Match</h2>
         <div className="space-y-4">
           <div>
+            <label className="block text-sm font-bold mb-2">Mode</label>
+            <div className="grid grid-cols-2 gap-3">
+              {([['classic', 'Classic Race', 'Same questions, race the clock'], ['finish', 'Finish Line', 'Turns, point packages, steals']] as const).map(([mode, label, hint]) => (
+                <button key={mode} type="button" onClick={() => setS({ ...s, mode })}
+                  className={`py-2.5 px-3 rounded-lg border-[1.5px] text-left ${s.mode === mode ? 'border-[var(--bb-blue)] bg-[var(--bb-blue-soft)]' : 'border-[#c4c4c4]'}`}>
+                  <span className={`block font-bold ${s.mode === mode ? 'text-[var(--bb-blue)]' : ''}`}>{label}</span>
+                  <span className="block text-xs text-[var(--bb-muted)]">{hint}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
             <label className="block text-sm font-bold mb-2">Subject</label>
             <div className="grid grid-cols-2 gap-3">{subjectButton('Verbal', 'Reading & Writing')}{subjectButton('Math', 'Math')}</div>
           </div>
@@ -61,27 +75,46 @@ function CreateMatchModal({ onClose, onCreate }: { onClose: () => void; onCreate
               {DOMAINS[s.subject].map(d => <option key={d} value={d}>{d}</option>)}
             </select>
           </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <label className="block text-sm font-bold mb-2" htmlFor="m-diff">Difficulty</label>
-              <select id="m-diff" className={select} value={s.difficulty} onChange={e => setS({ ...s, difficulty: e.target.value })}>
-                <option value="All">Mixed</option><option>Easy</option><option>Medium</option><option>Hard</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-bold mb-2" htmlFor="m-count">Questions</label>
-              <select id="m-count" className={select} value={s.questionCount} onChange={e => setS({ ...s, questionCount: Number(e.target.value) })}>
-                {[5, 10, 15, 20, 22, 27].map(n => <option key={n} value={n}>{n}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-bold mb-2" htmlFor="m-time">Minutes</label>
-              <select id="m-time" className={select} value={s.timeLimit} onChange={e => setS({ ...s, timeLimit: Number(e.target.value) })}>
-                {[5, 8, 10, 12, 15, 20, 25, 32, 35].map(n => <option key={n} value={n}>{n}</option>)}
-              </select>
-            </div>
-          </div>
-          <p className="text-xs text-[var(--bb-muted)]">Bluebook pace: 27 questions in 32 min (Reading &amp; Writing), 22 in 35 min (Math).</p>
+          {s.mode === 'finish' ? (
+            <>
+              <div>
+                <label className="block text-sm font-bold mb-2" htmlFor="m-turns">Turns per player</label>
+                <select id="m-turns" className={select} value={s.turns} onChange={e => setS({ ...s, turns: Number(e.target.value) })}>
+                  {[1, 2, 3].map(n => <option key={n} value={n}>{n} {n === 1 ? 'turn' : 'turns'} ({n * 3} questions each)</option>)}
+                </select>
+              </div>
+              <ul className="text-xs text-[var(--bb-muted)] space-y-1 list-disc pl-4">
+                <li>On your turn, pick a package of 3 questions: Easy 10, Medium 20 or Hard 30 points.</li>
+                <li>Star of Hope (once per turn): double points if right, lose the points if wrong.</li>
+                <li>Miss or run out of time and your opponent can steal: right takes your points, wrong costs them half.</li>
+                <li>Tied at the end? A sudden-death question: first correct answer wins.</li>
+              </ul>
+            </>
+          ) : (
+            <>
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-sm font-bold mb-2" htmlFor="m-diff">Difficulty</label>
+                  <select id="m-diff" className={select} value={s.difficulty} onChange={e => setS({ ...s, difficulty: e.target.value })}>
+                    <option value="All">Mixed</option><option>Easy</option><option>Medium</option><option>Hard</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold mb-2" htmlFor="m-count">Questions</label>
+                  <select id="m-count" className={select} value={s.questionCount} onChange={e => setS({ ...s, questionCount: Number(e.target.value) })}>
+                    {[5, 10, 15, 20, 22, 27].map(n => <option key={n} value={n}>{n}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold mb-2" htmlFor="m-time">Minutes</label>
+                  <select id="m-time" className={select} value={s.timeLimit} onChange={e => setS({ ...s, timeLimit: Number(e.target.value) })}>
+                    {[5, 8, 10, 12, 15, 20, 25, 32, 35].map(n => <option key={n} value={n}>{n}</option>)}
+                  </select>
+                </div>
+              </div>
+              <p className="text-xs text-[var(--bb-muted)]">Bluebook pace: 27 questions in 32 min (Reading &amp; Writing), 22 in 35 min (Math).</p>
+            </>
+          )}
           <label className="flex items-start gap-2 text-sm">
             <input type="checkbox" className="mt-0.5" checked={s.includeBluebook} onChange={e => setS({ ...s, includeBluebook: e.target.checked })} />
             <span>Include questions from the official Bluebook practice tests (SAT and PSAT) <span className="text-[var(--bb-muted)]">(leave off if you still plan to take them)</span></span>
@@ -145,6 +178,7 @@ function HomeContent() {
     const q = new URLSearchParams({
       new: '1', subject: s.subject, domain: s.domain, difficulty: s.difficulty,
       count: String(s.questionCount), minutes: String(s.timeLimit), bluebook: s.includeBluebook ? '1' : '0',
+      mode: s.mode, turns: String(s.turns),
     });
     router.push(`/arena?${q}`);
   };
@@ -181,7 +215,7 @@ function HomeContent() {
         <div className="grid md:grid-cols-2 gap-6">
           <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7 flex flex-col">
             <div className="flex items-center gap-3 mb-2"><Swords className="text-[var(--bb-blue)]" /><h2 className="text-xl font-bold">1v1 Arena</h2></div>
-            <p className="text-[var(--bb-muted)] mb-6 flex-1">Race a friend on the same questions. Answers stay hidden until both of you submit; ties go to whoever finished faster.</p>
+            <p className="text-[var(--bb-muted)] mb-6 flex-1">Race a friend on the same questions, or play Finish Line: take turns picking point packages, bet with the Star of Hope and steal points when your opponent misses. Trash talk included.</p>
             <button className="bb-primary self-start mb-5" onClick={() => setCreating(true)}>Create Match</button>
             <form className="flex gap-2" onSubmit={e => { e.preventDefault(); if (code.trim()) router.push(`/arena?room=${encodeURIComponent(code.trim())}`); }}>
               <input value={code} onChange={e => setCode(e.target.value.replace(/\D/g, '').slice(0, 4))} placeholder="Room code" inputMode="numeric"

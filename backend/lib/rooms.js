@@ -1,4 +1,5 @@
 const { publicQuestion, answerKey, isAnswerCorrect, selectQuestions } = require('./bank');
+const finishLine = require('./finishLine');
 
 // Phòng đấu 1v1. Server giữ câu hỏi, đáp án và đồng hồ: client chỉ nhận đề (không kèm đáp án),
 // gửi từng câu trả lời lên, và nhận đáp án + lời giải khi trận kết thúc.
@@ -6,6 +7,8 @@ const { publicQuestion, answerKey, isAnswerCorrect, selectQuestions } = require(
 const COUNTDOWN_MS = 3000;
 const GRACE_MS = 3000; // bù trễ mạng khi hết giờ
 const IDLE_ROOM_MS = 30 * 60 * 1000;
+const EMOTE_GAP_MS = 1200; // chống spam emote / trashtalk
+const EMOTE_MAX_LENGTH = 60;
 
 const rooms = new Map();
 
@@ -26,6 +29,8 @@ function cleanSettings(raw = {}) {
     questionCount: Math.min(Math.max(Number(raw.questionCount) || 10, 1), 54),
     timeLimit: Math.min(Math.max(Number(raw.timeLimit) || 15, 1), 120),
     includeBluebook: Boolean(raw.includeBluebook),
+    mode: raw.mode === 'finish' ? 'finish' : 'classic', // classic = đua cùng bộ đề; finish = kiểu Về đích Olympia
+    turns: Math.min(Math.max(Math.round(Number(raw.turns)) || 2, 1), 3), // số lượt mỗi người (chế độ finish)
   };
 }
 
@@ -67,6 +72,13 @@ function broadcast(io, room) {
 }
 
 function startMatch(io, room) {
+  for (const p of room.players) Object.assign(p, { answers: {}, finished: false, finishedAt: null, rematch: false });
+  if (room.settings.mode === 'finish') {
+    finishLine.start(io, room);
+    broadcast(io, room);
+    return;
+  }
+  room.game = null;
   const s = room.settings;
   room.questions = selectQuestions({
     subject: s.subject,
@@ -80,9 +92,6 @@ function startMatch(io, room) {
   room.result = null;
   room.startedAt = Date.now() + COUNTDOWN_MS;
   room.endsAt = room.startedAt + s.timeLimit * 60 * 1000;
-  for (const p of room.players) {
-    Object.assign(p, { answers: {}, finished: false, finishedAt: null, rematch: false });
-  }
   clearTimeout(room.timer);
   room.timer = setTimeout(() => endMatch(io, room), room.endsAt - Date.now() + GRACE_MS);
 
@@ -126,6 +135,12 @@ function endMatch(io, room) {
 
 function registerRoomHandlers(io) {
   io.on('connection', socket => {
+    // Client gửi sự kiện không kèm dữ liệu thì socket.io truyền null: đổi về undefined để tham số mặc định hoạt động
+    socket.use((packet, next) => {
+      for (let i = 1; i < packet.length; i++) if (packet[i] === null) packet[i] = undefined;
+      next();
+    });
+
     const context = () => {
       const room = rooms.get(socket.data.code);
       const player = room && room.players.find(p => p.playerId === socket.data.playerId);
@@ -145,7 +160,8 @@ function registerRoomHandlers(io) {
       socket.join(room.code);
       socket.data = { code: room.code, playerId };
 
-      if (room.state === 'playing') socket.emit('match:start', matchPayload(room, player));
+      if (room.game) socket.emit('fl:state', finishLine.publicState(room));
+      else if (room.state === 'playing') socket.emit('match:start', matchPayload(room, player));
       if (room.state === 'ended' && room.result) socket.emit('match:end', room.result);
       broadcast(io, room);
       if (room.state === 'waiting' && room.players.length === 2 && room.players.every(p => p.connected)) {
@@ -176,9 +192,27 @@ function registerRoomHandlers(io) {
       ack(join(room, data));
     });
 
+    for (const action of ['pick', 'star', 'answer', 'steal', 'continue']) {
+      socket.on(`fl:${action}`, (data = {}) => {
+        const { room, player } = context();
+        if (room && player && room.game) finishLine.handle(io, room, player, action, data);
+      });
+    }
+
+    // Emote / trashtalk: phát cho cả phòng (người gửi cũng thấy bong bóng của mình)
+    socket.on('room:emote', ({ text } = {}) => {
+      const { room, player } = context();
+      if (!room || !player || typeof text !== 'string') return;
+      const clean = text.replace(/\s+/g, ' ').trim().slice(0, EMOTE_MAX_LENGTH);
+      const now = Date.now();
+      if (!clean || now - (player.lastEmote || 0) < EMOTE_GAP_MS) return;
+      player.lastEmote = now;
+      io.to(room.code).emit('room:emote', { id: `${now}-${player.playerId}`, playerId: player.playerId, name: player.name, text: clean });
+    });
+
     socket.on('match:answer', ({ index, answer } = {}) => {
       const { room, player } = context();
-      if (!room || !player || room.state !== 'playing' || player.finished) return;
+      if (!room || !player || room.state !== 'playing' || player.finished || room.game) return;
       if (Date.now() < room.startedAt || Date.now() > room.endsAt + GRACE_MS) return;
       if (!Number.isInteger(index) || index < 0 || index >= room.questions.length) return;
       const value = typeof answer === 'string' ? answer.slice(0, 8) : '';
@@ -189,7 +223,7 @@ function registerRoomHandlers(io) {
 
     socket.on('match:finish', () => {
       const { room, player } = context();
-      if (!room || !player || room.state !== 'playing' || player.finished) return;
+      if (!room || !player || room.state !== 'playing' || player.finished || room.game) return;
       player.finished = true;
       player.finishedAt = Date.now();
       broadcast(io, room);
@@ -209,7 +243,11 @@ function registerRoomHandlers(io) {
       if (!room || !player) return;
       socket.leave(room.code);
       socket.data = {};
-      if (room.state === 'playing') {
+      if (room.state === 'playing' && room.game) {
+        // Rời trận Finish Line = xử thua
+        player.connected = false;
+        finishLine.finish(io, room, player.playerId);
+      } else if (room.state === 'playing') {
         // Bỏ cuộc giữa trận = nộp bài với những câu đã làm
         player.connected = false;
         if (!player.finished) {

@@ -1162,3 +1162,40 @@ body {
   text-align: center;
   font-size: 1.15em;
 }
+
+/* Arena: emote / trashtalk và Finish Line */
+@keyframes emote-pop {
+  0% { opacity: 0; transform: translateY(12px) scale(0.6); }
+  12% { opacity: 1; transform: translateY(0) scale(1.08); }
+  20% { transform: scale(1); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-24px); }
+}
+
+.emote-pop {
+  animation: emote-pop 3.6s ease-out forwards;
+}
+
+@keyframes fl-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(196 18 47 / 0.55); }
+  50% { transform: scale(1.06); box-shadow: 0 0 0 18px rgb(196 18 47 / 0); }
+}
+
+.fl-steal {
+  animation: fl-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes fl-score {
+  0% { opacity: 0; transform: translateY(8px) scale(0.8); }
+  20% { opacity: 1; transform: translateY(0) scale(1.15); }
+  100% { opacity: 0; transform: translateY(-28px); }
+}
+
+.fl-delta {
+  animation: fl-score 2.4s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emote-pop, .fl-delta { animation-duration: 0.01s; animation-delay: 3s; }
+  .fl-steal { animation: none; }
+}

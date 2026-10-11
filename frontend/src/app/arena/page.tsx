@@ -13,9 +13,11 @@ import { BACKEND_URL } from '@/lib/api';
 import { useNickname, usePlayerId } from '@/lib/storage';
 import type { AnswerKey, Answers, Question } from '@/lib/types';
 import { SECTION_OF } from '@/lib/types';
+import { Emote, EmoteDock, EmoteLayer } from '@/components/arena/Emotes';
+import { FinishLineGame, FinishLineResults, FlEnd, FlState } from '@/components/arena/FinishLine';
 
 interface RoomPlayer { playerId: string; name: string; connected: boolean; answered: number; finished: boolean; rematch: boolean }
-interface RoomSettings { subject: 'Verbal' | 'Math'; domain: string; difficulty: string; questionCount: number; timeLimit: number; includeBluebook: boolean }
+interface RoomSettings { subject: 'Verbal' | 'Math'; domain: string; difficulty: string; questionCount: number; timeLimit: number; includeBluebook: boolean; mode?: 'classic' | 'finish'; turns?: number }
 interface Room { code: string; state: 'waiting' | 'playing' | 'ended'; settings: RoomSettings; hostId: string; total: number; players: RoomPlayer[] }
 interface MatchStart { questions: Question[]; startedAt: number; endsAt: number; serverNow: number; answers: Answers; finished: boolean }
 interface PlayerResult { playerId: string; name: string; score: number; correct: boolean[]; answers: Answers; timeUsed: number }
@@ -59,7 +61,9 @@ function Lobby({ room, me, inviteLink, onLeave }: { room: Room; me: string; invi
       <div className="bg-white rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.12)] w-full max-w-lg p-8">
         <h1 className="text-2xl font-bold mb-1">Room {room.code}</h1>
         <p className="text-[var(--bb-muted)] mb-6">
-          {SECTION_OF[s.subject]} · {s.domain === 'All' ? 'All domains' : s.domain} · {s.difficulty === 'All' ? 'Mixed difficulty' : s.difficulty} · {s.questionCount} questions · {s.timeLimit} min
+          {s.mode === 'finish'
+            ? <><b className="text-[var(--bb-ink)]">Finish Line</b> · {SECTION_OF[s.subject]} · {s.domain === 'All' ? 'All domains' : s.domain} · {s.turns} {s.turns === 1 ? 'turn' : 'turns'} each</>
+            : <>{SECTION_OF[s.subject]} · {s.domain === 'All' ? 'All domains' : s.domain} · {s.difficulty === 'All' ? 'Mixed difficulty' : s.difficulty} · {s.questionCount} questions · {s.timeLimit} min</>}
         </p>
         <label className="block text-sm font-bold mb-2">Send this link to your opponent</label>
         <div className="flex items-center gap-2 border-[1.5px] border-[#5f5f5f] rounded-lg p-1.5 mb-6">
@@ -210,6 +214,12 @@ function ArenaContent() {
   const [view, setView] = useState<'match' | 'results' | 'review'>('match');
   const [error, setError] = useState<string | null>(null);
   const [now, setNow] = useState(() => Date.now());
+  const [fl, setFl] = useState<FlState | null>(null);
+  const [flEnd, setFlEnd] = useState<FlEnd | null>(null);
+  const [emotes, setEmotes] = useState<Emote[]>([]);
+  const [muted, setMuted] = useState(false);
+  const mutedRef = useRef(false);
+  useEffect(() => { mutedRef.current = muted; }, [muted]);
 
   const code = params.get('room');
 
@@ -234,6 +244,7 @@ function ArenaContent() {
         const settings = {
           subject: params.get('subject'), domain: params.get('domain'), difficulty: params.get('difficulty'),
           questionCount: Number(params.get('count')), timeLimit: Number(params.get('minutes')), includeBluebook: params.get('bluebook') === '1',
+          mode: params.get('mode'), turns: Number(params.get('turns')),
         };
         socket.emit('room:create', { name: nickname, playerId: id, settings }, (res: { error?: string; room?: Room }) => {
           if (res.error || !res.room) return setError(res.error || 'Could not create the room.');
@@ -256,7 +267,20 @@ function ArenaContent() {
       setEnd(null);
       setView('match');
     });
-    socket.on('match:end', (e: MatchEnd) => { setEnd(e); setView(v => (v === 'review' ? v : 'results')); });
+    socket.on('match:end', (e: MatchEnd | FlEnd) => {
+      if ('mode' in e && e.mode === 'finish') setFlEnd(e);
+      else { setEnd(e as MatchEnd); setView(v => (v === 'review' ? v : 'results')); }
+    });
+    socket.on('fl:state', (st: FlState) => {
+      setOffset(Date.now() - st.serverNow);
+      setFl(st);
+      if (st.phase !== 'done') setFlEnd(null);
+    });
+    socket.on('room:emote', (e: Emote) => {
+      if (mutedRef.current && e.playerId !== id) return;
+      setEmotes(list => [...list.slice(-11), e]);
+      setTimeout(() => setEmotes(list => list.filter(x => x.id !== e.id)), 3800);
+    });
 
     return () => {
       socket.disconnect();
@@ -294,6 +318,9 @@ function ArenaContent() {
     router.push('/');
   };
 
+  const sendEmote = useCallback((text: string) => socketRef.current?.emit('room:emote', { text }), []);
+  const flSend = useCallback((event: string, data?: object) => socketRef.current?.emit(event, data), []);
+
   const inviteLink = typeof window !== 'undefined' && room ? `${window.location.origin}/arena?room=${room.code}` : '';
   const me = room?.players.find(p => p.playerId === playerId);
   const opponent = room?.players.find(p => p.playerId !== playerId);
@@ -313,9 +340,29 @@ function ArenaContent() {
     return <div className="min-h-dvh flex items-center justify-center text-[var(--bb-muted)] font-semibold">Connecting…</div>;
   }
 
+  const emoteUi = (dockClass?: string, top?: number) => (
+    <>
+      <EmoteLayer emotes={emotes} me={playerId} top={top} />
+      {opponent && <EmoteDock onSend={sendEmote} muted={muted} onToggleMute={() => setMuted(m => !m)} className={dockClass} />}
+    </>
+  );
+
+  if (room.settings.mode === 'finish') {
+    if (flEnd) {
+      return <>{<FinishLineResults end={flEnd} me={playerId} players={room.players} onRematch={() => socketRef.current?.emit('match:rematch')} />}{emoteUi()}</>;
+    }
+    if (room.state === 'waiting' || !fl) return <><Lobby room={room} me={playerId} inviteLink={inviteLink} onLeave={leave} />{emoteUi()}</>;
+    return <><FinishLineGame s={fl} offset={offset} me={me} opp={opponent} send={flSend} onLeave={leave} />{emoteUi(undefined, 96)}</>;
+  }
+
   if (end && view === 'results') {
-    return <Results end={end} room={room} me={playerId} questions={match?.questions ?? []} onReview={() => setView('review')}
-      onRematch={() => socketRef.current?.emit('match:rematch')} />;
+    return (
+      <>
+        <Results end={end} room={room} me={playerId} questions={match?.questions ?? []} onReview={() => setView('review')}
+          onRematch={() => socketRef.current?.emit('match:rematch')} />
+        {emoteUi()}
+      </>
+    );
   }
 
   if (end && view === 'review' && match) {
@@ -336,7 +383,7 @@ function ArenaContent() {
   }
 
   if (room.state === 'waiting' || !match) {
-    return <Lobby room={room} me={playerId} inviteLink={inviteLink} onLeave={leave} />;
+    return <><Lobby room={room} me={playerId} inviteLink={inviteLink} onLeave={leave} />{emoteUi()}</>;
   }
 
   return (
@@ -357,6 +404,7 @@ function ArenaContent() {
         exitLabel="Leave Match"
         exitConfirm="Leaving submits your current answers and ends the match for you."
       />
+      {emoteUi('bottom-24 right-4', 120)}
       {countdown > 0 && (
         <div className="bb-modal-backdrop">
           <div className="text-center text-white">
