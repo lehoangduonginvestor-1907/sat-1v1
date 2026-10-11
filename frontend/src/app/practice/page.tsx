@@ -7,9 +7,10 @@ import { ArrowLeft, Check, X as XIcon } from 'lucide-react';
 import TestShell from '@/components/bluebook/TestShell';
 import type { QuestionResult } from '@/components/bluebook/QuestionView';
 import { BankStats, fetchMeta, fetchQuestions, gradeAnswers, QuestionFilter } from '@/lib/api';
-import { getHistory, recordResults, useHistory, useNickname } from '@/lib/storage';
+import { getHistory, recordLessonPractice, recordResults, updateLesson, useHistory, useNickname } from '@/lib/storage';
 import type { Answers, GradeResult, Question, Subject } from '@/lib/types';
 import { SECTION_OF } from '@/lib/types';
+import { findLesson } from '@/lib/learn';
 
 type Kind = 'module' | 'section' | 'custom';
 type Pool = 'all' | 'unseen' | 'mistakes';
@@ -224,7 +225,7 @@ function Setup({ config, setConfig, stats, onStart, error, loading }: {
             <span className="font-bold">Bluebook tests</span>
             <label className="flex items-start gap-2 text-[15px]">
               <input type="checkbox" className="mt-1" checked={config.includeBluebook} onChange={e => setConfig({ ...config, includeBluebook: e.target.checked })} />
-              <span>Include questions from the official Bluebook practice tests ({stats?.[section]?.bluebook ?? '…'} more). <span className="text-[var(--bb-muted)]">Leave this off if you still plan to take those tests in Bluebook.</span></span>
+              <span>Include questions from the official Bluebook practice tests, SAT and PSAT ({stats?.[section]?.bluebook ?? '…'} more). <span className="text-[var(--bb-muted)]">Leave this off if you still plan to take those tests in Bluebook.</span></span>
             </label>
           </div>
         </div>
@@ -264,8 +265,9 @@ function Breakdown({ modules }: { modules: ModuleRun[] }) {
   );
 }
 
-function Results({ modules, adaptive, onReview, onRedo, onNew }: {
+function Results({ modules, adaptive, onReview, onRedo, onNew, newLabel = 'New Practice', back = { href: '/', label: 'Home' } }: {
   modules: ModuleRun[]; adaptive: string | null; onReview: (m: number) => void; onRedo: (() => void) | null; onNew: () => void;
+  newLabel?: string; back?: { href: string; label: string };
 }) {
   const total = modules.reduce((s, m) => s + m.questions.length, 0);
   const correct = modules.reduce((s, m) => s + m.results.filter(r => r?.correct).length, 0);
@@ -273,7 +275,7 @@ function Results({ modules, adaptive, onReview, onRedo, onNew }: {
     <div className="min-h-dvh bg-[#f7f7f7]">
       <header className="bg-white">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-1 font-semibold hover:underline"><ArrowLeft size={18} /> Home</Link>
+          <Link href={back.href} className="flex items-center gap-1 font-semibold hover:underline"><ArrowLeft size={18} /> {back.label}</Link>
           <span className="text-xl font-bold">Results</span>
         </div>
         <div className="bb-dash" />
@@ -313,7 +315,7 @@ function Results({ modules, adaptive, onReview, onRedo, onNew }: {
 
         <div className="flex flex-wrap justify-end gap-3">
           {onRedo && <button className="bb-secondary" onClick={onRedo}>Redo My Mistakes</button>}
-          <button className="bb-primary" onClick={onNew}>New Practice</button>
+          <button className="bb-primary" onClick={onNew}>{newLabel}</button>
         </div>
       </main>
     </div>
@@ -328,11 +330,16 @@ function PracticeContent() {
   const preset = params.get('preset');
   const sharedIds = params.get('ids');
   const presetSubject: Subject = params.get('subject') === 'Math' ? 'Math' : 'Verbal';
+  // Luyện tập sau bài học: /practice?lesson=grammar/transitions&count=10&bluebook=1
+  const lessonParam = params.get('lesson');
+  const lessonFound = lessonParam ? findLesson(...(lessonParam.split('/') as [string, string])) : null;
+  const lesson = lessonFound?.lesson.practice ? lessonFound : null;
+  const lessonHref = lesson ? `/learn/${lesson.course.slug}/${lesson.lesson.slug}` : null;
 
   const [config, setConfig] = useState<Config>(() =>
     preset === 'module' || preset === 'section' ? defaultConfig(presetSubject, preset) : defaultConfig(presetSubject, 'custom'));
   const [stats, setStats] = useState<BankStats | null>(null);
-  const [phase, setPhase] = useState<'loading' | 'setup' | 'session' | 'transition' | 'results' | 'review'>(preset || sharedIds ? 'loading' : 'setup');
+  const [phase, setPhase] = useState<'loading' | 'setup' | 'session' | 'transition' | 'results' | 'review'>(preset || sharedIds || lesson ? 'loading' : 'setup');
   const [modules, setModules] = useState<ModuleRun[]>([]);
   const [current, setCurrent] = useState(0);
   const [reviewing, setReviewing] = useState(0);
@@ -379,7 +386,8 @@ function PracticeContent() {
       const minutes = minutesFor(c, questions.length);
       setConfig(c);
       setModules([{
-        title: extra.subject === 'Any' ? 'Practice' : c.kind === 'custom' ? `Practice: ${SECTION_OF[c.subject]}` : moduleTitle(c.subject, 1),
+        title: lesson && extra.topics !== undefined ? `Lesson Practice: ${lesson.lesson.title}`
+          : extra.subject === 'Any' ? 'Practice' : c.kind === 'custom' ? `Practice: ${SECTION_OF[c.subject]}` : moduleTitle(c.subject, 1),
         questions,
         answers: {},
         endsAt: minutes ? Date.now() + minutes * 60_000 : null,
@@ -396,7 +404,16 @@ function PracticeContent() {
     } finally {
       setLoading(false);
     }
-  }, [buildFilter]);
+  }, [buildFilter, lesson]);
+
+  // Câu luyện tập của bài học: đúng skill, ưu tiên đúng chủ đề và câu chưa làm, không tính giờ, kiểm tra từng câu
+  const launchLesson = useCallback(() => {
+    if (!lesson?.lesson.practice) return;
+    const { skills, topics } = lesson.lesson.practice;
+    const count = [5, 10, 15].includes(Number(params.get('count'))) ? Number(params.get('count')) : 10;
+    launch({ ...defaultConfig('Verbal', 'custom'), count, instant: true, timer: 'off', includeBluebook: params.get('bluebook') === '1' },
+      { skills, topics: topics || [], excludeIds: Object.keys(getHistory()) });
+  }, [lesson, params, launch]);
 
   const start = (c: Config, extra: Partial<QuestionFilter> = {}) => {
     setLoading(true);
@@ -408,7 +425,9 @@ function PracticeContent() {
   // launch() chỉ đặt state sau khi tải đề xong (sau await), không phải setState đồng bộ trong effect.
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
-    if (sharedIds) {
+    if (lesson) {
+      launchLesson();
+    } else if (sharedIds) {
       // Link chia sẻ: /practice?ids=a1b2c3d4,e5f6a7b8
       const ids = sharedIds.split(',').map(s => s.trim()).filter(Boolean).slice(0, 100);
       launch({ ...defaultConfig('Verbal', 'custom'), count: ids.length, instant: true },
@@ -493,6 +512,11 @@ function PracticeContent() {
       }
       return;
     }
+    if (lesson && m.title.startsWith('Lesson Practice')) { // không tính lượt "làm lại câu sai"
+      const key = `${lesson.course.slug}/${lesson.lesson.slug}`;
+      recordLessonPractice(key, results.filter(r => r?.correct).length, results.length);
+      updateLesson(key, p => ({ ...p, done: true }));
+    }
     setPhase('results');
   };
 
@@ -528,7 +552,10 @@ function PracticeContent() {
     const wrong = modules.some(m => m.results.some(r => !r?.correct));
     return (
       <Results modules={modules} adaptive={adaptive} onReview={m => { setReviewing(m); setPhase('review'); }}
-        onRedo={wrong ? redoMistakes : null} onNew={() => { setPhase('setup'); router.replace('/practice'); }} />
+        onRedo={wrong ? redoMistakes : null}
+        onNew={lessonHref ? () => router.push(lessonHref) : () => { setPhase('setup'); router.replace('/practice'); }}
+        newLabel={lessonHref ? 'Back to Lesson' : undefined}
+        back={lessonHref ? { href: lessonHref, label: 'Lesson' } : undefined} />
     );
   }
 
@@ -567,7 +594,7 @@ function PracticeContent() {
         results={mod.results.map(x => (x ? { key: x, correct: x.correct } : undefined))}
         onCheck={config.instant ? onCheck : undefined}
         checkingIndex={checkingIndex}
-        onExit={() => { setPhase('setup'); router.replace('/practice'); }}
+        onExit={lessonHref ? () => router.push(lessonHref) : () => { setPhase('setup'); router.replace('/practice'); }}
         exitLabel="Exit Practice"
         exitConfirm="Your answers in this set won't be saved."
         shareLinks

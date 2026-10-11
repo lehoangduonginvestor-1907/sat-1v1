@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { topicsOf } = require('./topics');
 
 // Ngân hàng câu hỏi (sinh bởi tools/build_bank.py) + chọn câu + chấm điểm
 
@@ -49,6 +50,8 @@ function loadBank(file = path.join(__dirname, '..', 'data', 'questions.json')) {
 }
 
 const bank = loadBank();
+// Chủ đề nhỏ cho bài học /learn (vd. Boundaries → nối hai câu / thành phần chen giữa...)
+for (const q of bank) q.topics = topicsOf(q);
 const byId = new Map(bank.map(q => [q.id, q]));
 
 // Câu gửi cho người chơi: không kèm đáp án / lời giải
@@ -171,7 +174,8 @@ function composeModule(pool, section, count) {
 
 /**
  * settings: { subject: 'Verbal' | 'Math' | 'Any' (chỉ khi có onlyIds), domains?: [], skills?: [], difficulties?: [],
- *             includeBluebook?: bool, excludeIds?: [], onlyIds?: [], count, format?: 'module' | 'random' }
+ *             topics?: [], includeBluebook?: bool, excludeIds?: [], onlyIds?: [], count, format?: 'module' | 'random' }
+ * topics chỉ là ưu tiên: thiếu câu đúng chủ đề thì bù bằng câu cùng skill.
  */
 function selectQuestions(settings) {
   const has = list => Array.isArray(list) && list.length > 0;
@@ -187,9 +191,20 @@ function selectQuestions(settings) {
     (!has(settings.skills) || settings.skills.includes(q.skill)) &&
     (!has(settings.difficulties) || settings.difficulties.includes(q.difficulty)) &&
     (!only || only.has(q.id)));
+  const count = Math.max(1, Math.min(Number(settings.count) || BLUEPRINTS[section || RW].size, 100));
+  if (has(settings.topics)) {
+    // Thứ tự ưu tiên: đúng chủ đề & chưa làm → đúng chủ đề → cùng skill & chưa làm → còn lại
+    const focused = q => q.topics.some(t => settings.topics.includes(t));
+    const tiers = [
+      pool.filter(q => focused(q) && !exclude.has(q.id)),
+      pool.filter(q => focused(q) && exclude.has(q.id)),
+      pool.filter(q => !focused(q) && !exclude.has(q.id)),
+      pool.filter(q => !focused(q) && exclude.has(q.id)),
+    ];
+    return bluebookOrder(tiers.flatMap(shuffle).slice(0, count));
+  }
   // "Chưa làm" mà không đủ câu thì vẫn lấy thêm câu đã làm
   const fresh = pool.filter(q => !exclude.has(q.id));
-  const count = Math.max(1, Math.min(Number(settings.count) || BLUEPRINTS[section || RW].size, 100));
   if (fresh.length >= count) pool = fresh;
 
   const picked = section && settings.format === 'module' && !has(settings.domains) && !has(settings.skills)
@@ -210,9 +225,10 @@ function bankStats() {
     s.total++;
     const d = (s.domains[q.domain] ||= { total: 0, skills: {} });
     d.total++;
-    const k = (d.skills[q.skill] ||= { total: 0, Easy: 0, Medium: 0, Hard: 0 });
+    const k = (d.skills[q.skill] ||= { total: 0, Easy: 0, Medium: 0, Hard: 0, topics: {} });
     k.total++;
     k[q.difficulty]++;
+    for (const t of q.topics) k.topics[t] = (k.topics[t] || 0) + 1;
   }
   return stats;
 }

@@ -32,6 +32,7 @@ export interface QuestionFilter {
   subject: 'Verbal' | 'Math' | 'Any'; // 'Any' chỉ dùng kèm onlyIds
   domains?: string[];
   skills?: string[];
+  topics?: string[]; // ưu tiên câu đúng chủ đề bài học (thiếu thì bù câu cùng skill)
   difficulties?: string[];
   includeBluebook?: boolean;
   excludeIds?: string[];

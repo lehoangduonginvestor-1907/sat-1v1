@@ -3,7 +3,7 @@
 import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Edit2, Swords, BookOpen, Target, X } from 'lucide-react';
+import { Edit2, Swords, BookOpen, GraduationCap, Target, X } from 'lucide-react';
 import { setNickname as saveNickname, useHistory, useNickname, History } from '@/lib/storage';
 
 const DOMAINS: Record<string, string[]> = {
@@ -84,7 +84,7 @@ function CreateMatchModal({ onClose, onCreate }: { onClose: () => void; onCreate
           <p className="text-xs text-[var(--bb-muted)]">Bluebook pace: 27 questions in 32 min (Reading &amp; Writing), 22 in 35 min (Math).</p>
           <label className="flex items-start gap-2 text-sm">
             <input type="checkbox" className="mt-0.5" checked={s.includeBluebook} onChange={e => setS({ ...s, includeBluebook: e.target.checked })} />
-            <span>Include questions from the official Bluebook practice tests <span className="text-[var(--bb-muted)]">(leave off if you still plan to take them)</span></span>
+            <span>Include questions from the official Bluebook practice tests (SAT and PSAT) <span className="text-[var(--bb-muted)]">(leave off if you still plan to take them)</span></span>
           </label>
         </div>
         <div className="flex justify-end mt-6">
@@ -165,6 +165,16 @@ function HomeContent() {
         <section>
           <h1 className="text-[28px] font-bold mb-1">Welcome back, {nickname}</h1>
           <p className="text-[var(--bb-muted)]">Practice on official College Board questions in a Bluebook-style test window.</p>
+        </section>
+
+        <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7">
+          <div className="flex items-center gap-3 mb-2"><GraduationCap className="text-[var(--bb-blue)]" /><h2 className="text-xl font-bold">Learn</h2></div>
+          <p className="text-[var(--bb-muted)] mb-5">Lessons for every Reading and Writing question type, from transitions and punctuation to inferences and graphs. Each lesson ends with practice on official questions.</p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/learn/grammar/transitions" className="bb-primary">Writing: Grammar &amp; Expression</Link>
+            <Link href="/learn/reading/how-sat-reading-works" className="bb-primary">Reading</Link>
+            <Link href="/learn" className="bb-secondary">All Lessons</Link>
+          </div>
         </section>
 
         <div className="grid md:grid-cols-2 gap-6">

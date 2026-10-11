@@ -122,3 +122,40 @@ export function recordResults(questions: Question[], results: GradeResult[]) {
   }
   write(HISTORY_KEY, JSON.stringify(history));
 }
+
+// ---- Tiến độ bài học (/learn) ----
+
+export interface LessonProgress {
+  done?: boolean;
+  checks?: Record<number, boolean>; // câu hỏi nhanh trong bài: đúng ở lần trả lời đầu?
+  practice?: { correct: number; total: number; ts: number }[]; // vài lần luyện tập gần nhất
+}
+
+export type LearnProgress = Record<string, LessonProgress>;
+const LEARN_KEY = 'sat_learn_v1';
+let learnCache: { raw: string | null; value: LearnProgress } = { raw: null, value: {} };
+
+export function getLearnProgress(): LearnProgress {
+  const raw = readRaw(LEARN_KEY);
+  if (raw !== learnCache.raw) {
+    let value: LearnProgress = {};
+    try {
+      value = raw ? JSON.parse(raw) : {};
+    } catch {
+      value = {};
+    }
+    learnCache = { raw, value };
+  }
+  return learnCache.value;
+}
+
+export const useLearnProgress = () => useStored(getLearnProgress);
+
+export function updateLesson(key: string, update: (p: LessonProgress) => LessonProgress) {
+  const all = getLearnProgress();
+  write(LEARN_KEY, JSON.stringify({ ...all, [key]: update(all[key] || {}) }));
+}
+
+export function recordLessonPractice(key: string, correct: number, total: number) {
+  updateLesson(key, p => ({ ...p, practice: [...(p.practice || []), { correct, total, ts: Date.now() }].slice(-5) }));
+}

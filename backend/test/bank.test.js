@@ -94,3 +94,17 @@ test('student-produced responses are spread out, never first in a Math module', 
     for (let k = 1; k < positions.length; k++) assert.ok(positions[k] - positions[k - 1] >= 2, `spr at ${positions}`);
   }
 });
+
+test('lesson practice prefers questions on the lesson topic, then tops up from the same skill', () => {
+  const tagged = bank.filter(q => q.skill === 'Boundaries' && !q.bluebook && q.topics.includes('joining'));
+  assert.ok(tagged.length >= 10, 'enough sentence-joining questions');
+  const picked = selectQuestions({ subject: 'Verbal', skills: ['Boundaries'], topics: ['joining'], count: 10 });
+  assert.equal(picked.length, 10);
+  assert.ok(picked.every(q => q.topics.includes('joining')));
+
+  const rare = bank.filter(q => q.skill === 'Boundaries' && !q.bluebook && q.topics.includes('colon-dash')).length;
+  const topped = selectQuestions({ subject: 'Verbal', skills: ['Boundaries'], topics: ['colon-dash'], count: rare + 3 });
+  assert.equal(topped.length, rare + 3);
+  assert.equal(topped.filter(q => q.topics.includes('colon-dash')).length, rare);
+  assert.ok(topped.every(q => q.skill === 'Boundaries'));
+});

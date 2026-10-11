@@ -20,3 +20,7 @@ dist/
 # Bộ dữ liệu tải về bằng backend/tools/fetch_sources.py
 backend/data/sources/
 __pycache__/
+
+# Sách tham khảo (không đưa lên GitHub)
+/*.pdf
+books/
