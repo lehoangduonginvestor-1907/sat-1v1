@@ -33,6 +33,7 @@ export interface TestShellProps {
   topBar?: React.ReactNode;
   reviewNote?: React.ReactNode;
   shareLinks?: boolean; // menu "Copy Question Link"
+  onNavigate?: (index: number | null) => void; // câu đang xem (null = trang Check Your Work), để đo thời gian từng câu
 }
 
 type Pending = { key: string; selection: TextSelection };
@@ -90,6 +91,11 @@ export default function TestShell(p: TestShellProps) {
       onTimeUp?.();
     }
   }, [secondsLeft, onTimeUp]);
+
+  const { onNavigate } = p;
+  useEffect(() => {
+    onNavigate?.(onReviewPage ? null : index);
+  }, [index, onReviewPage, onNavigate]);
 
   // Bỏ vùng chọn khi bấm ra ngoài
   useEffect(() => {

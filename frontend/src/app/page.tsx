@@ -210,6 +210,7 @@ function HomeContent() {
           <div className="flex flex-wrap items-center justify-between gap-6">
             <Stats history={history || {}} />
             <div className="flex flex-wrap gap-3">
+              <Link href="/reports" className="bb-secondary">Reports</Link>
               {mistakes > 0 && <Link href="/practice?preset=mistakes" className="bb-secondary">Redo Mistakes ({mistakes})</Link>}
               <Link href="/practice" className="bb-primary">Start Practicing</Link>
             </div>
