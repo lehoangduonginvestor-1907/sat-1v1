@@ -130,6 +130,14 @@
       "reason": "Retired from the Question Bank"
     },
     {
+      "id": "e3bbf2bf",
+      "reason": "girff: choice D label missing in source; D inferred from the unlabeled last line"
+    },
+    {
+      "id": "eb03096e",
+      "reason": "girff: source shows missing-glyph boxes; rendered as the Hawaiian ʻokina"
+    },
+    {
       "id": "ecd09c38",
       "reason": "Retired from the Question Bank"
     },

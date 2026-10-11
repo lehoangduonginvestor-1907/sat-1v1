@@ -475,6 +475,112 @@ def from_cbqb(q):
     }
 
 
+# Câu chỉ có trong girff: chữ dùng markup nhỏ ($latex$, <i>, <b>, <u>, <sup>, <sub>, <br/>, \$ = dấu đô la),
+# công thức LaTeX đổi sang MathML để hiển thị giống các câu lấy từ JSON gốc của College Board
+INLINE_MATH = re.compile(r'(?<!\\)\$((?:[^$\\]|\\.)+?)\$')
+GROUPED_DIGITS = re.compile(r'<mn>([\d,]+)</mn><mrow><mo>&#x0002C;</mo></mrow><mn>(\d+)</mn>')
+
+
+def tex(latex, display=False):
+    from latex2mathml.converter import convert  # chỉ cần khi dựng lại kho: pip install latex2mathml
+    latex = re.sub(r'\\text\{ ', r'\\ \\text{', latex.strip())  # giữ khoảng trắng trước đơn vị: 5\text{ cm}
+    mathml = convert(latex, display='block' if display else 'inline')
+    # \$ và \% ra <mi> (chữ nghiêng): College Board viết ký hiệu đơn vị dạng toán tử đứng
+    mathml = mathml.replace('<mi>&#x00024;</mi>', '<mo>$</mo>').replace('<mi>&#x00025;</mi>', '<mo>%</mo>')
+    while GROUPED_DIGITS.search(mathml):  # 3{,}577 -> một số
+        mathml = GROUPED_DIGITS.sub(r'<mn>\1,\2</mn>', mathml)
+    return mathml
+
+
+def girff_text(value):
+    parts = INLINE_MATH.split(value)
+    html = []
+    for i, part in enumerate(parts):
+        if i % 2:
+            html.append(tex(part))
+        else:
+            part = re.sub(r'<img\s+src="?([\w./-]+)"?([^>]*)/?>',
+                          lambda m: f'<img src="{girff_figure(m.group(1))}"{m.group(2)}>', part)
+            html.append(part.replace(r'\$', '$'))
+    return ''.join(html)
+
+
+def girff_table(block):
+    head = ''.join(f'<th>{girff_text(h)}</th>' for h in block['headers'])
+    rows = ''.join('<tr>' + ''.join(f'<td>{girff_text(c)}</td>' for c in row) + '</tr>' for row in block['rows'])
+    return f'<table class="table"><tbody><tr>{head}</tr>{rows}</tbody></table>'
+
+
+def girff_blocks(blocks):
+    html, bullets = [], []
+    for block in blocks or []:
+        kind = block['kind']
+        if kind == 'text' and block.get('style') == 'bullet':
+            bullets.append(f'<li>{girff_text(block["value"])}</li>')
+            continue
+        if bullets:
+            html.append('<ul>' + ''.join(bullets) + '</ul>')
+            bullets = []
+        if kind == 'text':
+            style = ' style="text-align:center"' if block.get('style') == 'center' else ''
+            html.append(f'<p{style}>{girff_text(block["value"])}</p>')
+        elif kind == 'math':
+            html.append(f'<p>{tex(block["latex"], display=True)}</p>')
+        elif kind == 'table':
+            html.append(girff_table(block))
+        elif kind == 'image':
+            width = f' style="width:{block["width"]:g}px"' if block.get('width') else ''
+            html.append(f'<figure class="image"><img src="{girff_figure(block["src"])}" alt="{htmllib.escape(block.get("alt") or "")}"{width}></figure>')
+        else:
+            raise ValueError(f'Unknown girff block kind: {kind}')
+    if bullets:
+        html.append('<ul>' + ''.join(bullets) + '</ul>')
+    return ''.join(html)
+
+
+def girff_inline(content):
+    # Lựa chọn một dòng: không bọc <p> (giống lựa chọn trong JSON gốc)
+    if len(content) == 1 and content[0]['kind'] == 'math':
+        return tex(content[0]['latex'])
+    if len(content) == 1 and content[0]['kind'] == 'text' and not content[0].get('style'):
+        return girff_text(content[0]['value'])
+    return girff_blocks(content)
+
+
+def from_girff(q):
+    stem = q['stem']
+    if q['section'] == 'math' and stem and stem[-1]['kind'] == 'text':
+        # Đề Math gồm hình/bảng/phương trình rồi câu hỏi: tách câu hỏi cuối ra làm stem
+        stimulus, stem = girff_blocks(stem[:-1]), girff_blocks(stem[-1:])
+    else:
+        stimulus, stem = girff_blocks(q.get('passage')), girff_blocks(stem)
+    choices = sorted(q.get('choices') or [], key=lambda c: c['label'])
+    return {
+        'stimulus': stimulus,
+        'stem': stem,
+        'options': [girff_inline(c['content']) for c in choices],
+        'rationale': girff_blocks(q['rationale']['overall']),
+    }
+
+
+def girff_rationale_key(q):
+    """Đáp án ghi trong lời giải của girff (nguồn thứ hai cho câu chỉ có ở girff)."""
+    text = ' '.join(b.get('value', '') for b in q['rationale']['overall'] if b['kind'] == 'text')
+    if q['type'] == 'mcq':
+        m = re.search(r'Choice ([A-D]) is (?:correct|the best answer)', text)
+        return ('mcq', m.group(1)) if m else None
+    m = re.search(r'correct answers? (?:is|are)(.*?)(?:\.\s|$)', text)
+    if not m:
+        return None
+    values = []
+    for latex in INLINE_MATH.findall(m.group(1)) or [m.group(1)]:
+        s = re.sub(r'\\d?frac\{(-?\d+)\}\{(\d+)\}', r'\1/\2', latex.replace('{,}', '').replace(' ', ''))
+        s = s.replace('\\left', '').replace('\\right', '').strip('()')
+        if re.fullmatch(r'-?\d*\.?\d+(/\d+)?', s):
+            values.append(s)
+    return ('spr', values) if values else None
+
+
 # ---------------------------------------------------------------------------
 # Đáp án từ từng nguồn + đối chiếu
 # ---------------------------------------------------------------------------
@@ -523,7 +629,7 @@ def keys_of(qid, pdf, mdn, cbqb, girff):
 
 def resolve_key(qid, keys):
     """Đáp án cuối cùng + số nguồn đồng ý. Ưu tiên: mdn (JSON gốc) > pdf > cbqb > girff."""
-    order = [s for s in ('mdn', 'pdf', 'cbqb', 'girff') if s in keys]
+    order = [s for s in ('mdn', 'pdf', 'cbqb', 'girff', 'rationale') if s in keys]
     types = {keys[s][0] for s in order}
     primary = order[0]
     kind = keys[primary][0]
@@ -585,48 +691,68 @@ def main():
     # Câu chỉ có trong mdn522 và được đánh dấu "live" = câu đề Bluebook -> chỉ dùng khi người chơi bật.
     core = set(pdf) | set(cbqb)
     bluebook = {qid for qid, q in mdn.items() if q['external_id'] in live} - core
+    # Câu chỉ có trong bản export đầy đủ (girff): phân bố độ khó và tỉ lệ câu tự điền trùng với nhóm câu đề
+    # Bluebook ở trên, khác hẳn kho chính -> phần lớn là câu các đề luyện Bluebook ra sau 2024 (SAT, PSAT).
+    # Cũng chỉ dùng khi người chơi bật; đáp án đối chiếu với lời giải chính thức đi kèm.
+    extra = set(girff) - core - bluebook - set(mdn)
 
     bank, report = [], {'conflicts': [], 'excluded': [], 'difficulty_conflicts': [], 'single_source': []}
-    for qid in sorted(core | bluebook):
+    for qid in sorted(core | bluebook | extra):
         p, m, c = pdf.get(qid), mdn.get(qid), cbqb.get(qid)
 
-        if c and not m and any('missing' in n for n in c.get('notes') or []):
-            report['excluded'].append({'id': qid, 'reason': 'Math missing in College Board source'})
-            continue
-        # girff là bản export đầy đủ mới nhất (10/2026): câu không còn ở đó đã bị College Board gỡ
-        if qid not in girff:
-            report['excluded'].append({'id': qid, 'reason': 'Retired from the Question Bank'})
-            continue
+        if qid in extra:
+            g = girff[qid]
+            if g['parseConfidence'] == 'low' or g.get('issues'):
+                report['excluded'].append({'id': qid, 'reason': 'girff: ' + '; '.join(g.get('issues') or ['low parse confidence'])})
+                continue
+            keys = {'girff': ('mcq', g['correct'][0]) if g['type'] == 'mcq' else ('spr', g['correct'])}
+            if girff_rationale_key(g):
+                keys['rationale'] = girff_rationale_key(g)
+            answer, agree, conflicts = resolve_key(qid, keys)
+            if conflicts or len(agree) < 2:
+                report['excluded'].append({'id': qid, 'reason': 'girff key not confirmed by its rationale', 'keys': keys})
+                continue
+            section, domain, skill = (MATH if g['section'] == 'math' else RW), g['domain'], skill_name(g['skill'])
+            difficulty = DIFFICULTY[g['difficulty']]
+            raw = from_girff(g)
+        else:
+            if c and not m and any('missing' in n for n in c.get('notes') or []):
+                report['excluded'].append({'id': qid, 'reason': 'Math missing in College Board source'})
+                continue
+            # girff là bản export đầy đủ mới nhất (10/2026): câu không còn ở đó đã bị College Board gỡ
+            if qid not in girff:
+                report['excluded'].append({'id': qid, 'reason': 'Retired from the Question Bank'})
+                continue
 
-        if m:
-            section = MATH if m['module'] == 'math' else RW
-            domain, skill = m['primary_class_cd_desc'], skill_name(m['skill_desc'])
-        if c:
-            section, domain, skill = c['section'], c['domain'], skill_name(c['skill'])
-        if p:
-            section, domain, skill = p['section'], p['domain'], skill_name(p['skill'])
+            if m:
+                section = MATH if m['module'] == 'math' else RW
+                domain, skill = m['primary_class_cd_desc'], skill_name(m['skill_desc'])
+            if c:
+                section, domain, skill = c['section'], c['domain'], skill_name(c['skill'])
+            if p:
+                section, domain, skill = p['section'], p['domain'], skill_name(p['skill'])
 
-        # College Board có chấm lại độ khó theo thời gian: ưu tiên bản export mới nhất
-        # (cbqb/girff 10/2026 > pdf 8/2025 > mdn 9/2024)
-        difficulties = {s: DIFFICULTY[d] for s, d in (
-            ('cbqb', c and c['difficulty']), ('girff', girff[qid]['difficulty']),
-            ('pdf', p and p.get('difficulty')), ('mdn', m and m['difficulty'])) if d}
-        difficulty = next(iter(difficulties.values()))
-        if len(set(difficulties.values())) > 1:
-            report['difficulty_conflicts'].append({'id': qid, **difficulties})
+            # College Board có chấm lại độ khó theo thời gian: ưu tiên bản export mới nhất
+            # (cbqb/girff 10/2026 > pdf 8/2025 > mdn 9/2024)
+            difficulties = {s: DIFFICULTY[d] for s, d in (
+                ('cbqb', c and c['difficulty']), ('girff', girff[qid]['difficulty']),
+                ('pdf', p and p.get('difficulty')), ('mdn', m and m['difficulty'])) if d}
+            difficulty = next(iter(difficulties.values()))
+            if len(set(difficulties.values())) > 1:
+                report['difficulty_conflicts'].append({'id': qid, **difficulties})
 
-        keys = keys_of(qid, pdf, mdn, cbqb, girff)
-        answer, agree, conflicts = resolve_key(qid, keys)
-        if conflicts:
-            report['conflicts'].append({'id': qid, 'chosen': answer, 'votes': conflicts})
-        if len(agree) < 2:
-            report['single_source'].append(qid)
+            keys = keys_of(qid, pdf, mdn, cbqb, girff)
+            answer, agree, conflicts = resolve_key(qid, keys)
+            if conflicts:
+                report['conflicts'].append({'id': qid, 'chosen': answer, 'votes': conflicts})
+            if len(agree) < 2:
+                report['single_source'].append(qid)
 
-        raw = from_mdn(m) if m else from_cbqb(fix_cbqb_figures(c, girff[qid]))
-        raw['rationale'] = apply_errata(qid, raw['rationale'])
-        if m and c and '<u>' in json.dumps(c['stimulus']) and not re.search(r'<u>|underline', raw['stimulus']):
-            # College Board thêm gạch chân sau bản 2024 (vd. 73d457b6): lấy đoạn văn bản mới
-            raw['stimulus'] = from_cbqb(c)['stimulus']
+            raw = from_mdn(m) if m else from_cbqb(fix_cbqb_figures(c, girff[qid]))
+            raw['rationale'] = apply_errata(qid, raw['rationale'])
+            if m and c and '<u>' in json.dumps(c['stimulus']) and not re.search(r'<u>|underline', raw['stimulus']):
+                # College Board thêm gạch chân sau bản 2024 (vd. 73d457b6): lấy đoạn văn bản mới
+                raw['stimulus'] = from_cbqb(c)['stimulus']
         content = {k: sanitize(v) if k != 'options' else [sanitize(o) for o in v] for k, v in raw.items()}
 
         problems = []
@@ -650,7 +776,7 @@ def main():
             'domain': domain,
             'skill': skill,
             'difficulty': difficulty,
-            'bluebook': qid in bluebook,
+            'bluebook': qid in bluebook or qid in extra,
             **{k: v for k, v in answer.items() if k != 'type'},
             'type': answer['type'],
             'stimulus': content['stimulus'],
@@ -676,7 +802,7 @@ def main():
     by = lambda pred: sum(1 for q in bank if pred(q))
     print(f'Questions: {len(bank)} | R&W {by(lambda q: q["section"] == RW and not q["bluebook"])}'
           f' + Math {by(lambda q: q["section"] == MATH and not q["bluebook"])}'
-          f' | Bluebook (opt-in) {by(lambda q: q["bluebook"])}')
+          f' | Bluebook (opt-in) {by(lambda q: q["bluebook"])}, of which girff-only {by(lambda q: q["id"] in extra)}')
     print(f'Key conflicts: {len(report["conflicts"])} | difficulty conflicts: {len(report["difficulty_conflicts"])}'
           f' | single-source keys: {len(report["single_source"])} | excluded: {len(report["excluded"])}')
     print(f'CBQB media files: {len(CBQB_MEDIA)} | report: {os.path.relpath(REPORT_PATH)}')

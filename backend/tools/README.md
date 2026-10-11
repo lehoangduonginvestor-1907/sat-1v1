@@ -7,6 +7,8 @@ python backend/tools/fetch_sources.py   # download pinned public datasets into b
 python backend/tools/build_bank.py      # merge, cross-check, sanitize -> data/questions.json + data/build_report.json
 ```
 
+`build_bank.py` needs `pip install latex2mathml` (girff's LaTeX is converted to MathML).
+
 ## Sources
 
 | Source | What it gives | Used for |
@@ -14,12 +16,17 @@ python backend/tools/build_bank.py      # merge, cross-check, sanitize -> data/q
 | `data/pdf_bank.json` | Our own College Board Question Bank PDF export (Aug 2025), parsed by `parse_all_rw.py` (R&W) and `import_math.py` (Math answer keys) | Answer keys, metadata |
 | `sources/mdn522` | College Board's own JSON (HTML + MathML), Sep 2024, with the list of questions used in Bluebook practice tests | Content (preferred), keys, Bluebook flag |
 | `sources/cbqb` | PDF export from Oct 2026, Bluebook questions excluded (HTML, math as sprite images) | Content for newer questions, keys, current difficulty |
-| `sources/girff` | Full export from Oct 2026 (every assessment, Bluebook questions included) | Cross-checking keys/difficulty, detecting retired questions |
+| `sources/girff` | Full export from Oct 2026 (Bluebook questions included), text + LaTeX | Cross-checking keys/difficulty, detecting retired questions, content of questions no other source has |
 
 ## Rules applied by `build_bank.py`
 
 - **Core bank** = questions in the current non-Bluebook exports (`pdf_bank` ∪ `cbqb`). Questions that only exist in
   mdn522's Bluebook list get `"bluebook": true` and are only served when a player opts in.
+- **Questions only girff has** (~1,140) are also `"bluebook": true`. Their difficulty mix (39% Easy / 31% Medium /
+  30% Hard) and share of student-produced responses (26%) match the known Bluebook questions almost exactly, unlike
+  the core bank (29/35/36%, 22%), so they are almost certainly from the Bluebook practice tests released after 2024
+  (SAT and PSAT). Their key must agree with girff's own rationale ("Choice B is correct" / "The correct answer is …"),
+  so `sources` is `["girff", "rationale"]`; items girff flags with parse issues are excluded.
 - **Retired questions** (no longer in the Oct 2026 full export) and questions whose math is missing in College Board's
   own source are excluded.
 - **Answer keys** are compared across every source; `sources` lists the ones that agree. Conflicts go to

@@ -54,7 +54,7 @@ def fetch_cbqb():
 
 
 def fetch_girff():
-    # Chỉ dùng để đối chiếu đáp án (không biết câu nào là PSAT/đề Bluebook nên không đưa vào kho)
+    # Đối chiếu đáp án/độ khó; câu chỉ girff có (phần lớn là câu đề Bluebook mới) được đưa vào nhóm Bluebook
     repo, sha = GIRFF
     out = os.path.join(SOURCES_DIR, 'girff')
     index_path = os.path.join(out, 'index.json')
