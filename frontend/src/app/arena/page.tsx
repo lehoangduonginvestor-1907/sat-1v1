@@ -1,732 +1,389 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense, useCallback } from 'react';
+import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import io, { Socket } from 'socket.io-client';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { Bookmark, ChevronDown, ChevronUp, MoreVertical, Highlighter, CircleSlash, Calculator, X, CheckCircle2 } from 'lucide-react';
-import io from 'socket.io-client';
-import ImageWithCanvas, { Stroke } from './ImageWithCanvas';
+import { ArrowLeft, Check, Copy, Crown, X as XIcon } from 'lucide-react';
+import TestShell from '@/components/bluebook/TestShell';
+import { formatClock } from '@/components/bluebook/BluebookHeader';
+import { BACKEND_URL } from '@/lib/api';
+import { useNickname, usePlayerId } from '@/lib/storage';
+import type { AnswerKey, Answers, Question } from '@/lib/types';
+import { SECTION_OF } from '@/lib/types';
 
-let socket: any;
+interface RoomPlayer { playerId: string; name: string; connected: boolean; answered: number; finished: boolean; rematch: boolean }
+interface RoomSettings { subject: 'Verbal' | 'Math'; domain: string; difficulty: string; questionCount: number; timeLimit: number; includeBluebook: boolean }
+interface Room { code: string; state: 'waiting' | 'playing' | 'ended'; settings: RoomSettings; hostId: string; total: number; players: RoomPlayer[] }
+interface MatchStart { questions: Question[]; startedAt: number; endsAt: number; serverNow: number; answers: Answers; finished: boolean }
+interface PlayerResult { playerId: string; name: string; score: number; correct: boolean[]; answers: Answers; timeUsed: number }
+interface MatchEnd { results: PlayerResult[]; winnerId: string | null; review: AnswerKey[] }
 
-// Khai báo global interface cho Desmos
-declare global {
-  interface Window {
-    Desmos: any;
-  }
+function TopBar({ me, opponent, total, code }: { me?: RoomPlayer; opponent?: RoomPlayer; total: number; code: string }) {
+  const bar = (p: RoomPlayer | undefined, color: string, align: 'left' | 'right') => (
+    <div className={`flex items-center gap-3 flex-1 min-w-0 ${align === 'right' ? 'flex-row-reverse text-right' : ''}`}>
+      <span className="font-semibold truncate max-w-[140px]">{p?.name ?? 'Waiting…'}</span>
+      <div className="h-1.5 w-28 sm:w-40 rounded-full bg-white/20 overflow-hidden">
+        <div className="h-full transition-all" style={{ width: `${((p?.answered ?? 0) / Math.max(total, 1)) * 100}%`, background: color, marginLeft: align === 'right' ? 'auto' : undefined }} />
+      </div>
+      <span className="tabular-nums text-white/80">{p?.answered ?? 0}/{total}</span>
+      {p?.finished && <span className="text-[11px] font-bold uppercase tracking-wide bg-white/15 rounded px-1.5 py-0.5">Submitted</span>}
+      {p && !p.connected && <span className="text-[11px] font-bold uppercase tracking-wide text-[#ffb4b4]">Offline</span>}
+    </div>
+  );
+  return (
+    <div className="flex items-center gap-6 px-6 h-9 bg-[#1e1e1e] text-white text-[13px] flex-shrink-0">
+      {bar(me, '#7d93ff', 'left')}
+      <span className="font-bold tracking-[0.18em] text-white/70 whitespace-nowrap">1V1 · ROOM {code}</span>
+      {bar(opponent, '#ff8a7a', 'right')}
+    </div>
+  );
 }
 
+function Lobby({ room, me, inviteLink, onLeave }: { room: Room; me: string; inviteLink: string; onLeave: () => void }) {
+  const [copied, setCopied] = useState(false);
+  const s = room.settings;
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(inviteLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Trình duyệt chặn clipboard: người dùng tự chép link
+    }
+  };
+  return (
+    <div className="min-h-dvh bg-[#f7f7f7] flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.12)] w-full max-w-lg p-8">
+        <h1 className="text-2xl font-bold mb-1">Room {room.code}</h1>
+        <p className="text-[var(--bb-muted)] mb-6">
+          {SECTION_OF[s.subject]} · {s.domain === 'All' ? 'All domains' : s.domain} · {s.difficulty === 'All' ? 'Mixed difficulty' : s.difficulty} · {s.questionCount} questions · {s.timeLimit} min
+        </p>
+        <label className="block text-sm font-bold mb-2">Send this link to your opponent</label>
+        <div className="flex items-center gap-2 border-[1.5px] border-[#5f5f5f] rounded-lg p-1.5 mb-6">
+          <input readOnly value={inviteLink} aria-label="Invite link" className="flex-1 text-sm px-2 outline-none bg-transparent" onFocus={e => e.target.select()} />
+          <button onClick={copy} className="bb-secondary !py-1.5 !px-3 flex items-center gap-1.5">{copied ? <><Check size={15} /> Copied</> : <><Copy size={15} /> Copy</>}</button>
+        </div>
+        <h2 className="font-bold mb-3">Players ({room.players.length}/2)</h2>
+        <ul className="space-y-2 mb-6">
+          {room.players.map(p => (
+            <li key={p.playerId} className="flex items-center gap-3 bg-[var(--bb-bar)] rounded-lg px-4 py-2.5 font-semibold">
+              <span className={`w-2.5 h-2.5 rounded-full ${p.connected ? 'bg-[var(--bb-correct)]' : 'bg-[#bbb]'}`} />
+              <span className="flex-1">{p.name} {p.playerId === me && <span className="text-[var(--bb-muted)] font-normal">(you)</span>}</span>
+              {p.playerId === room.hostId && <span className="text-xs text-[var(--bb-muted)]">Host</span>}
+            </li>
+          ))}
+          {room.players.length < 2 && (
+            <li className="flex items-center gap-3 rounded-lg px-4 py-2.5 border-[1.5px] border-dashed border-[#bbb] text-[var(--bb-muted)]">
+              <span className="w-4 h-4 border-2 border-[var(--bb-muted)] border-t-transparent rounded-full animate-spin" /> Waiting for opponent…
+            </li>
+          )}
+        </ul>
+        <p className="text-sm text-[var(--bb-muted)] mb-6">The match starts automatically when both players are here.</p>
+        <button onClick={onLeave} className="font-semibold text-[var(--bb-muted)] hover:underline">Leave room</button>
+      </div>
+    </div>
+  );
+}
 
-
-function ArenaContent() {
-  const searchParams = useSearchParams();
-  const roomCode = searchParams.get('room');
-
-  const [questions, setQuestions] = useState<any[]>([]);
-  const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
-  
-  // State: Answers and Eliminations (Dictionary keyed by question index)
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [eliminations, setEliminations] = useState<Record<number, string[]>>({});
-  const [bookmarks, setBookmarks] = useState<Record<number, boolean>>({});
-
-  // Opponent state
-  const [opponentAnswers, setOpponentAnswers] = useState<Record<number, boolean>>({});
-  const [players, setPlayers] = useState<any[]>([]);
-
-  // Timer State
-  const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes in seconds
-  const [timerHidden, setTimerHidden] = useState(false);
-
-  // Notes State
-  const [notesOpen, setNotesOpen] = useState(false);
-  const [notesText, setNotesText] = useState("");
-  const [isStarted, setIsStarted] = useState(false);
-  const [matchMode, setMatchMode] = useState('1v1');
-  const [showReviewMap, setShowReviewMap] = useState(false);
-
-  // Calculator State
-  const [calcOpen, setCalcOpen] = useState(false);
-  const calcRef = useRef<HTMLDivElement>(null);
-  const calcInstanceRef = useRef<any>(null);
-
-  // Text Selection / Highlight State
-  const [annotations, setAnnotations] = useState<Record<string, Stroke[]>>({});
-  const [isDrawingMode, setIsDrawingMode] = useState(false);
-
-  // Post-match states
-  const [isFinished, setIsFinished] = useState(false);
-  const [isOpponentFinished, setIsOpponentFinished] = useState(false);
-  const [matchResults, setMatchResults] = useState<any>(null);
-  const [isReviewMode, setIsReviewMode] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  const [leftPaneWidth, setLeftPaneWidth] = useState(50);
-  const [isResizing, setIsResizing] = useState(false);
-
-  // ...
-  const [explanationError, setExplanationError] = useState(false);
-  const [selectionMenu, setSelectionMenu] = useState<{x: number, y: number, range: Range} | null>(null);
-
-  useEffect(() => {
-    setImageError(false);
-    setExplanationError(false);
-  }, [currentQuestionIdx]);
+function Results({ end, room, me, questions, onReview, onRematch }: {
+  end: MatchEnd; room: Room | null; me: string; questions: Question[]; onReview: () => void; onRematch: () => void;
+}) {
   const { width, height } = useWindowSize();
+  const mine = end.results.find(r => r.playerId === me);
+  const theirs = end.results.find(r => r.playerId !== me);
+  const won = end.winnerId === me;
+  const tie = end.winnerId === null;
+  const myRematch = room?.players.find(p => p.playerId === me)?.rematch;
+  const theirRematch = room?.players.find(p => p.playerId !== me)?.rematch;
+  const opponentHere = room?.players.some(p => p.playerId !== me && p.connected);
 
+  const domains = useMemo(() => {
+    const rows = new Map<string, { mine: number; theirs: number; total: number }>();
+    questions.forEach((q, i) => {
+      const r = rows.get(q.domain) || { mine: 0, theirs: 0, total: 0 };
+      r.total++;
+      if (mine?.correct[i]) r.mine++;
+      if (theirs?.correct[i]) r.theirs++;
+      rows.set(q.domain, r);
+    });
+    return [...rows.entries()];
+  }, [questions, mine, theirs]);
 
-  // Timer effect
-  useEffect(() => {
-    if (isFinished || isReviewMode) return;
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          if (!isFinished) {
-            if (socket) socket.emit('finishMatch', { roomCode, answers });
-            setIsFinished(true);
-          }
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [isFinished, isReviewMode, roomCode, answers]);
-
-  // Calculator effect
-  useEffect(() => {
-    if (calcOpen && calcRef.current && window.Desmos) {
-      if (!calcInstanceRef.current) {
-        calcInstanceRef.current = window.Desmos.GraphingCalculator(calcRef.current, {
-          keypad: true,
-          expressions: true,
-          settingsMenu: false,
-          zoomButtons: true,
-          expressionsTopbar: true
-        });
-      }
-    }
-  }, [calcOpen]);
-
-  // Handle Pane Resizing
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isResizing) return;
-    const newWidth = (e.clientX / window.innerWidth) * 100;
-    if (newWidth > 20 && newWidth < 80) {
-      setLeftPaneWidth(newWidth);
-    }
-  }, [isResizing]);
-
-  const handleMouseUp = useCallback(() => {
-    setIsResizing(false);
-  }, []);
-
-  useEffect(() => {
-    if (isResizing) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      // add a class to body to prevent text selection while dragging
-      document.body.classList.add('select-none', 'cursor-col-resize');
-    } else {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.body.classList.remove('select-none', 'cursor-col-resize');
-    }
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.body.classList.remove('select-none', 'cursor-col-resize');
-    };
-  }, [isResizing, handleMouseMove, handleMouseUp]);
-
-  // Socket effect
-  useEffect(() => {
-    const savedName = localStorage.getItem('sat_nickname') || 'Player';
-
-    if (roomCode) {
-      socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com');
-      socket.emit('joinRoom', { 
-        roomCode, 
-        user: { name: savedName, image: null } 
-      });
-
-      socket.on('playerJoined', (data: { players: any[] }) => {
-        setPlayers(data.players);
-      });
-
-      socket.on('opponentProgress', (data: { questionIdx: number, isCorrect: boolean }) => {
-        setOpponentAnswers(prev => ({ ...prev, [data.questionIdx]: true }));
-      });
-
-      
-      socket.on('opponentFinished', () => {
-        setIsOpponentFinished(true);
-      });
-
-      socket.on('matchEnded', (data: { results: any[] }) => {
-        setMatchResults(data.results);
-      });
-
-      socket.on('matchStarted', (data: { questions: any[], timeLimit?: number, mode?: string }) => {
-        setQuestions(data.questions);
-        if (data.mode) {
-          setMatchMode(data.mode);
-        }
-        if (data.timeLimit) {
-          setTimeLeft(data.timeLimit * 60);
-        }
-      });
-    }
-
-    return () => {
-      if (socket) socket.disconnect();
-    };
-  }, [roomCode]);
-
-  // Ẩn menu khi click ra ngoài
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (selectionMenu) setSelectionMenu(null);
-    };
-    window.addEventListener('mousedown', handleClickOutside);
-    return () => window.removeEventListener('mousedown', handleClickOutside);
-  }, [selectionMenu]);
-
-  if (!questions || questions.length === 0) {
-    return <div className="min-h-screen flex items-center justify-center font-bold text-gray-500">Loading Question Bank...</div>;
-  }
-
-  const currentQuestion = questions[currentQuestionIdx];
-  const selectedOption = answers[currentQuestionIdx] || null;
-  const eliminated = eliminations[currentQuestionIdx] || [];
-  const isBookmarked = bookmarks[currentQuestionIdx] || false;
-
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s < 10 ? '0' : ''}${s}`;
-  };
-
-  const handleSelectOption = (label: string) => {
-    if (eliminated.includes(label)) return;
-    setAnswers({ ...answers, [currentQuestionIdx]: label });
-    
-    if (socket && roomCode) {
-      socket.emit('submitAnswer', {
-        roomCode,
-        questionIdx: currentQuestionIdx,
-        isCorrect: true // Mock logic, ideally check against correct answer
-      });
-    }
-  };
-
-  const toggleEliminate = (label: string) => {
-    if (isReviewMode) return;
-    const currentEliminated = [...eliminated];
-    if (currentEliminated.includes(label)) {
-      setEliminations({ ...eliminations, [currentQuestionIdx]: currentEliminated.filter(e => e !== label) });
-    } else {
-      setEliminations({ ...eliminations, [currentQuestionIdx]: [...currentEliminated, label] });
-      // If the eliminated option was selected, unselect it
-      if (selectedOption === label) {
-        setAnswers({ ...answers, [currentQuestionIdx]: '' });
-      }
-    }
-  };
-
-  const formatPassage = (text: string) => {
-    if (!text) return '';
-    let formatted = text;
-    // Break paragraphs for Text 1 and Text 2
-    if (formatted.includes('Text 1') && formatted.includes('Text 2')) {
-      formatted = formatted.replace(/Text 1/g, '<br/><strong>Text 1</strong><br/>');
-      formatted = formatted.replace(/Text 2/g, '<br/><br/><strong>Text 2</strong><br/>');
-    }
-    // Highlight "Connections" if it exists
-    formatted = formatted.replace(/^Connections/, '<strong>Connections</strong>');
-    // Ensure regular newlines are rendered
-    formatted = formatted.replace(/\n/g, '<br/>');
-    // Clean up leading BRs
-    formatted = formatted.replace(/^(<br\/>)+/, '');
-    return formatted;
-  };
-
-  // Deprecated text selection logic - removed
-  const applyHighlightAndNote = () => {};
-
-  const me = players.find(p => p.id === socket?.id);
-  const opponent = matchMode === 'practice' ? null : players.find(p => p.id !== socket?.id);
-
-  if (isReviewMode) {
-    // Review mode content...
-  }
-
-  const getNavButtonClass = (i: number, isOpponent: boolean = false) => {
-    const isCurrent = currentQuestionIdx === i && !isOpponent;
-    
-    if (isOpponent) {
-      const ans = opponentAnswers[i];
-      return ans 
-        ? 'bg-red-100 text-red-800 border border-red-300' 
-        : 'bg-white text-gray-400 border border-gray-200';
-    }
-
-    const ans = answers[i];
-    const correctLabel = String.fromCharCode(65 + questions[i].correctAnswer);
-    const isCorrect = ans === correctLabel;
-
-    if (isReviewMode) {
-      if (isCurrent) {
-         return isCorrect 
-           ? 'bg-green-600 text-white ring-2 ring-green-400 ring-offset-1'
-           : 'bg-red-600 text-white ring-2 ring-red-400 ring-offset-1';
-      }
-      if (ans) {
-         return isCorrect 
-           ? 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200'
-           : 'bg-red-100 text-red-800 border border-red-300 hover:bg-red-200';
-      }
-      return 'bg-red-50 text-red-400 border border-red-200 hover:bg-red-100'; // Unanswered
-    }
-
-    if (isCurrent) {
-       return 'bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-1';
-    }
-    if (ans) {
-       return 'bg-blue-100 text-blue-800 border border-blue-300 hover:bg-blue-200';
-    }
-    return 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100';
-  };
+  const card = (r: PlayerResult | undefined, label: string, highlight: boolean) => (
+    <div className={`flex-1 rounded-xl p-5 border-2 ${highlight ? 'border-[var(--bb-blue)] bg-[var(--bb-blue-soft)]' : 'border-[#e3e3e3]'}`}>
+      <div className="flex items-center gap-2 font-bold text-[15px] mb-2">
+        {r && end.winnerId === r.playerId && <Crown size={18} className="text-[#d4a000]" />}
+        <span className="truncate">{r?.name ?? '—'}</span> <span className="text-[var(--bb-muted)] font-normal">{label}</span>
+      </div>
+      <div className="text-[44px] font-bold leading-none">{r?.score ?? 0}<span className="text-xl text-[var(--bb-muted)]">/{questions.length}</span></div>
+      <div className="text-sm text-[var(--bb-muted)] mt-2">Time used: {formatClock(r?.timeUsed ?? 0)}</div>
+    </div>
+  );
 
   return (
-    <div className="flex flex-col h-screen w-full bg-white overflow-hidden text-black font-sans selection:bg-blue-200">
-      
-      {/* ProgressBar Area (New) */}
-      <div className="bg-gray-100 flex items-center justify-between px-8 py-1.5 border-b border-gray-300 text-xs font-semibold">
-        <div className="flex items-center gap-2 w-1/3">
-           <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 text-white flex items-center justify-center font-bold text-[10px]">
-             {me?.user?.name?.charAt(0).toUpperCase() || 'Y'}
-           </div>
-           <span className="w-auto truncate max-w-[100px]">{me?.user?.name || 'You'}</span>
-           <div className="flex-1 flex gap-1 h-8 ml-2 items-center overflow-x-auto px-1">
-             {questions.map((_, i) => (
-                <button 
-                  key={i} 
-                  onClick={() => setCurrentQuestionIdx(i)}
-                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold transition-all shadow-sm ${getNavButtonClass(i)}`}
-                >
-                  {i + 1}
-                </button>
-             ))}
-           </div>
-           <span className="w-10 text-right font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">{Object.keys(answers).length}/{questions.length}</span>
-        </div>
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <h2 className="text-xl font-black text-gray-900 tracking-tight">
-            {matchMode === 'practice' ? 'PRACTICE MODE' : '1V1 ARENA'}
-          </h2>
-          <div className="text-sm font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full mt-1 border border-gray-200 shadow-inner">
-            Room: {roomCode}
-          </div>
-        </div>
-        
-        <div className={`flex items-center gap-2 w-1/3 flex-row-reverse ${matchMode === 'practice' ? 'opacity-0 pointer-events-none' : ''}`}>
-           <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-red-500 to-orange-500 text-white flex items-center justify-center font-bold text-[10px]">
-             {opponent?.user?.name?.charAt(0).toUpperCase() || 'O'}
-           </div>
-           <span className="w-auto text-right truncate max-w-[100px]">{opponent?.user?.name || 'Opponent'}</span>
-           <div className="flex-1 flex gap-1 h-8 mr-2 items-center flex-row-reverse overflow-x-auto px-1">
-             {questions.map((_, i) => (
-                <div 
-                  key={i} 
-                  className={`w-6 h-6 flex-shrink-0 rounded flex items-center justify-center text-[11px] font-bold shadow-sm ${getNavButtonClass(i, true)}`}
-                >
-                  {i + 1}
-                </div>
-             ))}
-           </div>
-           <span className="w-10 text-left font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded-md border border-red-200">{Object.keys(opponentAnswers).length}/{questions.length}</span>
-        </div>
-      </div>
-
-      {/* 1. Header (White) */}
-      <header className="flex justify-between items-center px-6 py-2 bg-white border-b border-gray-200">
-        <div className="w-1/3">
-          <h1 className="font-bold text-lg">Section 1: Reading and Writing</h1>
-          <button className="text-sm text-gray-700 flex items-center hover:text-black mt-1">
-            Directions <ChevronDown size={16} className="ml-1" />
-          </button>
-        </div>
-
-        <div className="w-1/3 flex flex-col items-center justify-center">
-          <div className="font-bold text-xl tracking-wider mb-1">
-            {timerHidden ? (
-               <span className="text-gray-400 border border-gray-300 rounded px-3 py-1 cursor-pointer" onClick={() => setTimerHidden(false)}>
-                 Show Timer
-               </span>
-            ) : formatTime(timeLeft)}
-          </div>
-          {!timerHidden && (
-            <button 
-              onClick={() => setTimerHidden(true)}
-              className="text-xs font-semibold px-3 py-0.5 rounded-full border border-gray-400 hover:bg-gray-100 transition"
-            >
-              Hide
-            </button>
-          )}
-        </div>
-
-        <div className="w-1/3 flex justify-end items-center gap-6 relative">
-          <button 
-            onClick={() => setCalcOpen(!calcOpen)}
-            className={`flex flex-col items-center hover:text-black ${calcOpen ? 'text-blue-600' : 'text-gray-600'}`}
-          >
-            <Calculator size={20} className="mb-1" />
-            <span className="text-[10px] font-semibold uppercase">Calculator</span>
-          </button>
-          <button 
-            className={`flex flex-col items-center px-2 py-1 rounded transition-colors ${isDrawingMode ? 'bg-blue-100 text-blue-700 shadow-sm' : 'text-gray-600 hover:text-blue-600'}`}
-            onClick={() => setIsDrawingMode(!isDrawingMode)}
-          >
-            <Highlighter size={20} className="mb-1" />
-            <span className="text-[10px] font-semibold uppercase">Highlights & Notes</span>
-          </button>
-          <button className="flex flex-col items-center text-gray-600 hover:text-black">
-            <MoreVertical size={20} className="mb-1" />
-            <span className="text-[10px] font-semibold uppercase">More</span>
-          </button>
-
-          {/* Calculator Popup */}
-          {calcOpen && (
-            <div className="absolute top-12 right-24 bg-white border border-gray-300 shadow-2xl rounded-md z-50 overflow-hidden flex flex-col" style={{ width: 600, height: 450 }}>
-               <div className="bg-gray-100 px-3 py-2 flex justify-between items-center border-b border-gray-300 cursor-move">
-                  <span className="font-bold text-sm text-gray-700">Desmos Calculator</span>
-                  <button onClick={() => setCalcOpen(false)} className="text-gray-500 hover:text-black">
-                    <X size={16} />
-                  </button>
-               </div>
-               <div ref={calcRef} className="w-full flex-1"></div>
-            </div>
-          )}
-
-          {/* Notes Popup */}
-          {notesOpen && (
-            <div className="absolute top-12 right-12 w-64 bg-yellow-100 border border-yellow-300 shadow-lg rounded-md p-3 z-50">
-               <textarea 
-                  className="w-full bg-transparent resize-none outline-none text-sm h-32 text-gray-800"
-                  placeholder="Type your notes here..."
-                  value={notesText}
-                  onChange={(e) => setNotesText(e.target.value)}
-                  autoFocus
-               ></textarea>
-            </div>
-          )}
-        </div>
-      </header>
-
-      {/* 2. Blue Strip */}
-      <div className="bg-[#20275c] text-white text-center py-1.5 text-xs font-bold uppercase tracking-[0.2em]">
-        THIS IS A TEST PREVIEW
-      </div>
-
-      {/* 3. Main Content Split */}
-      <main className="flex-1 flex overflow-hidden relative">
-        
-        {/* Floating Selection Menu (Annotate Tooltip) */}
-        {selectionMenu && (
-          <div 
-            className="fixed z-50 bg-black text-white px-3 py-1.5 rounded shadow-lg text-sm font-semibold cursor-pointer hover:bg-gray-800 transition transform -translate-x-1/2 flex items-center gap-2"
-            style={{ left: selectionMenu.x, top: selectionMenu.y }}
-            onMouseDown={(e) => { e.stopPropagation(); applyHighlightAndNote(); }}
-          >
-            <button 
-            className={`flex flex-col items-center gap-1 transition-colors px-2 rounded ${isDrawingMode ? 'text-white bg-blue-600 shadow-sm' : 'text-gray-500 hover:text-blue-600'}`}
-            onClick={() => setIsDrawingMode(!isDrawingMode)}
-          >
-            <Highlighter size={14} /> {isDrawingMode ? 'Drawing...' : 'Annotate'}
-          </button>
-            {/* Pointer triangle */}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-black"></div>
-          </div>
-        )}
-
-        {/* Left Column: Passage */}
-        <div 
-          className="p-10 overflow-auto border-r-2 border-gray-300 relative bg-white flex-shrink-0"
-          style={{ width: `${leftPaneWidth}%` }}
-        >
-          {!imageError ? (
-            <div className="block w-full min-h-full">
-              <ImageWithCanvas 
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com'}/images/${currentQuestion.id}.png`}
-                questionId={currentQuestion.id}
-                annotations={annotations}
-                setAnnotations={setAnnotations}
-                isDrawingMode={isDrawingMode}
-                onError={() => setImageError(true)}
-              />
-            </div>
-          ) : (
-            <div className="prose prose-sm max-w-none text-base leading-relaxed text-gray-800 font-serif">
-              {currentQuestion.passage && <p className="mb-4" dangerouslySetInnerHTML={{ __html: currentQuestion.passage }}></p>}
-              <p className="font-semibold text-black">{currentQuestion.question}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Drag Handle */}
-        <div 
-          className="w-1.5 bg-gray-200 hover:bg-blue-500 cursor-col-resize transition-colors flex items-center justify-center relative z-10"
-          onMouseDown={(e) => {
-            e.preventDefault();
-            setIsResizing(true);
-          }}
-        >
-          <div className="flex gap-0.5 pointer-events-none">
-            <div className="w-px h-8 bg-gray-400"></div>
-            <div className="w-px h-8 bg-gray-400"></div>
-          </div>
-        </div>
-
-        {/* Right Column: Question & Options */}
-        <div 
-          className="p-10 overflow-y-auto bg-gray-50/30 flex-1"
-          style={{ width: `calc(${100 - leftPaneWidth}% - 6px)` }}
-        >
-          <div className="max-w-2xl mx-auto">
-            
-            {/* Question Header & Navigation */}
-            <div className="flex justify-between items-center text-sm font-bold bg-white text-gray-800 px-4 py-3 shadow-md rounded-lg mb-6">
-              <button className="flex items-center gap-2 font-bold px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-black transition-colors" disabled={currentQuestionIdx === 0} onClick={() => setCurrentQuestionIdx(prev => Math.max(0, prev - 1))}>
-                <ChevronUp size={20} /> Back
-              </button>
-              
-              <button 
-                onClick={() => setBookmarks(prev => ({...prev, [currentQuestionIdx]: !prev[currentQuestionIdx]}))}
-                className="flex items-center gap-2 font-bold px-4 py-2 hover:bg-gray-100 rounded-lg text-black transition-colors"
-              >
-                <Bookmark size={18} className={bookmarks[currentQuestionIdx] ? 'fill-black' : ''} />
-                {bookmarks[currentQuestionIdx] ? 'Bookmarked' : 'Mark for Review'}
-              </button>
-
-              <button className="flex items-center gap-2 font-bold px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white transition-colors shadow-sm" disabled={currentQuestionIdx === questions.length - 1} onClick={() => setCurrentQuestionIdx(prev => Math.min(questions.length - 1, prev + 1))}>
-                Next <ChevronDown size={20} />
-              </button>
-            </div>
-
-            <div className="font-bold flex items-center gap-2 mb-4">
-              <span className="text-blue-600">Question {currentQuestionIdx + 1}</span>
-              {bookmarks[currentQuestionIdx] && <Bookmark size={14} className="text-red-500 fill-red-500" />}
-            </div>
-
-            {/* Options */}
-            <div className="space-y-4">
-              {currentQuestion.options.map((text: string, idx: number) => {
-                const label = String.fromCharCode(65 + idx); // A, B, C, D
-                const isSelected = selectedOption === label;
-                const isEliminated = eliminated.includes(label);
-                
-                const isCorrect = idx === currentQuestion.correctAnswer;
-                const showAsCorrect = isReviewMode && isCorrect;
-                const showAsWrong = isReviewMode && isSelected && !isCorrect;
-
-                return (
-                  <div key={label} className="flex items-center gap-4">
-                    <button
-                      onClick={() => !isReviewMode && handleSelectOption(label)}
-                      disabled={isEliminated || isReviewMode}
-                      className={`flex-1 flex items-center p-3 rounded-lg border-2 text-left transition-all font-serif
-                        ${showAsCorrect ? 'border-green-500 bg-green-50 ring-1 ring-green-500' :
-                          showAsWrong ? 'border-red-500 bg-red-50 ring-1 ring-red-500' :
-                          isEliminated ? 'border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed' : 
-                          isSelected ? 'border-blue-600 bg-blue-50 ring-1 ring-blue-600' : 'border-gray-300 hover:border-gray-400 bg-white'
-                        }
-                      `}
-                    >
-                      <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold mr-4 flex-shrink-0
-                        ${showAsCorrect ? 'border-green-500 bg-green-500 text-white' :
-                          showAsWrong ? 'border-red-500 bg-red-500 text-white' :
-                          isSelected ? 'border-blue-600 bg-blue-600 text-white' : 'border-gray-400 text-gray-600'}
-                      `}>
-                        {label}
-                      </div>
-                      <span className={`text-[17px] leading-relaxed ${isEliminated && !isReviewMode ? 'line-through text-gray-400' : 
-                        isSelected ? 'text-blue-900 font-medium' : 'text-gray-700'
-                      }`}>
-                        {imageError ? text : `Option ${label}`}
-                      </span>
-
-                    </button>
-                    
-                    {/* Eliminate Toggle Button */}
-                    <button 
-                      onClick={() => toggleEliminate(label)}
-                      disabled={isReviewMode}
-                      className={`text-gray-400 hover:text-gray-700 p-1 group relative ${isReviewMode ? 'opacity-50 cursor-not-allowed' : ''}`}
-                      title="Eliminate option"
-                    >
-                      <div className="absolute inset-0 flex items-center justify-center">
-                         <span className={`text-xs font-bold ${isEliminated ? 'text-red-500' : ''}`}>{label}</span>
-                      </div>
-                      <CircleSlash size={28} strokeWidth={1.5} className={isEliminated ? 'text-red-500' : ''} />
-                    </button>
-                  </div>
-                );
-              })}
-              
-              {/* Review Explanation */}
-              {isReviewMode && (
-                <div className="mt-6 p-5 bg-blue-50 rounded-xl border border-blue-200 shadow-sm animate-in fade-in zoom-in-95 duration-300">
-                  <h4 className="font-bold text-blue-900 flex items-center gap-2 mb-2">
-                    <CheckCircle2 size={20} className="text-blue-600" /> Explanation
-                  </h4>
-                  <div className="text-blue-800 leading-relaxed text-sm">
-                    {!explanationError ? (
-                      <img 
-                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com'}/explanations/${currentQuestion.id}.png`} 
-                        alt="Explanation" 
-                        className="max-w-full h-auto rounded border border-gray-200"
-                        onError={() => setExplanationError(true)}
-                      />
-                    ) : (
-                      <p>
-                        {currentQuestion.explanation || 
-                         `The correct answer is Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)}. ` +
-                         `Option ${String.fromCharCode(65 + currentQuestion.correctAnswer)} best satisfies the requirement of the question based on the provided text.`
-                        }
-                      </p>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-
-          </div>
-        </div>
-      </main>
-
-      {/* 4. Footer */}
-      <footer className="flex justify-between items-center px-6 py-3 bg-[#f2f4f8] border-t border-gray-300">
-        <div className="font-semibold text-gray-700 w-1/3">
-          Duong Le Hoang
-        </div>
-        
-        <div className="w-1/3 flex justify-center">
-          <button className="bg-black text-white px-4 py-1.5 rounded flex items-center font-semibold text-sm hover:bg-gray-800">
-            Question {currentQuestionIdx + 1} of {questions.length} <ChevronUp size={16} className="ml-2" />
-          </button>
-        </div>
-
-        <div className="w-1/3 flex justify-end gap-3">
-          <button 
-            onClick={() => setCurrentQuestionIdx(prev => Math.max(0, prev - 1))}
-            disabled={currentQuestionIdx === 0}
-            className="px-6 py-1.5 font-bold text-blue-700 hover:bg-blue-100 disabled:text-gray-400 disabled:hover:bg-transparent rounded text-sm transition"
-          >
-            Back
-          </button>
-          {isReviewMode ? (
-            <button 
-              onClick={() => {
-                 setMatchResults(null);
-                 setIsReviewMode(false);
-                 window.location.href = '/';
-              }}
-              className="px-6 py-1.5 font-bold bg-gray-800 text-white hover:bg-black rounded text-sm transition shadow-sm ml-2"
-            >
-              Exit Review
-            </button>
-          ) : currentQuestionIdx === questions.length - 1 ? (
-            <button 
-              onClick={() => {
-                if (confirm("Are you sure you want to submit your test?")) {
-                  setIsFinished(true);
-                  if (socket && roomCode) socket.emit('finishMatch', { roomCode, answers });
-                }
-              }}
-              className="px-6 py-1.5 font-bold bg-red-600 text-white hover:bg-red-700 rounded text-sm transition shadow-sm"
-            >
-              Submit Test
-            </button>
-          ) : (
-            <button 
-              onClick={() => setCurrentQuestionIdx(prev => Math.min(questions.length - 1, prev + 1))}
-              disabled={currentQuestionIdx === questions.length - 1}
-              className="px-6 py-1.5 font-bold bg-[#1d4ed8] text-white hover:bg-blue-700 disabled:bg-gray-400 rounded text-sm transition shadow-sm"
-            >
-              Next
-            </button>
-          )}
-        </div>
-      </footer>
-
-      {/* Result Modal & Waiting Screen */}
-      {isFinished && !isReviewMode && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          {!matchResults ? (
-            <div className="bg-white p-10 rounded-2xl shadow-2xl text-center max-w-sm w-full animate-in zoom-in">
-              <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-              <h2 className="text-2xl font-black mb-2 text-gray-900">Test Submitted!</h2>
-              <p className="text-gray-500 font-medium">
-                {matchMode === 'practice' ? 'Calculating your score...' : (isOpponentFinished ? "Opponent has also finished. Waiting for results..." : "Waiting for your opponent to finish...")}
-              </p>
-              
-              {isOpponentFinished && matchMode !== 'practice' && (
-                <div className="bg-green-100 text-green-700 text-sm font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 mt-4">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                  Opponent has finished
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg relative animate-in zoom-in fade-in duration-300 text-center">
-              {(() => {
-                // Determine if current user won (highest score and not a tie unless both max)
-                const sorted = [...matchResults].sort((a: any,b: any) => b.score - a.score);
-                const isWinner = sorted[0].id === socket?.id;
-                if (isWinner) {
-                  return <Confetti width={width} height={height} recycle={false} numberOfPieces={500} />;
-                }
-                return null;
-              })()}
-              <h2 className="text-4xl font-black mb-6 text-gray-900">Match Results</h2>
-              <div className="space-y-4 mb-8">
-                {matchResults.sort((a: any, b: any) => b.score - a.score).map((p: any, idx: number) => (
-                  <div key={p.id} className={`flex justify-between items-center p-4 rounded-xl border-2 ${p.id === socket?.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl font-black text-gray-400">#{idx + 1}</span>
-                      <span className="text-xl font-bold text-gray-900">{p.name} {p.id === socket?.id && '(You)'}</span>
-                    </div>
-                    <span className="text-2xl font-black text-blue-600">{p.score} <span className="text-sm text-gray-500">/ {questions.length}</span></span>
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-4">
-                <button 
-                  onClick={() => setIsReviewMode(true)}
-                  className="flex-1 bg-gray-100 text-gray-900 px-4 py-3 rounded-xl font-bold hover:bg-gray-200 transition"
-                >
-                  Review Answers
-                </button>
-                <button 
-                  onClick={() => window.location.href = '/'}
-                  className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg"
-                >
-                  Return to Lobby
-                </button>
-              </div>
-            </div>
-          )}
+    <div className="min-h-dvh bg-[#f7f7f7]">
+      {won && (
+        <div className="fixed inset-0 z-50 pointer-events-none overflow-hidden">
+          <Confetti width={width} height={height} recycle={false} numberOfPieces={400} />
         </div>
       )}
+      <header className="bg-white">
+        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center gap-4">
+          <Link href="/" className="flex items-center gap-1 font-semibold hover:underline"><ArrowLeft size={18} /> Home</Link>
+          <span className="text-xl font-bold">Match Results</span>
+        </div>
+        <div className="bb-dash" />
+      </header>
+      <main className="max-w-4xl mx-auto px-6 py-8 space-y-6">
+        <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7">
+          <h1 className="text-3xl font-bold text-center mb-6">{tie ? "It's a tie!" : won ? 'You won!' : `${theirs?.name ?? 'Your opponent'} won`}</h1>
+          <div className="flex flex-col sm:flex-row gap-4">{card(mine, '(you)', true)}{card(theirs, '', false)}</div>
+          {!tie && mine && theirs && mine.score === theirs.score && (
+            <p className="text-center text-sm text-[var(--bb-muted)] mt-4">Same score — the faster finish wins.</p>
+          )}
+        </section>
+
+        <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7">
+          <h2 className="text-lg font-bold mb-4">By domain</h2>
+          <table className="w-full text-[15px]">
+            <thead><tr className="text-left text-[var(--bb-muted)] text-sm"><th className="pb-2 font-semibold">Domain</th><th className="pb-2 font-semibold text-right">You</th><th className="pb-2 font-semibold text-right">{theirs?.name ?? 'Opponent'}</th></tr></thead>
+            <tbody>
+              {domains.map(([domain, r]) => (
+                <tr key={domain} className="border-t border-[#ececec]">
+                  <td className="py-2">{domain}</td>
+                  <td className="py-2 text-right font-semibold">{r.mine}/{r.total}</td>
+                  <td className="py-2 text-right">{r.theirs}/{r.total}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7">
+          <h2 className="text-lg font-bold mb-4">Question by question</h2>
+          <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-4 gap-y-1.5 text-[14px] items-center">
+            <span className="text-[var(--bb-muted)] text-xs font-semibold">#</span>
+            <span className="text-[var(--bb-muted)] text-xs font-semibold">Skill</span>
+            <span className="text-[var(--bb-muted)] text-xs font-semibold text-center w-12">You</span>
+            <span className="text-[var(--bb-muted)] text-xs font-semibold text-center w-12 truncate">{theirs?.name ?? 'Opp.'}</span>
+            {questions.map((q, i) => (
+              <React.Fragment key={q.id}>
+                <span className="font-bold w-6">{i + 1}</span>
+                <span className="truncate">{q.skill} <span className="text-[var(--bb-muted)]">· {q.difficulty}</span></span>
+                <span className="flex justify-center w-12">{mine?.correct[i] ? <Check size={18} className="text-[var(--bb-correct)]" /> : <XIcon size={18} className="text-[var(--bb-wrong)]" />}</span>
+                <span className="flex justify-center w-12">{theirs?.correct[i] ? <Check size={18} className="text-[var(--bb-correct)]" /> : <XIcon size={18} className="text-[var(--bb-wrong)]" />}</span>
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        <div className="flex flex-wrap items-center justify-end gap-3">
+          {theirRematch && !myRematch && <span className="text-sm font-semibold text-[var(--bb-blue)]">{theirs?.name} wants a rematch!</span>}
+          <button className="bb-secondary" onClick={onReview}>Review Answers</button>
+          <button className="bb-primary" onClick={onRematch} disabled={Boolean(myRematch) || !opponentHere}>
+            {myRematch ? 'Waiting for opponent…' : opponentHere ? 'Rematch' : 'Opponent left'}
+          </button>
+        </div>
+      </main>
     </div>
+  );
+}
+
+function ArenaContent() {
+  const params = useSearchParams();
+  const router = useRouter();
+  const socketRef = useRef<Socket | null>(null);
+  const nickname = useNickname();
+  const storedId = usePlayerId();
+  const playerId = storedId || '';
+  const name = nickname || '';
+  const ready = nickname !== null && storedId !== null; // đã đọc xong localStorage
+  const [room, setRoom] = useState<Room | null>(null);
+  const [match, setMatch] = useState<MatchStart | null>(null);
+  const [offset, setOffset] = useState(0); // Date.now() - giờ server
+  const [answers, setAnswers] = useState<Answers>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [end, setEnd] = useState<MatchEnd | null>(null);
+  const [view, setView] = useState<'match' | 'results' | 'review'>('match');
+  const [error, setError] = useState<string | null>(null);
+  const [now, setNow] = useState(() => Date.now());
+
+  const code = params.get('room');
+
+  useEffect(() => {
+    if (!ready) return;
+    if (!nickname) {
+      router.replace(code ? `/?join=${code}` : '/');
+      return;
+    }
+    const id = storedId!;
+
+    const socket = io(BACKEND_URL, { transports: ['websocket', 'polling'] });
+    socketRef.current = socket;
+
+    const enter = () => {
+      if (code) {
+        socket.emit('room:join', { code, name: nickname, playerId: id }, (res: { error?: string; room?: Room }) => {
+          if (res.error) setError(res.error);
+          else if (res.room) setRoom(res.room);
+        });
+      } else if (params.get('new')) {
+        const settings = {
+          subject: params.get('subject'), domain: params.get('domain'), difficulty: params.get('difficulty'),
+          questionCount: Number(params.get('count')), timeLimit: Number(params.get('minutes')), includeBluebook: params.get('bluebook') === '1',
+        };
+        socket.emit('room:create', { name: nickname, playerId: id, settings }, (res: { error?: string; room?: Room }) => {
+          if (res.error || !res.room) return setError(res.error || 'Could not create the room.');
+          setRoom(res.room);
+          router.replace(`/arena?room=${res.room.code}`);
+        });
+      } else {
+        router.replace('/');
+      }
+    };
+    // Kết nối lại (mất mạng, server ngủ dậy): vào lại phòng với cùng playerId
+    socket.on('connect', enter);
+    socket.on('connect_error', () => setError(prev => prev ?? 'Connecting to the game server… (it may take up to a minute to wake up)'));
+    socket.on('room:update', (r: Room) => { setRoom(r); setError(null); });
+    socket.on('match:start', (m: MatchStart) => {
+      setOffset(Date.now() - m.serverNow);
+      setMatch(m);
+      setAnswers(m.answers || {});
+      setSubmitted(m.finished);
+      setEnd(null);
+      setView('match');
+    });
+    socket.on('match:end', (e: MatchEnd) => { setEnd(e); setView(v => (v === 'review' ? v : 'results')); });
+
+    return () => {
+      socket.disconnect();
+      socketRef.current = null;
+    };
+    // Chỉ kết nối một lần; khi tạo phòng xong URL đổi sang ?room= nhưng vẫn dùng socket này
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready]);
+
+  // Đếm ngược trước khi bắt đầu
+  const countdown = match ? Math.ceil((match.startedAt + offset - now) / 1000) : 0;
+  useEffect(() => {
+    if (!match || countdown <= 0) return;
+    const t = setInterval(() => setNow(Date.now()), 200);
+    return () => clearInterval(t);
+  }, [match, countdown]);
+
+  const onAnswer = useCallback((index: number, value: string) => {
+    setAnswers(prev => {
+      const next = { ...prev };
+      if (value) next[index] = value;
+      else delete next[index];
+      return next;
+    });
+    socketRef.current?.emit('match:answer', { index, answer: value });
+  }, []);
+
+  const finish = useCallback(() => {
+    setSubmitted(true);
+    socketRef.current?.emit('match:finish');
+  }, []);
+
+  const leave = () => {
+    socketRef.current?.emit('room:leave');
+    router.push('/');
+  };
+
+  const inviteLink = typeof window !== 'undefined' && room ? `${window.location.origin}/arena?room=${room.code}` : '';
+  const me = room?.players.find(p => p.playerId === playerId);
+  const opponent = room?.players.find(p => p.playerId !== playerId);
+
+  if (error && !room) {
+    return (
+      <div className="min-h-dvh flex items-center justify-center bg-[#f7f7f7] p-4">
+        <div className="bg-white rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.12)] p-8 max-w-md text-center">
+          <p className="font-semibold mb-6" role="alert">{error}</p>
+          <Link href="/" className="bb-primary">Back to Home</Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!room) {
+    return <div className="min-h-dvh flex items-center justify-center text-[var(--bb-muted)] font-semibold">Connecting…</div>;
+  }
+
+  if (end && view === 'results') {
+    return <Results end={end} room={room} me={playerId} questions={match?.questions ?? []} onReview={() => setView('review')}
+      onRematch={() => socketRef.current?.emit('match:rematch')} />;
+  }
+
+  if (end && view === 'review' && match) {
+    const mine = end.results.find(r => r.playerId === playerId);
+    return (
+      <TestShell
+        title={`Review: ${SECTION_OF[room.settings.subject]}`}
+        questions={match.questions}
+        answers={mine?.answers ?? answers}
+        studentName={name}
+        results={end.review.map((key, i) => ({ key, correct: Boolean(mine?.correct[i]) }))}
+        onSubmit={() => setView('results')}
+        onExit={() => setView('results')}
+        exitLabel="Back to Results"
+        reviewNote={<p>Select a question to review it. Select <strong>Next</strong> to go back to the results.</p>}
+      />
+    );
+  }
+
+  if (room.state === 'waiting' || !match) {
+    return <Lobby room={room} me={playerId} inviteLink={inviteLink} onLeave={leave} />;
+  }
+
+  return (
+    <>
+      <TestShell
+        key={match.startedAt}
+        title={`Section ${room.settings.subject === 'Verbal' ? 1 : 2}, Module 1: ${SECTION_OF[room.settings.subject]}`}
+        questions={match.questions}
+        answers={answers}
+        onAnswer={submitted ? undefined : onAnswer}
+        endsAt={match.endsAt + offset}
+        onTimeUp={finish}
+        onSubmit={finish}
+        submitConfirm="Your answers will be locked in. Results appear when both players have submitted."
+        studentName={name}
+        topBar={<TopBar me={me} opponent={opponent} total={match.questions.length} code={room.code} />}
+        onExit={leave}
+        exitLabel="Leave Match"
+        exitConfirm="Leaving submits your current answers and ends the match for you."
+      />
+      {countdown > 0 && (
+        <div className="bb-modal-backdrop">
+          <div className="text-center text-white">
+            <p className="text-xl font-semibold mb-2">Match starts in</p>
+            <p className="text-[96px] font-bold leading-none tabular-nums">{countdown}</p>
+            <p className="mt-4 text-white/80">{me?.name} vs {opponent?.name}</p>
+          </div>
+        </div>
+      )}
+      {submitted && !end && (
+        <div className="bb-modal-backdrop">
+          <div className="bb-modal text-center">
+            <div className="w-12 h-12 border-4 border-[var(--bb-blue)] border-t-transparent rounded-full animate-spin mx-auto mb-5" />
+            <h2 className="text-2xl font-bold mb-2">Answers submitted</h2>
+            <p className="text-[var(--bb-muted)]">
+              {opponent?.finished ? 'Your opponent has finished too. Tallying results…' : `Waiting for ${opponent?.name ?? 'your opponent'} to finish (${opponent?.answered ?? 0}/${match.questions.length} answered).`}
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
 export default function ArenaPage() {
   return (
-    <Suspense fallback={<div>Loading Arena...</div>}>
+    <Suspense fallback={<div className="min-h-dvh" />}>
       <ArenaContent />
     </Suspense>
   );

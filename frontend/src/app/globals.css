@@ -1,17 +1,935 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline {
   --font-sans: var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-noto-serif), ui-serif, Georgia, serif;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1e1e1e;
+
+  /* Bluebook */
+  --bb-blue: #324dc7;
+  --bb-blue-hover: #273da6;
+  --bb-blue-soft: #e8ecfb;
+  --bb-ink: #1e1e1e;
+  --bb-muted: #505050;
+  --bb-line: #c4c4c4;
+  --bb-bar: #f0f0f0;
+  --bb-red: #b0102f;
+  --bb-correct: #0b7a3b;
+  --bb-correct-soft: #e6f4ec;
+  --bb-wrong: #c4122f;
+  --bb-wrong-soft: #fbe9ec;
+  --bb-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='292' height='3'%3E%3Crect x='0' width='20' height='3' fill='%234a4a4a'/%3E%3Crect x='26' width='20' height='3' fill='%234a4a4a'/%3E%3Crect x='52' width='10' height='3' fill='%23f5c400'/%3E%3Crect x='66' width='10' height='3' fill='%230ea0e0'/%3E%3Crect x='82' width='20' height='3' fill='%234a4a4a'/%3E%3Crect x='108' width='20' height='3' fill='%234a4a4a'/%3E%3Crect x='134' width='20' height='3' fill='%23c0c0c0'/%3E%3Crect x='160' width='20' height='3' fill='%234a4a4a'/%3E%3Crect x='186' width='10' height='3' fill='%23f5c400'/%3E%3Crect x='200' width='20' height='3' fill='%234a4a4a'/%3E%3Crect x='226' width='10' height='3' fill='%230ea0e0'/%3E%3Crect x='240' width='20' height='3' fill='%234a4a4a'/%3E%3Crect x='266' width='20' height='3' fill='%23c0c0c0'/%3E%3C/svg%3E");
 }
 
+/* Biến font của next/font được gắn ở <body>, nên định nghĩa font tại đây */
 body {
+  --bb-sans: var(--font-noto-sans), "Noto Sans", system-ui, sans-serif;
+  --bb-serif: var(--font-noto-serif), "Noto Serif", Georgia, serif;
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-sans);
+  font-family: var(--bb-sans);
+}
+
+/* ---------- Khung bài thi ---------- */
+
+.bb-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  background: #fff;
+  color: var(--bb-ink);
+}
+
+.bb-dash {
+  height: 3px;
+  flex-shrink: 0;
+  background-image: var(--bb-dash);
+  background-repeat: repeat-x;
+}
+
+.bb-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 72px;
+  padding: 10px 32px 8px;
+  flex-shrink: 0;
+}
+
+.bb-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.bb-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--bb-ink);
+}
+
+.bb-timer {
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.bb-timer-warning {
+  color: var(--bb-wrong);
+}
+
+.bb-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1.5px solid var(--bb-ink);
+  border-radius: 999px;
+  padding: 1px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #fff;
+}
+
+.bb-pill:hover {
+  background: var(--bb-bar);
+}
+
+.bb-tools {
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+}
+
+.bb-tool {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 44px;
+  padding-bottom: 4px;
+  font-size: 12px;
+  color: var(--bb-ink);
+  border-bottom: 2px solid transparent;
+}
+
+.bb-tool:hover,
+.bb-tool[aria-pressed="true"] {
+  border-bottom-color: var(--bb-ink);
+}
+
+.bb-main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.bb-pane {
+  position: relative;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.bb-pane-inner {
+  padding: 28px 40px 40px;
+}
+
+.bb-divider {
+  position: relative;
+  width: 5px;
+  flex-shrink: 0;
+  background: #bdbdbd;
+  cursor: col-resize;
+}
+
+.bb-divider:hover,
+.bb-divider.is-dragging {
+  background: #8f8f8f;
+}
+
+.bb-expand {
+  position: absolute;
+  top: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+  color: var(--bb-muted);
+}
+
+.bb-expand:hover {
+  color: var(--bb-ink);
+}
+
+/* Thanh số câu */
+.bb-qbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bb-bar);
+  padding-right: 6px;
+}
+
+.bb-qnum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  background: var(--bb-ink);
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.bb-mark {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--bb-ink);
+}
+
+.bb-mark.is-marked {
+  font-weight: 700;
+}
+
+.bb-abc {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 24px;
+  border: 1.5px solid var(--bb-ink);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--bb-ink);
+}
+
+.bb-abc.is-on {
+  background: var(--bb-blue);
+  border-color: var(--bb-blue);
+  color: #fff;
+}
+
+/* Lựa chọn */
+.bb-choice-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bb-choice {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-start; /* chữ cái thẳng hàng với dòng đầu khi lựa chọn dài */
+  gap: 16px;
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 1.5px solid #5f5f5f;
+  border-radius: 8px;
+  background: #fff;
+  text-align: left;
+  font-family: var(--bb-serif);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--bb-ink);
+}
+
+.bb-choice:hover:not(:disabled) {
+  box-shadow: 0 0 0 1px #5f5f5f;
+}
+
+.bb-choice.is-selected {
+  border-color: var(--bb-blue);
+  box-shadow: 0 0 0 2px var(--bb-blue);
+}
+
+.bb-choice.is-correct {
+  border-color: var(--bb-correct);
+  box-shadow: 0 0 0 2px var(--bb-correct);
+  background: var(--bb-correct-soft);
+}
+
+.bb-choice.is-wrong {
+  border-color: var(--bb-wrong);
+  box-shadow: 0 0 0 2px var(--bb-wrong);
+  background: var(--bb-wrong-soft);
+}
+
+.bb-choice.is-crossed {
+  color: #9a9a9a;
+}
+
+.bb-choice.is-crossed::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  right: -8px;
+  top: 50%;
+  border-top: 1.5px solid var(--bb-ink);
+}
+
+.bb-letter {
+  flex-shrink: 0;
+  margin-top: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid #3a3a3a;
+  border-radius: 999px;
+  font-family: var(--bb-sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bb-ink);
+}
+
+.is-selected .bb-letter {
+  background: var(--bb-blue);
+  border-color: var(--bb-blue);
+  color: #fff;
+}
+
+.is-correct .bb-letter {
+  background: var(--bb-correct);
+  border-color: var(--bb-correct);
+  color: #fff;
+}
+
+.is-wrong .bb-letter {
+  background: var(--bb-wrong);
+  border-color: var(--bb-wrong);
+  color: #fff;
+}
+
+.is-crossed .bb-letter {
+  border-color: #9a9a9a;
+  color: #9a9a9a;
+}
+
+.bb-strike-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--bb-ink);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.bb-strike-btn::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: 50%;
+  border-top: 1.5px solid var(--bb-ink);
+}
+
+.bb-undo {
+  width: 34px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  flex-shrink: 0;
+}
+
+/* Footer */
+.bb-footer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 68px;
+  padding: 0 32px;
+  flex-shrink: 0;
+}
+
+.bb-qbutton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: var(--bb-ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.bb-qbutton:hover {
+  background: #000;
+}
+
+.bb-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 9px 24px;
+  border-radius: 999px;
+  background: var(--bb-blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.bb-primary:hover:not(:disabled) {
+  background: var(--bb-blue-hover);
+}
+
+.bb-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.bb-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 22px;
+  border: 1.5px solid var(--bb-blue);
+  border-radius: 999px;
+  color: var(--bb-blue);
+  font-size: 15px;
+  font-weight: 700;
+  background: #fff;
+}
+
+.bb-secondary:hover {
+  background: var(--bb-blue-soft);
+}
+
+/* Bảng chọn câu / Check Your Work */
+.bb-popover {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, calc(100vw - 32px));
+  padding: 22px 28px 24px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.28);
+  z-index: 40;
+}
+
+.bb-popover::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -12px;
+  border: 12px solid transparent;
+  border-top-color: #fff;
+  filter: drop-shadow(0 3px 2px rgb(0 0 0 / 0.12));
+}
+
+.bb-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  padding: 12px 0;
+  border-top: 1px solid var(--bb-line);
+  border-bottom: 1px solid var(--bb-line);
+  font-size: 14px;
+  color: var(--bb-muted);
+}
+
+.bb-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 20px;
+  padding: 26px 4px 22px;
+}
+
+.bb-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  font-weight: 700;
+  border: 1.5px dashed #3a3a3a;
+  color: var(--bb-blue);
+  background: #fff;
+}
+
+.bb-cell.is-answered {
+  border: 1.5px solid var(--bb-blue);
+  background: var(--bb-blue);
+  color: #fff;
+}
+
+.bb-cell.is-correct {
+  border: 1.5px solid var(--bb-correct);
+  background: var(--bb-correct);
+  color: #fff;
+}
+
+.bb-cell.is-wrong {
+  border: 1.5px solid var(--bb-wrong);
+  background: var(--bb-wrong);
+  color: #fff;
+}
+
+.bb-cell-flag {
+  position: absolute;
+  top: -6px;
+  right: -7px;
+  color: var(--bb-red);
+}
+
+.bb-cell-pin {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--bb-ink);
+}
+
+/* Bảng kéo thả (Calculator, Reference) */
+.bb-panel {
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 6px 28px rgb(0 0 0 / 0.35);
+  overflow: hidden;
+}
+
+.bb-panel-bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px 0 14px;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Bảng ghi chú (Highlights & Notes) */
+.bb-annotate {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  background: #fff;
+  box-shadow: 0 -2px 12px rgb(0 0 0 / 0.2);
+}
+
+.bb-annotate-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 15px;
+}
+
+.bb-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1.5px solid #3a3a3a;
+}
+
+.bb-swatch.is-active {
+  outline: 2px solid var(--bb-blue);
+  outline-offset: 2px;
+}
+
+.bb-selection-menu {
+  position: fixed;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #1e1e1e;
+  color: #fff;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.3);
+  transform: translate(-50%, calc(-100% - 10px));
+}
+
+/* Thông báo nhỏ (5 phút cuối...) */
+.bb-toast {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 35;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Hộp thoại */
+.bb-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgb(0 0 0 / 0.55);
+}
+
+.bb-modal {
+  width: min(520px, 100%);
+  padding: 28px 32px 24px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.35);
+}
+
+/* Line reader */
+.bb-line-reader {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ---------- Nội dung câu hỏi (HTML từ College Board) ---------- */
+
+.bb-content {
+  font-family: var(--bb-serif);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--bb-ink);
+  overflow-wrap: break-word;
+}
+
+.bb-content p {
+  margin: 0 0 14px;
+}
+
+/* Một số HTML gốc có width cố định (vd. 1600px): không cho tràn khỏi cột */
+.bb-content p,
+.bb-content div,
+.bb-content blockquote {
+  max-width: 100%;
+  width: auto !important;
+}
+
+.bb-content p:last-child {
+  margin-bottom: 0;
+}
+
+.bb-content em,
+.bb-content .italic,
+.bb-content [class*="font_style:italic"] {
+  font-style: italic;
+}
+
+.bb-content strong,
+.bb-content b {
+  font-weight: 700;
+}
+
+.bb-content u,
+.bb-content .underline,
+.bb-content [class*="text_decoration:underline"] {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bb-content sup,
+.bb-content sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.bb-content ul,
+.bb-content ol {
+  margin: 0 0 14px;
+  padding-left: 28px;
+}
+
+.bb-content ul {
+  list-style: disc;
+}
+
+.bb-content ol {
+  list-style: decimal;
+}
+
+.bb-content li {
+  margin-bottom: 6px;
+}
+
+.bb-content blockquote {
+  margin: 0 0 14px;
+  padding-left: 28px;
+}
+
+.bb-content .poem-line {
+  display: block;
+}
+
+.bb-content .text-label {
+  margin-bottom: 4px;
+}
+
+.bb-content table {
+  margin: 4px auto 16px;
+  border-collapse: collapse;
+  font-family: var(--bb-sans);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.bb-content caption {
+  caption-side: top;
+  padding-bottom: 8px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.bb-content th,
+.bb-content td {
+  border: 1px solid #3a3a3a;
+  padding: 6px 10px;
+  vertical-align: middle;
+}
+
+.bb-content th {
+  font-weight: 700;
+}
+
+.bb-content figure {
+  margin: 4px 0 16px;
+  text-align: center;
+}
+
+.bb-content img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+.bb-content img.math-img {
+  vertical-align: middle;
+}
+
+.bb-content .svg-figure,
+.bb-content figure img,
+.bb-content img.fig {
+  display: block;
+  margin: 0 auto 12px;
+}
+
+.bb-content .m {
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+.bb-content math {
+  font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", math;
+  font-size: 1.08em;
+}
+
+.bb-content math[display="block"] {
+  margin: 8px 0;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Tô sáng */
+.bb-hl {
+  color: inherit;
+  cursor: pointer;
+  border-radius: 1px;
+}
+
+.bb-hl-yellow {
+  background: #ffe066;
+}
+
+.bb-hl-blue {
+  background: #b9dcff;
+}
+
+.bb-hl-pink {
+  background: #ffc8dd;
+}
+
+.bb-hl-underline {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.bb-hl-note {
+  border-bottom: 2px dashed #3a3a3a;
+}
+
+.bb-content ::selection {
+  background: #b3d1ff;
+}
+
+/* ---------- Màn hình hẹp (điện thoại) ---------- */
+
+@media (max-width: 720px) {
+  .bb-header {
+    min-height: 56px;
+    padding: 8px 12px 6px;
+    gap: 8px;
+  }
+
+  .bb-title {
+    font-size: 15px;
+  }
+
+  .bb-timer {
+    font-size: 17px;
+  }
+
+  .bb-tools {
+    gap: 10px;
+  }
+
+  /* Chỉ giữ icon trên thanh công cụ */
+  .bb-tool {
+    min-width: 28px;
+    font-size: 0;
+    gap: 0;
+  }
+
+  .bb-split {
+    flex-direction: column;
+  }
+
+  .bb-split-left {
+    width: 100% !important;
+    height: 42%;
+    flex: none;
+    border-bottom: 5px solid #bdbdbd;
+  }
+
+  .bb-split .bb-divider,
+  .bb-split .bb-expand {
+    display: none;
+  }
+
+  .bb-pane-inner {
+    padding: 16px 16px 28px;
+  }
+
+  .bb-split-left .bb-pane-inner {
+    padding-top: 16px;
+  }
+
+  .bb-split-right .pt-6 {
+    padding-top: 0;
+  }
+
+  .bb-footer {
+    min-height: 60px;
+    padding: 0 12px;
+    grid-template-columns: auto 1fr; /* tên học sinh bị ẩn */
+    gap: 8px;
+  }
+
+  .bb-footer > div:first-child {
+    display: none;
+  }
+
+  .bb-primary {
+    min-width: 0;
+    padding: 8px 16px;
+  }
+
+  .bb-qbutton {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .bb-choice-row {
+    gap: 8px;
+  }
+
+  .bb-choice {
+    padding: 8px 12px;
+    gap: 12px;
+  }
+
+  /* Bảng chọn câu: cố định phía trên footer thay vì canh theo nút */
+  .bb-popover {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 72px;
+    width: auto;
+    transform: none;
+    padding: 16px;
+    max-height: 70dvh;
+    overflow-y: auto;
+  }
+
+  .bb-popover::after {
+    display: none;
+  }
+
+  .bb-grid {
+    gap: 14px 12px;
+  }
 }

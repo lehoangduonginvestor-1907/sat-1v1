@@ -1,377 +1,220 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { Suspense, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import io from 'socket.io-client';
-import { Copy, Check, Edit2, X } from 'lucide-react';
+import { Edit2, Swords, BookOpen, Target, X } from 'lucide-react';
+import { setNickname as saveNickname, useHistory, useNickname, History } from '@/lib/storage';
 
-let socket: any;
+const DOMAINS: Record<string, string[]> = {
+  Verbal: ['Craft and Structure', 'Information and Ideas', 'Standard English Conventions', 'Expression of Ideas'],
+  Math: ['Algebra', 'Advanced Math', 'Problem-Solving and Data Analysis', 'Geometry and Trigonometry'],
+};
 
-function LobbyContent() {
+interface MatchSettings {
+  subject: 'Verbal' | 'Math';
+  domain: string;
+  difficulty: string;
+  questionCount: number;
+  timeLimit: number;
+  includeBluebook: boolean;
+}
+
+function NicknameForm({ initial, onSave, onCancel }: { initial: string; onSave: (name: string) => void; onCancel?: () => void }) {
+  const [name, setName] = useState(initial);
+  return (
+    <form className="space-y-4" onSubmit={e => { e.preventDefault(); if (name.trim()) onSave(name.trim()); }}>
+      <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Math Destroyer" autoFocus maxLength={20}
+        aria-label="Nickname"
+        className="w-full border-[1.5px] border-[#5f5f5f] px-4 py-3 rounded-lg text-center font-bold outline-none focus:border-[var(--bb-blue)] text-lg" />
+      <div className="flex gap-3 justify-center">
+        {onCancel && <button type="button" className="bb-secondary" onClick={onCancel}>Cancel</button>}
+        <button type="submit" className="bb-primary" disabled={!name.trim()}>Continue</button>
+      </div>
+    </form>
+  );
+}
+
+function CreateMatchModal({ onClose, onCreate }: { onClose: () => void; onCreate: (s: MatchSettings) => void }) {
+  const [s, setS] = useState<MatchSettings>({ subject: 'Verbal', domain: 'All', difficulty: 'All', questionCount: 10, timeLimit: 12, includeBluebook: false });
+  const select = 'w-full border-[1.5px] border-[#5f5f5f] rounded-lg px-3 py-2.5 outline-none focus:border-[var(--bb-blue)] bg-white';
+  const subjectButton = (subject: MatchSettings['subject'], label: string) => (
+    <button type="button" onClick={() => setS({ ...s, subject, domain: 'All' })}
+      className={`py-2.5 rounded-lg font-bold border-[1.5px] ${s.subject === subject ? 'border-[var(--bb-blue)] bg-[var(--bb-blue-soft)] text-[var(--bb-blue)]' : 'border-[#c4c4c4] text-[var(--bb-muted)]'}`}>
+      {label}
+    </button>
+  );
+  return (
+    <div className="bb-modal-backdrop" role="dialog" aria-modal="true" aria-label="Match settings">
+      <form className="bb-modal relative" onSubmit={e => { e.preventDefault(); onCreate(s); }}>
+        <button type="button" onClick={onClose} className="absolute top-4 right-4 text-[var(--bb-muted)]" aria-label="Close"><X size={22} /></button>
+        <h2 className="text-2xl font-bold mb-5">New 1v1 Match</h2>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-bold mb-2">Subject</label>
+            <div className="grid grid-cols-2 gap-3">{subjectButton('Verbal', 'Reading & Writing')}{subjectButton('Math', 'Math')}</div>
+          </div>
+          <div>
+            <label className="block text-sm font-bold mb-2" htmlFor="m-domain">Domain</label>
+            <select id="m-domain" className={select} value={s.domain} onChange={e => setS({ ...s, domain: e.target.value })}>
+              <option value="All">All domains (Bluebook mix)</option>
+              {DOMAINS[s.subject].map(d => <option key={d} value={d}>{d}</option>)}
+            </select>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <label className="block text-sm font-bold mb-2" htmlFor="m-diff">Difficulty</label>
+              <select id="m-diff" className={select} value={s.difficulty} onChange={e => setS({ ...s, difficulty: e.target.value })}>
+                <option value="All">Mixed</option><option>Easy</option><option>Medium</option><option>Hard</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-bold mb-2" htmlFor="m-count">Questions</label>
+              <select id="m-count" className={select} value={s.questionCount} onChange={e => setS({ ...s, questionCount: Number(e.target.value) })}>
+                {[5, 10, 15, 20, 22, 27].map(n => <option key={n} value={n}>{n}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-bold mb-2" htmlFor="m-time">Minutes</label>
+              <select id="m-time" className={select} value={s.timeLimit} onChange={e => setS({ ...s, timeLimit: Number(e.target.value) })}>
+                {[5, 8, 10, 12, 15, 20, 25, 32, 35].map(n => <option key={n} value={n}>{n}</option>)}
+              </select>
+            </div>
+          </div>
+          <p className="text-xs text-[var(--bb-muted)]">Bluebook pace: 27 questions in 32 min (Reading &amp; Writing), 22 in 35 min (Math).</p>
+          <label className="flex items-start gap-2 text-sm">
+            <input type="checkbox" className="mt-0.5" checked={s.includeBluebook} onChange={e => setS({ ...s, includeBluebook: e.target.checked })} />
+            <span>Include questions from the official Bluebook practice tests <span className="text-[var(--bb-muted)]">(leave off if you still plan to take them)</span></span>
+          </label>
+        </div>
+        <div className="flex justify-end mt-6">
+          <button type="submit" className="bb-primary">Create Room</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function Stats({ history }: { history: History }) {
+  const entries = Object.values(history);
+  if (!entries.length) return null;
+  const correct = entries.filter(e => e.correct).length;
+  const mistakes = entries.filter(e => !e.correct).length;
+  return (
+    <div className="flex flex-wrap gap-8 text-[15px]">
+      <div><div className="text-2xl font-bold">{entries.length}</div><div className="text-[var(--bb-muted)]">questions practiced</div></div>
+      <div><div className="text-2xl font-bold">{Math.round((correct / entries.length) * 100)}%</div><div className="text-[var(--bb-muted)]">latest accuracy</div></div>
+      <div><div className="text-2xl font-bold">{mistakes}</div><div className="text-[var(--bb-muted)]">to redo</div></div>
+    </div>
+  );
+}
+
+function HomeContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const joinCode = searchParams.get('join');
+  const params = useSearchParams();
+  const nickname = useNickname();
+  const history = useHistory();
+  const [editingName, setEditingName] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [code, setCode] = useState('');
 
-  const [joinedRoom, setJoinedRoom] = useState<string | null>(null);
-  const [players, setPlayers] = useState<any[]>([]);
-  const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
-  const [nickname, setNickname] = useState('');
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [matchSettings, setMatchSettings] = useState({
-    mode: '1v1', // '1v1' or 'practice'
-    subject: 'Verbal',
-    domain: 'All',
-    difficulty: 'All',
-    questionCount: 20,
-    timeLimit: 32
-  });
-
+  // Link mời kiểu cũ: /?join=1234
+  const legacyJoin = params.get('join');
   useEffect(() => {
-    // Load nickname from localStorage
-    const savedName = localStorage.getItem('sat_nickname');
-    if (savedName) {
-      setNickname(savedName);
-    }
-  }, []);
+    if (legacyJoin) router.replace(`/arena?room=${encodeURIComponent(legacyJoin)}`);
+  }, [legacyJoin, router]);
 
-  useEffect(() => {
-    if (!nickname) return;
+  const mistakes = useMemo(() => Object.values(history || {}).filter(e => !e.correct).length, [history]);
 
-    if (!socket) {
-      socket = io(process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sat-1v1.onrender.com');
-    }
+  if (nickname === null || legacyJoin) return <div className="min-h-dvh" />;
 
-    const handlePlayerJoined = (data: { players: any[] }) => {
-      setPlayers(data.players);
-    };
-    
-    const handleRoomError = (msg: string) => {
-      setError(msg);
-    };
-    
-    const handleMatchStarted = () => {
-      // Dùng window.location để redirect ngay lập tức để tránh phụ thuộc state
-      if (typeof window !== 'undefined') {
-        const currentParams = new URLSearchParams(window.location.search);
-        const room = currentParams.get('join') || localStorage.getItem('current_room');
-        if (room) {
-          if (socket) {
-            socket.disconnect();
-            socket = null;
-          }
-          router.push(`/arena?room=${room}`);
-        }
-      }
-    };
-
-    socket.on('playerJoined', handlePlayerJoined);
-    socket.on('roomError', handleRoomError);
-    socket.on('matchStarted', handleMatchStarted);
-
-    // Auto-join if URL has ?join=PIN and not already joined
-    if (joinCode && !joinedRoom) {
-       socket.emit('joinRoom', { 
-         roomCode: joinCode, 
-         user: { name: nickname, image: null } 
-       });
-       setJoinedRoom(joinCode);
-       localStorage.setItem('current_room', joinCode);
-    }
-
-    return () => {
-      if (socket) {
-        socket.off('playerJoined', handlePlayerJoined);
-        socket.off('roomError', handleRoomError);
-        socket.off('matchStarted', handleMatchStarted);
-      }
-    };
-  }, [joinCode, router, joinedRoom, nickname]);
-
-  const handleCreate = () => {
-    if (!nickname) return;
-    setShowSettings(true);
-  };
-
-  const confirmCreateRoom = (e: React.FormEvent) => {
-    e.preventDefault();
-    const randomCode = Math.floor(1000 + Math.random() * 9000).toString();
-    socket.emit('joinRoom', { 
-      roomCode: randomCode, 
-      user: { name: nickname, image: null },
-      settings: matchSettings
-    });
-    setJoinedRoom(randomCode);
-    localStorage.setItem('current_room', randomCode);
-    setError('');
-    setShowSettings(false);
-    // Xoá param join trên URL nếu có để tránh lỗi
-    if (joinCode) {
-      router.replace('/');
-    }
-  };
-
-  const inviteLink = typeof window !== 'undefined' ? `${window.location.origin}/?join=${joinedRoom}` : '';
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(inviteLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleSaveNickname = (e: React.FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const name = formData.get('nickname') as string;
-    if (name.trim()) {
-      setNickname(name.trim());
-      localStorage.setItem('sat_nickname', name.trim());
-      setIsEditingName(false);
-    }
-  };
-
-  if (!nickname || isEditingName) {
+  if (!nickname || editingName) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-black p-4">
-        <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md text-center border border-gray-100">
-          <h1 className="text-4xl font-black mb-3 tracking-tight text-gray-900">SAT Arena</h1>
-          <p className="text-gray-500 mb-8 font-medium">Enter a badass nickname to join.</p>
-          <form onSubmit={handleSaveNickname} className="space-y-4">
-            <input 
-              name="nickname"
-              defaultValue={nickname}
-              placeholder="e.g. Math Destroyer"
-              autoFocus
-              className="w-full border-2 border-gray-300 px-4 py-3 rounded-lg text-center font-bold outline-none focus:border-blue-500 text-lg"
-              maxLength={20}
-            />
-            <button 
-              type="submit"
-              className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all"
-            >
-              Continue
-            </button>
-          </form>
+      <div className="min-h-dvh flex items-center justify-center bg-[#f7f7f7] p-4">
+        <div className="bg-white p-10 rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.12)] w-full max-w-md text-center">
+          <h1 className="text-3xl font-bold mb-2">SAT Arena</h1>
+          <p className="text-[var(--bb-muted)] mb-8">Choose a nickname. Your opponents will see it.</p>
+          <NicknameForm initial={nickname} onCancel={nickname ? () => setEditingName(false) : undefined}
+            onSave={name => { saveNickname(name); setEditingName(false); }} />
         </div>
       </div>
     );
   }
 
+  const createMatch = (s: MatchSettings) => {
+    const q = new URLSearchParams({
+      new: '1', subject: s.subject, domain: s.domain, difficulty: s.difficulty,
+      count: String(s.questionCount), minutes: String(s.timeLimit), bluebook: s.includeBluebook ? '1' : '0',
+    });
+    router.push(`/arena?${q}`);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-black p-4 relative">
-      
-      {/* Header Profile */}
-      <div className="absolute top-4 right-4 flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
-         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 text-white flex items-center justify-center font-bold">
-           {nickname.charAt(0).toUpperCase()}
-         </div>
-         <span className="font-bold text-sm hidden sm:block">{nickname}</span>
-         <button onClick={() => setIsEditingName(true)} className="ml-2 text-gray-400 hover:text-blue-500" title="Change Nickname">
-            <Edit2 size={16} />
-         </button>
-      </div>
-
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md text-center">
-        <h1 className="text-3xl font-bold mb-2">SAT 1v1 Challenge</h1>
-        <p className="text-gray-500 mb-8">Enter the arena and challenge your friends.</p>
-
-        {error && <div className="text-red-500 mb-4 font-semibold">{error}</div>}
-
-        {!joinedRoom ? (
-          <div className="space-y-4">
-            <button 
-              onClick={handleCreate}
-              className="w-full bg-gray-900 text-white px-6 py-4 rounded-lg font-bold text-xl hover:bg-black transition shadow-lg"
-            >
-              Create Match
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {matchSettings.mode !== 'practice' ? (
-              <div className="p-6 bg-blue-50 rounded-lg border-2 border-blue-200 relative text-center">
-                <p className="text-sm text-gray-600 font-semibold mb-2">Send this link to your friend to join</p>
-                  <div className="flex items-center gap-2 bg-white border border-gray-300 rounded p-1.5">
-                    <input 
-                      type="text" 
-                      readOnly 
-                      value={inviteLink}
-                      className="flex-1 text-xs text-gray-600 bg-transparent outline-none px-1"
-                    />
-                    <button 
-                      onClick={copyToClipboard}
-                      className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded text-gray-700 transition"
-                      title="Copy Invite Link"
-                    >
-                      {copied ? <Check size={14} className="text-green-600" /> : <Copy size={14} />}
-                    </button>
-                  </div>
-              </div>
-            ) : (
-              <div className="p-6 bg-green-50 rounded-lg border-2 border-green-200 relative text-center">
-                <p className="text-sm text-green-700 font-bold mb-2">Preparing Practice Match...</p>
-                <div className="mt-4 flex items-center justify-center gap-2 text-sm text-green-600 font-semibold">
-                  <div className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-                  Generating questions
-                </div>
-              </div>
-            )}
-
-            <div className="bg-gray-100 p-4 rounded-lg">
-              <h3 className="font-bold mb-3">Players ({players.length}/{matchSettings.mode === 'practice' ? '1' : '2'})</h3>
-              <ul className="space-y-3">
-                {players.map((p, index) => (
-                  <li key={index} className="bg-white px-4 py-2 rounded-lg shadow-sm font-semibold flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-400 to-gray-600 text-white flex items-center justify-center font-bold text-xs">
-                       {p.user?.name?.charAt(0).toUpperCase() || '?'}
-                    </div>
-                    <span className="flex-1 text-left">{p.user?.name || `Player ${index + 1}`} {socket?.id === p.id && "(You)"}</span>
-                    <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                  </li>
-                ))}
-              </ul>
-              {players.length < 2 && matchSettings.mode !== 'practice' && (
-                <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500 font-semibold">
-                  <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
-                  Waiting for opponent...
-                </div>
-              )}
-            </div>
-
-              <button 
-                onClick={() => {
-                  setJoinedRoom(null);
-                  localStorage.removeItem('current_room');
-                  if (socket) {
-                    socket.disconnect();
-                    socket = null;
-                  }
-                  if (joinCode) {
-                    router.replace('/');
-                  }
-                }}
-                className="w-full text-gray-500 font-semibold hover:text-black underline mt-2"
-              >
-                Leave Room
-              </button>
-          </div>
-        )}
-      </div>
-
-      {/* Settings Modal */}
-      {showSettings && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative animate-in fade-in zoom-in duration-200">
-            <button 
-              onClick={() => setShowSettings(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-900"
-            >
-              <X size={24} />
-            </button>
-            
-            <h2 className="text-2xl font-black mb-6 text-gray-900">Match Settings</h2>
-            
-            <form onSubmit={confirmCreateRoom} className="space-y-5">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Mode</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button type="button" className={`py-2 rounded-lg font-bold border-2 ${matchSettings.mode === '1v1' ? 'border-red-600 bg-red-50 text-red-700' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`} onClick={() => setMatchSettings({...matchSettings, mode: '1v1'})}>
-                    1v1 Arena
-                  </button>
-                  <button type="button" className={`py-2 rounded-lg font-bold border-2 ${matchSettings.mode === 'practice' ? 'border-green-600 bg-green-50 text-green-700' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`} onClick={() => setMatchSettings({...matchSettings, mode: 'practice'})}>
-                    Practice Solo
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Subject</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button type="button" className={`py-2 rounded-lg font-bold border-2 ${matchSettings.subject === 'Verbal' ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-500'}`} onClick={() => setMatchSettings({...matchSettings, subject: 'Verbal'})}>
-                    Reading & Writing
-                  </button>
-                  <button type="button" disabled className="py-2 rounded-lg font-bold border-2 border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed flex items-center justify-center gap-1">
-                    Math <span className="text-[10px] bg-gray-200 px-1.5 py-0.5 rounded text-gray-500">SOON</span>
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Domain</label>
-                <select 
-                  className="w-full border-2 border-gray-300 rounded-lg px-3 py-2.5 outline-none focus:border-blue-500 font-medium"
-                  value={matchSettings.domain}
-                  onChange={(e) => setMatchSettings({...matchSettings, domain: e.target.value})}
-                >
-                  <option value="All">All Domains</option>
-                  <option value="Craft and Structure">Craft and Structure</option>
-                  <option value="Information and Ideas">Information and Ideas</option>
-                  <option value="Standard English Conventions">Standard English Conventions</option>
-                  <option value="Expression of Ideas">Expression of Ideas</option>
-                </select>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Difficulty</label>
-                  <select 
-                    className="w-full border-2 border-gray-300 rounded-lg px-3 py-2.5 outline-none focus:border-blue-500 font-medium"
-                    value={matchSettings.difficulty}
-                    onChange={(e) => setMatchSettings({...matchSettings, difficulty: e.target.value})}
-                  >
-                    <option value="All">Mixed</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Questions</label>
-                  <select 
-                    className="w-full border-2 border-gray-300 rounded-lg px-3 py-2.5 outline-none focus:border-blue-500 font-medium"
-                    value={matchSettings.questionCount}
-                    onChange={(e) => setMatchSettings({...matchSettings, questionCount: Number(e.target.value)})}
-                  >
-                    <option value={10}>10 Questions</option>
-                    <option value={15}>15 Questions</option>
-                    <option value={20}>20 Questions</option>
-                    <option value={27}>27 Questions</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Time Limit</label>
-                <select 
-                  className="w-full border-2 border-gray-300 rounded-lg px-3 py-2.5 outline-none focus:border-blue-500 font-medium"
-                  value={matchSettings.timeLimit}
-                  onChange={(e) => setMatchSettings({...matchSettings, timeLimit: Number(e.target.value)})}
-                >
-                  <option value={10}>10 Minutes</option>
-                  <option value={15}>15 Minutes</option>
-                  <option value={20}>20 Minutes</option>
-                  <option value={32}>32 Minutes</option>
-                </select>
-              </div>
-
-              <div className="pt-4">
-                <button type="submit" className="w-full bg-blue-600 text-white font-bold text-lg py-3 rounded-xl hover:bg-blue-700 transition shadow-lg">
-                  Generate Invite Link
-                </button>
-              </div>
-            </form>
-          </div>
+    <div className="min-h-dvh bg-[#f7f7f7]">
+      <header className="bg-white">
+        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+          <span className="text-xl font-bold tracking-tight">SAT Arena</span>
+          <button onClick={() => setEditingName(true)} className="flex items-center gap-2 text-[15px] font-semibold hover:underline" title="Change nickname">
+            {nickname} <Edit2 size={15} />
+          </button>
         </div>
-      )}
+        <div className="bb-dash" />
+      </header>
+
+      <main className="max-w-5xl mx-auto px-6 py-10 space-y-8">
+        <section>
+          <h1 className="text-[28px] font-bold mb-1">Welcome back, {nickname}</h1>
+          <p className="text-[var(--bb-muted)]">Practice on official College Board questions in a Bluebook-style test window.</p>
+        </section>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7 flex flex-col">
+            <div className="flex items-center gap-3 mb-2"><Swords className="text-[var(--bb-blue)]" /><h2 className="text-xl font-bold">1v1 Arena</h2></div>
+            <p className="text-[var(--bb-muted)] mb-6 flex-1">Race a friend on the same questions. Answers stay hidden until both of you submit; ties go to whoever finished faster.</p>
+            <button className="bb-primary self-start mb-5" onClick={() => setCreating(true)}>Create Match</button>
+            <form className="flex gap-2" onSubmit={e => { e.preventDefault(); if (code.trim()) router.push(`/arena?room=${encodeURIComponent(code.trim())}`); }}>
+              <input value={code} onChange={e => setCode(e.target.value.replace(/\D/g, '').slice(0, 4))} placeholder="Room code" inputMode="numeric"
+                aria-label="Room code"
+                className="w-36 border-[1.5px] border-[#5f5f5f] rounded-full px-4 py-2 outline-none focus:border-[var(--bb-blue)] font-semibold tracking-widest" />
+              <button type="submit" className="bb-secondary" disabled={code.length !== 4}>Join</button>
+            </form>
+          </section>
+
+          <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7 flex flex-col">
+            <div className="flex items-center gap-3 mb-2"><BookOpen className="text-[var(--bb-blue)]" /><h2 className="text-xl font-bold">Bluebook-Style Module</h2></div>
+            <p className="text-[var(--bb-muted)] mb-6 flex-1">A full timed module with the official domain mix and question order. Check your work, then review every answer with explanations.</p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/practice?preset=module&subject=Verbal" className="bb-primary">Reading &amp; Writing · 27 Q · 32 min</Link>
+              <Link href="/practice?preset=module&subject=Math" className="bb-primary">Math · 22 Q · 35 min</Link>
+            </div>
+            <Link href="/practice?preset=section&subject=Verbal" className="mt-4 text-[15px] font-semibold text-[var(--bb-blue)] hover:underline self-start">
+              Or take a full adaptive section (2 modules) →
+            </Link>
+          </section>
+        </div>
+
+        <section className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] p-7">
+          <div className="flex items-center gap-3 mb-2"><Target className="text-[var(--bb-blue)]" /><h2 className="text-xl font-bold">Free Practice</h2></div>
+          <p className="text-[var(--bb-muted)] mb-5">Pick domains, skills and difficulty. Check each answer as you go or at the end, and redo the ones you missed.</p>
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <Stats history={history || {}} />
+            <div className="flex flex-wrap gap-3">
+              {mistakes > 0 && <Link href="/practice?preset=mistakes" className="bb-secondary">Redo Mistakes ({mistakes})</Link>}
+              <Link href="/practice" className="bb-primary">Start Practicing</Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {creating && <CreateMatchModal onClose={() => setCreating(false)} onCreate={createMatch} />}
     </div>
   );
 }
 
 export default function Home() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-      <LobbyContent />
+    <Suspense fallback={<div className="min-h-dvh" />}>
+      <HomeContent />
     </Suspense>
   );
 }

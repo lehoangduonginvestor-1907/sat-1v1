@@ -13,11 +13,12 @@ const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin"],
   weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "SAT Challenge",
-  description: "1v1 Digital SAT Arena",
+  title: "SAT Arena",
+  description: "Bluebook-style Digital SAT practice and 1v1 matches on official College Board questions",
 };
 
 export default function RootLayout({
@@ -27,16 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <Script 
-          src="https://www.desmos.com/api/v1.12/calculator.js?apiKey=0c94a117a824475b8fc9297d73371a3a"
-          strategy="beforeInteractive"
-        />
-      </head>
       <body
         className={`${notoSans.variable} ${notoSerif.variable} font-sans antialiased`}
       >
         {children}
+        <Script
+          src="https://www.desmos.com/api/v1.12/calculator.js?apiKey=0c94a117a824475b8fc9297d73371a3a"
+          strategy="beforeInteractive"
+        />
       </body>
     </html>
   );
