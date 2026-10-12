@@ -50,6 +50,9 @@ test('finish line: package, star of hope, steal, scores, emotes', async () => {
     s = await waitState(a, x => x.phase === 'ready');
     assert.deepEqual(s.pkg.map(x => x.value), [10, 30, 20]);
     assert.equal(s.question, null, 'question hidden before it starts');
+    // Quỹ giờ của lượt = tổng thời gian chuẩn của gói (Math: 75 + 115 + 95 giây)
+    assert.equal(s.bankTotal, 285_000);
+    assert.equal(s.bank, 285_000);
 
     // Câu 1 (Easy 10đ) với ngôi sao hy vọng, trả lời đúng: +20
     me.emit('fl:star', { use: true });
@@ -58,6 +61,7 @@ test('finish line: package, star of hope, steal, scores, emotes', async () => {
     me.emit('fl:answer', { answer: right(s.question.id) });
     s = await waitState(a, x => x.phase === 'reveal' && x.q === 0);
     assert.equal(s.scores[active], 20);
+    assert.ok(s.bank < 285_000 && s.bank > 280_000, 'time spent comes out of the bank');
     assert.ok(s.reveal.key.rationale !== undefined);
 
     a.emit('fl:continue');
@@ -88,16 +92,15 @@ test('finish line: package, star of hope, steal, scores, emotes', async () => {
     assert.equal(emote.text, 'Too easy!');
     assert.equal(emote.playerId, active);
 
+
+    // Câu 3 (Medium 20đ): hết quỹ giờ thì tính hết giờ ngay, bỏ qua bước đặt ngôi sao.
+    // Đối thủ cướp nhưng sai → đối thủ bị trừ 10đ (một nửa)
+    room.game.bank = 0;
     a.emit('fl:continue');
     b.emit('fl:continue');
-    s = await waitState(a, x => x.phase === 'ready' && x.q === 2);
-
-    // Câu 3 (Medium 20đ): sai, đối thủ cướp nhưng cũng sai → đối thủ bị trừ 10đ (một nửa)
-    me.emit('fl:star', { use: false });
-    s = await waitState(a, x => x.phase === 'question' && x.q === 2);
+    s = await waitState(a, x => x.phase === 'steal' && x.q === 2);
+    assert.equal(s.attempt.answer, '');
     const q3 = s.question.id;
-    me.emit('fl:answer', { answer: wrong(q3) });
-    await waitState(a, x => x.phase === 'steal');
     rival.emit('fl:steal');
     await waitState(a, x => x.phase === 'stealAnswer');
     rival.emit('fl:answer', { answer: wrong(q3) });

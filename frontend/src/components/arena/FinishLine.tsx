@@ -4,11 +4,15 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { ArrowLeft, Calculator, ChevronDown, Crown, Star, Swords, Zap } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Crown, Star, Swords, Zap } from 'lucide-react';
 import RichContent from '@/components/bluebook/RichContent';
 import CalculatorPanel from '@/components/bluebook/CalculatorPanel';
+import ReferenceSheet from '@/components/bluebook/ReferenceSheet';
+import LineReader from '@/components/bluebook/LineReader';
+import BluebookHeader from '@/components/bluebook/BluebookHeader';
+import QuestionView from '@/components/bluebook/QuestionView';
 import Modal from '@/components/bluebook/Modal';
-import { isValidSprInput } from '@/components/bluebook/QuestionView';
+import { useAnnotations } from '@/components/bluebook/useAnnotations';
 import type { AnswerKey, Question } from '@/lib/types';
 import { correctAnswerText } from '@/lib/types';
 
@@ -25,6 +29,7 @@ export interface FlState {
   pkg: { difficulty: Difficulty; value: number }[] | null; q: number; star: boolean; starUsed: boolean;
   deadline: number; startsAt: number; serverNow: number; scores: Record<string, number>;
   question: Question | null; seconds: number; value: number | null; difficulty: Difficulty | null;
+  bank: number; bankTotal: number; // quỹ giờ của lượt (ms)
   attempt: { answer: string; correct: boolean } | null;
   steal: { playerId: string; answer?: string; correct?: boolean } | null;
   reveal: { key: AnswerKey; entry: FlEntry } | null;
@@ -38,6 +43,11 @@ export interface FlEnd {
 interface Player { playerId: string; name: string; connected: boolean; rematch: boolean }
 
 const VALUE: Record<Difficulty, number> = { Easy: 10, Medium: 20, Hard: 30 };
+// Giống backend/lib/finishLine.js: quỹ giờ của lượt = tổng thời gian chuẩn của 3 câu trong gói
+const SECONDS: Record<'Verbal' | 'Math', Record<Difficulty, number>> = {
+  Verbal: { Easy: 60, Medium: 75, Hard: 90 },
+  Math: { Easy: 75, Medium: 95, Hard: 115 },
+};
 const DIFF_STYLE: Record<Difficulty, string> = {
   Easy: 'bg-[#e6f4ec] text-[#0b7a3b] border-[#0b7a3b]',
   Medium: 'bg-[#fff4d6] text-[#8a5a00] border-[#d49b00]',
@@ -60,6 +70,7 @@ function useSecondsLeft(deadline: number, offset: number) {
 }
 
 const signed = (n: number) => (n > 0 ? `+${n}` : String(n));
+const clock = (sec: number) => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
 
 // ---- Bảng điểm ----
 
@@ -107,11 +118,19 @@ function Scoreboard({ s, me, opp, secondsLeft }: { s: FlState; me?: Player; opp?
   );
 }
 
-function PackageStrip({ s }: { s: FlState }) {
+function PackageStrip({ s, secondsLeft }: { s: FlState; secondsLeft: number }) {
   if (!s.pkg) return null;
   const turnLog = s.log.filter(e => e.turn === s.turn);
+  // Đang trả lời thì quỹ giờ chính là đồng hồ đang chạy; các pha khác đồng hồ dừng
+  const bankLeft = s.phase === 'question' ? secondsLeft : Math.ceil(s.bank / 1000);
+  const low = bankLeft <= 20;
   return (
-    <div className="flex justify-center gap-2 sm:gap-3 py-3 bg-white border-b border-[#e3e3e3]">
+    <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 py-3 bg-white border-b border-[#e3e3e3]">
+      <div className={`rounded-lg border-[1.5px] px-3 py-1.5 text-center min-w-[92px] ${low ? 'border-[var(--bb-wrong)] text-[var(--bb-wrong)] bg-[var(--bb-wrong-soft)]' : 'border-[#d6d6d6] text-[var(--bb-ink)]'}`}
+        title="Time for all three questions this turn. It only runs while the question is being answered.">
+        <div className="text-[11px] font-bold uppercase tracking-wide">Time bank</div>
+        <div className="text-[18px] font-bold leading-tight tabular-nums">{clock(bankLeft)}</div>
+      </div>
       {s.pkg.map((p, i) => {
         const done = turnLog.find(e => e.q === i);
         const current = i === s.q && !done;
@@ -131,13 +150,14 @@ function PackageStrip({ s }: { s: FlState }) {
 
 // ---- Chọn gói câu hỏi ----
 
-function PackagePicker({ onPick, secondsLeft }: { onPick: (d: Difficulty[]) => void; secondsLeft: number }) {
+function PackagePicker({ onPick, secondsLeft, subject }: { onPick: (d: Difficulty[]) => void; secondsLeft: number; subject: 'Verbal' | 'Math' }) {
   const [slots, setSlots] = useState<Difficulty[]>(['Medium', 'Medium', 'Medium']);
   const total = slots.reduce((n, d) => n + VALUE[d], 0);
+  const bank = slots.reduce((n, d) => n + SECONDS[subject][d], 0);
   return (
     <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.12)] p-6 sm:p-8">
       <h2 className="text-2xl font-bold mb-1">Choose your package</h2>
-      <p className="text-[var(--bb-muted)] mb-5">Three questions. Harder ones are worth more, and your opponent can steal any you miss. Auto-picks Balanced in {secondsLeft}s.</p>
+      <p className="text-[var(--bb-muted)] mb-5">Three questions. Harder ones are worth more, and your opponent can steal any you miss. You get one time bank for all three: harder packages get more time, and time you save carries over. Auto-picks Balanced in {secondsLeft}s.</p>
       <div className="flex flex-wrap gap-2 mb-5">
         {PRESETS.map(([label, d]) => (
           <button key={label} onClick={() => setSlots(d)} className={`px-3 py-1.5 rounded-full text-[14px] font-bold border-[1.5px] ${slots.join() === d.join() ? 'bg-[var(--bb-blue)] text-white border-[var(--bb-blue)]' : 'border-[var(--bb-blue)] text-[var(--bb-blue)] hover:bg-[var(--bb-blue-soft)]'}`}>{label}</button>
@@ -159,7 +179,7 @@ function PackagePicker({ onPick, secondsLeft }: { onPick: (d: Difficulty[]) => v
         ))}
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-lg font-bold">Package: {total} points</span>
+        <span className="text-lg font-bold">Package: {total} points · {clock(bank)} time bank</span>
         <button className="bb-primary" onClick={() => onPick(slots)}>Lock In</button>
       </div>
     </div>
@@ -168,63 +188,77 @@ function PackagePicker({ onPick, secondsLeft }: { onPick: (d: Difficulty[]) => v
 
 // ---- Câu hỏi ----
 
-function QuestionPanel({ s, canAnswer, onAnswer, banner, reveal }: {
-  s: FlState; canAnswer: boolean; onAnswer: (a: string) => void; banner: React.ReactNode;
-  reveal?: { key: AnswerKey; marks: Record<string, string> };
+// Giao diện Bluebook đầy đủ công cụ: Highlights & Notes, gạch đáp án, kéo chia đôi màn hình,
+// Calculator / Reference (Math), Line Reader. Giữ nguyên khi chuyển pha của cùng một câu (cướp điểm, công bố).
+function QuestionPanel({ s, canAnswer, canScratch, onAnswer, banner, reveal, onLeave }: {
+  s: FlState; canAnswer: boolean; canScratch: boolean; onAnswer: (a: string) => void; banner: React.ReactNode;
+  reveal?: { key: AnswerKey; marks: Record<string, string>; answer?: string; correct: boolean };
+  onLeave: () => void;
 }) {
   const q = s.question!;
-  const [draft, setDraft] = useState('');
-  const [calc, setCalc] = useState(false);
   const isMath = q.section === 'Math';
-  const correctLetter = reveal?.key.type === 'mcq' ? 'ABCD'[reveal.key.correctAnswer ?? 0] : null;
-  const locked = !canAnswer;
+  const [draft, setDraft] = useState('');
+  const [crossed, setCrossed] = useState<string[]>([]);
+  const [eliminatorOn, setEliminatorOn] = useState(false);
+  const [leftPct, setLeftPct] = useState(50);
+  const [calcOpen, setCalcOpen] = useState(false);
+  const [refOpen, setRefOpen] = useState(false);
+  const [lineReader, setLineReader] = useState(false);
+  const notes = useAnnotations();
+  const interactive = canAnswer || canScratch;
+
+  const toggleCross = (letter: string) => {
+    const isCrossed = crossed.includes(letter);
+    setCrossed(isCrossed ? crossed.filter(l => l !== letter) : [...crossed, letter]);
+    if (!isCrossed && draft === letter) setDraft('');
+  };
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="mb-4">{banner}</div>
-      <div className={`bg-white rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.1)] p-5 sm:p-7 ${!isMath && q.stimulus ? 'md:grid md:grid-cols-2 md:gap-8' : 'max-w-3xl mx-auto'}`}>
-        {q.stimulus && <div className={!isMath ? 'mb-5 md:mb-0 md:pr-8 md:border-r border-[#e3e3e3]' : 'mb-4'}><RichContent html={q.stimulus} /></div>}
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            {s.difficulty && <span className={`text-[12px] font-bold rounded-full border px-2 py-0.5 ${DIFF_STYLE[s.difficulty]}`}>{s.difficulty} · {s.value ?? 20} pts</span>}
-            <span className="text-[13px] text-[var(--bb-muted)]">{q.skill}</span>
-            {isMath && <button className="ml-auto flex items-center gap-1 text-[13px] font-semibold text-[var(--bb-blue)] hover:underline" onClick={() => setCalc(c => !c)}><Calculator size={15} /> Calculator</button>}
-          </div>
-          <RichContent html={q.stem} className="mb-5" />
-          {q.type === 'mcq' ? (
-            <div className="space-y-3">
-              {q.options.map((o, i) => {
-                const letter = 'ABCD'[i];
-                const mark = reveal?.marks[letter];
-                const state = reveal
-                  ? letter === correctLetter ? 'is-correct' : mark ? 'is-wrong' : ''
-                  : draft === letter ? 'is-selected' : '';
-                return (
-                  <button key={letter} className={`bb-choice ${state}`} disabled={locked} onClick={() => setDraft(letter)} aria-pressed={draft === letter}>
-                    <span className="bb-letter">{letter}</span>
-                    <RichContent html={o} inline className="flex-1" />
-                    {mark && <span className="text-[12px] font-bold text-[var(--bb-wrong)] self-center whitespace-nowrap">{mark}</span>}
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            <div>
-              <input type="text" inputMode="decimal" autoComplete="off" spellCheck={false} aria-label="Your answer" value={draft} disabled={locked}
-                onChange={e => isValidSprInput(e.target.value) && setDraft(e.target.value)}
-                className="w-48 h-12 px-3 text-xl font-serif rounded-lg outline-none border-[1.5px] border-[#5f5f5f] focus:border-[var(--bb-blue)] bg-white disabled:bg-[#f3f3f3]" />
-              {reveal && <p className="mt-3 font-bold">Correct answer: <span className="text-[var(--bb-correct)]">{correctAnswerText(reveal.key)}</span></p>}
-            </div>
-          )}
-          {canAnswer && (
-            <div className="mt-6 flex justify-end">
-              <button className="bb-primary" disabled={!draft} onClick={() => onAnswer(draft)}>Lock In Answer</button>
-            </div>
-          )}
-        </div>
+    <>
+      <BluebookHeader
+        title={s.phase === 'tiebreak' ? 'Finish Line: Sudden Death' : `Finish Line: Question ${s.q + 1} of 3`}
+        isMath={isMath}
+        secondsLeft={null}
+        untimedLabel={s.difficulty ? `${s.difficulty} · ${s.value ?? 20} pts` : ''}
+        tools={{
+          annotate: notes.tool,
+          calculator: { active: calcOpen, onClick: () => setCalcOpen(o => !o) },
+          reference: { active: refOpen, onClick: () => setRefOpen(o => !o) },
+        }}
+        menu={[
+          { label: 'Line Reader', checked: lineReader, onClick: () => setLineReader(v => !v) },
+          { label: 'Clear Highlights', onClick: notes.clearHighlights },
+          { label: 'Leave Match', onClick: onLeave },
+        ]}
+      />
+      <div className="px-4 py-2 bg-[#f7f7f7] border-b border-[#e3e3e3] flex-shrink-0">{banner}</div>
+      <div className="relative flex-1 flex min-h-0 min-w-0">
+        <QuestionView
+          question={q}
+          index={s.phase === 'tiebreak' ? 0 : s.q}
+          answer={reveal ? reveal.answer : draft}
+          onAnswer={interactive && !reveal ? setDraft : undefined}
+          marked={false}
+          onToggleMark={() => {}}
+          noMark
+          eliminatorOn={eliminatorOn}
+          onToggleEliminator={() => setEliminatorOn(v => !v)}
+          crossed={reveal ? [] : crossed}
+          onToggleCross={toggleCross}
+          leftPct={leftPct}
+          onLeftPctChange={setLeftPct}
+          {...notes.viewProps}
+          result={reveal ? { key: reveal.key, correct: reveal.correct } : undefined}
+          choiceLabels={reveal?.marks}
+          onCheck={canAnswer && !reveal ? () => onAnswer(draft) : undefined}
+          checkLabel="Lock In Answer"
+        />
+        {lineReader && <LineReader />}
       </div>
-      {isMath && <CalculatorPanel open={calc} onClose={() => setCalc(false)} />}
-    </div>
+      {isMath && <CalculatorPanel open={calcOpen} onClose={() => setCalcOpen(false)} />}
+      <ReferenceSheet open={refOpen} onClose={() => setRefOpen(false)} />
+      {notes.overlays}
+    </>
   );
 }
 
@@ -241,8 +275,8 @@ function Banner({ tone, children }: { tone: 'blue' | 'red' | 'gold' | 'gray' | '
 
 // ---- Màn hình trận đấu ----
 
-export function FinishLineGame({ s, offset, me, opp, send, onLeave }: {
-  s: FlState; offset: number; me?: Player; opp?: Player; send: (event: string, data?: object) => void; onLeave: () => void;
+export function FinishLineGame({ s, subject, offset, me, opp, send, onLeave }: {
+  s: FlState; subject: 'Verbal' | 'Math'; offset: number; me?: Player; opp?: Player; send: (event: string, data?: object) => void; onLeave: () => void;
 }) {
   const [confirmLeave, setConfirmLeave] = useState(false);
   const secondsLeft = useSecondsLeft(s.deadline, offset);
@@ -251,19 +285,19 @@ export function FinishLineGame({ s, offset, me, opp, send, onLeave }: {
   const isActive = s.activeId === myId;
   const name = (id: string | null | undefined) => (id === myId ? 'You' : id === opp?.playerId ? opp?.name ?? 'Opponent' : '—');
   const activeName = name(s.activeId);
-  const [showWhy, setShowWhy] = useState(false);
-  const qKey = `${s.question?.id}-${s.phase === 'stealAnswer' ? 'steal' : s.phase === 'reveal' ? 'reveal' : 'main'}`;
 
   let body: React.ReactNode = null;
+  let questionView: React.ReactNode = null;
   if (s.phase === 'pick') {
     body = isActive
-      ? <PackagePicker onPick={d => send('fl:pick', { difficulties: d })} secondsLeft={secondsLeft} />
+      ? <PackagePicker onPick={d => send('fl:pick', { difficulties: d })} secondsLeft={secondsLeft} subject={subject} />
       : <Waiting title={`${activeName} is choosing a package…`} text="Read along when the question appears. If they miss, you can steal the points." />;
   } else if (s.phase === 'ready') {
     body = isActive ? (
       <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.12)] p-7 text-center">
         <p className="text-[var(--bb-muted)] font-semibold">Question {s.q + 1} of 3</p>
-        <p className={`inline-block mt-2 mb-5 text-[22px] font-bold rounded-full border-[1.5px] px-4 py-1 ${DIFF_STYLE[s.difficulty!]}`}>{s.difficulty} · {s.value} points</p>
+        <p className={`inline-block mt-2 mb-2 text-[22px] font-bold rounded-full border-[1.5px] px-4 py-1 ${DIFF_STYLE[s.difficulty!]}`}>{s.difficulty} · {s.value} points</p>
+        <p className="text-[14px] text-[var(--bb-muted)] mb-5">Time bank left: <b className="text-[var(--bb-ink)]">{clock(Math.ceil(s.bank / 1000))}</b> for {3 - s.q === 1 ? 'this last question' : `${3 - s.q} questions`}</p>
         <p className="text-[15px] mb-6">
           {s.starUsed ? 'You already used your Star of Hope this turn.' : <>Use your <b>Star of Hope</b>? Right: <b className="text-[var(--bb-correct)]">+{(s.value ?? 0) * 2}</b> · Wrong: <b className="text-[var(--bb-wrong)]">−{s.value}</b>. Once per turn.</>}
         </p>
@@ -282,11 +316,11 @@ export function FinishLineGame({ s, offset, me, opp, send, onLeave }: {
     const stealer = s.steal?.playerId;
     let banner: React.ReactNode;
     let canAnswer = false;
-    let reveal: { key: AnswerKey; marks: Record<string, string> } | undefined;
+    let reveal: React.ComponentProps<typeof QuestionPanel>['reveal'];
     if (s.phase === 'question') {
       canAnswer = isActive;
       banner = isActive
-        ? <Banner tone={s.star ? 'gold' : 'blue'}>{s.star && <Star size={18} className="fill-[#ffd34d]" />}Your question, {s.seconds}s total. {s.star ? 'Star of Hope is on!' : ''}</Banner>
+        ? <Banner tone={s.star ? 'gold' : 'blue'}>{s.star && <Star size={18} className="fill-[#ffd34d]" />}Your question. The clock is your turn&apos;s time bank, so save time where you can. {s.star ? 'Star of Hope is on!' : ''}</Banner>
         : <Banner tone="gray"><Swords size={18} />{activeName} is answering{s.star ? ' with the Star of Hope ⭐' : ''}. Work it out too: if they miss, you can steal.</Banner>;
     } else if (s.phase === 'steal') {
       const attempt = s.attempt?.answer ? `answered ${s.attempt.answer}, wrong` : 'ran out of time';
@@ -314,7 +348,7 @@ export function FinishLineGame({ s, offset, me, opp, send, onLeave }: {
       const marks: Record<string, string> = {};
       if (e.answer && !e.correct) marks[e.answer] = name(e.activeId);
       if (e.steal?.answer && !e.steal.correct) marks[e.steal.answer] = marks[e.steal.answer] ? 'Both' : `${name(e.steal.playerId)} (steal)`;
-      reveal = { key: s.reveal.key, marks };
+      reveal = { key: s.reveal.key, marks, answer: s.reveal.key.type === 'spr' ? e.answer : undefined, correct: e.correct };
       const parts = Object.entries(e.deltas).filter(([, d]) => d).map(([id, d]) => `${name(id)} ${signed(d)}`);
       const headline = e.correct ? `${name(e.activeId)} got it${e.star ? ' with the Star of Hope ⭐' : ''}!`
         : e.steal ? (e.steal.correct ? `${name(e.steal.playerId)} stole it!` : `Steal failed!`)
@@ -329,29 +363,16 @@ export function FinishLineGame({ s, offset, me, opp, send, onLeave }: {
         </Banner>
       );
     }
-    body = (
-      <>
-        <QuestionPanel key={qKey} s={s} canAnswer={canAnswer} onAnswer={a => send('fl:answer', { answer: a })} banner={banner} reveal={reveal} />
-        {reveal && s.reveal?.key.rationale && (
-          <div className="max-w-5xl mx-auto mt-4 bg-white rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.1)]">
-            <button className="w-full flex items-center justify-between px-6 py-4 font-bold" onClick={() => setShowWhy(v => !v)} aria-expanded={showWhy}>
-              Explanation <ChevronDown size={18} className={showWhy ? 'rotate-180' : ''} />
-            </button>
-            {showWhy && <div className="px-6 pb-6"><RichContent html={s.reveal.key.rationale} className="text-[15px]" /></div>}
-          </div>
-        )}
-      </>
+    // Người đang xem được nháp (chọn / gạch đáp án) trong lúc đối thủ trả lời, để sẵn sàng cướp điểm
+    const canScratch = !isActive && (s.phase === 'question' || s.phase === 'steal');
+    questionView = (
+      <QuestionPanel key={s.question.id} s={s} canAnswer={canAnswer} canScratch={canScratch} onAnswer={a => send('fl:answer', { answer: a })}
+        banner={banner} reveal={reveal} onLeave={() => setConfirmLeave(true)} />
     );
   }
 
-  return (
-    <div className="min-h-dvh bg-[#f7f7f7] flex flex-col">
-      <Scoreboard s={s} me={me} opp={opp} secondsLeft={secondsLeft} />
-      <PackageStrip s={s} />
-      <main className="flex-1 px-4 py-6 pb-24">{body}</main>
-      <button className="fixed bottom-6 left-6 z-40 text-[14px] font-semibold text-[var(--bb-muted)] bg-white/90 rounded-full px-4 py-2 shadow hover:underline" onClick={() => setConfirmLeave(true)}>
-        Leave match
-      </button>
+  const overlays = (
+    <>
       {confirmLeave && (
         <Modal title="Leave the match?" confirmLabel="Leave" onConfirm={onLeave} onCancel={() => setConfirmLeave(false)}>
           Leaving counts as a loss.
@@ -366,6 +387,29 @@ export function FinishLineGame({ s, offset, me, opp, send, onLeave }: {
           </div>
         </div>
       )}
+    </>
+  );
+
+  if (questionView) {
+    return (
+      <div className="bb-shell">
+        <Scoreboard s={s} me={me} opp={opp} secondsLeft={secondsLeft} />
+        <PackageStrip s={s} secondsLeft={secondsLeft} />
+        {questionView}
+        {overlays}
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-dvh bg-[#f7f7f7] flex flex-col">
+      <Scoreboard s={s} me={me} opp={opp} secondsLeft={secondsLeft} />
+      <PackageStrip s={s} secondsLeft={secondsLeft} />
+      <main className="flex-1 px-4 py-6 pb-24">{body}</main>
+      <button className="fixed bottom-6 left-6 z-40 text-[14px] font-semibold text-[var(--bb-muted)] bg-white/90 rounded-full px-4 py-2 shadow hover:underline" onClick={() => setConfirmLeave(true)}>
+        Leave match
+      </button>
+      {overlays}
     </div>
   );
 }

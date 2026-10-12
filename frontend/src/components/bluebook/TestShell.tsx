@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { Answers, Question } from '@/lib/types';
-import type { Highlight, HighlightColor } from '@/lib/highlights';
 import BluebookHeader from './BluebookHeader';
 import BluebookFooter from './BluebookFooter';
 import QuestionView, { QuestionResult } from './QuestionView';
@@ -11,8 +10,7 @@ import CalculatorPanel from './CalculatorPanel';
 import ReferenceSheet from './ReferenceSheet';
 import LineReader from './LineReader';
 import Modal from './Modal';
-import { AnnotationEditor, SelectionMenu } from './Annotations';
-import type { TextSelection } from './RichContent';
+import { useAnnotations } from './useAnnotations';
 
 export interface TestShellProps {
   title: string;
@@ -36,11 +34,6 @@ export interface TestShellProps {
   onNavigate?: (index: number | null) => void; // câu đang xem (null = trang Check Your Work), để đo thời gian từng câu
 }
 
-type Pending = { key: string; selection: TextSelection };
-type Editing = { key: string; id: string; isNew: boolean; text: string };
-
-const newId = () => Math.random().toString(36).slice(2, 10);
-
 export default function TestShell(p: TestShellProps) {
   const total = p.questions.length;
   const [index, setIndex] = useState(0);
@@ -53,10 +46,8 @@ export default function TestShell(p: TestShellProps) {
   const [calcOpen, setCalcOpen] = useState(false);
   const [refOpen, setRefOpen] = useState(false);
   const [lineReader, setLineReader] = useState(false);
-  const [highlights, setHighlights] = useState<Record<string, Highlight[]>>({});
-  const [pending, setPending] = useState<Pending | null>(null);
-  const [editing, setEditing] = useState<Editing | null>(null);
-  const [annotateHint, setAnnotateHint] = useState<string | null>(null);
+  const notes = useAnnotations();
+  const { clearPending } = notes;
   const [confirm, setConfirm] = useState<'submit' | 'exit' | null>(null);
   const [now, setNow] = useState(() => Date.now());
   const timeUpFired = useRef(false);
@@ -97,21 +88,11 @@ export default function TestShell(p: TestShellProps) {
     onNavigate?.(onReviewPage ? null : index);
   }, [index, onReviewPage, onNavigate]);
 
-  // Bỏ vùng chọn khi bấm ra ngoài
-  useEffect(() => {
-    if (!pending) return;
-    const clear = (e: MouseEvent) => {
-      if (!(e.target as HTMLElement).closest('.bb-selection-menu, .bb-tool')) setPending(null);
-    };
-    window.addEventListener('mousedown', clear);
-    return () => window.removeEventListener('mousedown', clear);
-  }, [pending]);
-
   const goTo = useCallback((i: number) => {
     setOnReviewPage(false);
-    setPending(null);
+    clearPending();
     setIndex(Math.min(Math.max(i, 0), total - 1));
-  }, [total]);
+  }, [total, clearPending]);
 
   const next = () => {
     if (onReviewPage) {
@@ -133,46 +114,20 @@ export default function TestShell(p: TestShellProps) {
     if (!isCrossed && p.answers[index] === letter) p.onAnswer?.(index, '');
   };
 
-  const addHighlight = (color: HighlightColor, underline = false, openNote = false) => {
-    if (!pending) return;
-    const h: Highlight = { id: newId(), start: pending.selection.start, end: pending.selection.end, color, underline, note: '' };
-    setHighlights(prev => ({ ...prev, [pending.key]: [...(prev[pending.key] || []), h] }));
-    if (openNote) setEditing({ key: pending.key, id: h.id, isNew: true, text: pending.selection.text });
-    window.getSelection()?.removeAllRanges();
-    setPending(null);
-  };
-
-  const updateHighlight = (key: string, id: string, patch: Partial<Highlight> | null) => {
-    setHighlights(prev => ({
-      ...prev,
-      [key]: patch === null
-        ? (prev[key] || []).filter(h => h.id !== id)
-        : (prev[key] || []).map(h => (h.id === id ? { ...h, ...patch } : h)),
-    }));
-  };
-
-  const onAnnotateTool = () => {
-    if (pending) return addHighlight('yellow', false, true);
-    setAnnotateHint('Select the text you want to highlight or annotate first.');
-    setTimeout(() => setAnnotateHint(null), 3000);
-  };
-
-  const editingHighlight = editing && (highlights[editing.key] || []).find(h => h.id === editing.id);
   const result = p.results?.[index];
 
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.origin}/practice?ids=${question.id}`);
-      setAnnotateHint('Link to this question copied.');
+      notes.flash('Link to this question copied.');
     } catch {
-      setAnnotateHint(`Question ID: ${question.id}`);
+      notes.flash(`Question ID: ${question.id}`);
     }
-    setTimeout(() => setAnnotateHint(null), 3000);
   };
 
   const menu = [
     { label: 'Line Reader', checked: lineReader, onClick: () => setLineReader(v => !v) },
-    { label: 'Clear Highlights', onClick: () => setHighlights({}) },
+    { label: 'Clear Highlights', onClick: notes.clearHighlights },
     ...(p.shareLinks && !onReviewPage ? [{ label: 'Copy Question Link', onClick: copyLink }] : []),
     ...(p.onExit ? [{ label: p.exitLabel || 'Exit', onClick: () => (p.exitConfirm ? setConfirm('exit') : p.onExit!()) }] : []),
   ];
@@ -188,7 +143,7 @@ export default function TestShell(p: TestShellProps) {
         secondsLeft={reviewMode ? null : secondsLeft}
         untimedLabel={reviewMode ? 'Answer Review' : 'Untimed'}
         tools={{
-          annotate: { active: Boolean(pending || editing), onClick: onAnnotateTool, hint: annotateHint },
+          annotate: notes.tool,
           calculator: { active: calcOpen, onClick: () => setCalcOpen(o => !o) },
           reference: { active: refOpen, onClick: () => setRefOpen(o => !o) },
         }}
@@ -213,13 +168,7 @@ export default function TestShell(p: TestShellProps) {
             onToggleCross={toggleCross}
             leftPct={leftPct}
             onLeftPctChange={setLeftPct}
-            highlights={highlights}
-            onSelectText={(key, selection) => setPending(selection ? { key, selection } : null)}
-            onHighlightClick={(key, id) => {
-              const h = (highlights[key] || []).find(x => x.id === id);
-              const el = document.querySelector(`mark[data-hid="${id}"]`);
-              if (h) setEditing({ key, id, isNew: false, text: el?.textContent || '' });
-            }}
+            {...notes.viewProps}
             result={result}
             onCheck={p.onCheck ? () => p.onCheck!(index) : undefined}
             checking={p.checkingIndex === index}
@@ -249,19 +198,7 @@ export default function TestShell(p: TestShellProps) {
       {hasMath && <CalculatorPanel open={calcOpen} onClose={() => setCalcOpen(false)} />}
       <ReferenceSheet open={refOpen} onClose={() => setRefOpen(false)} />
 
-      {pending && !editing && (
-        <SelectionMenu selection={pending.selection} onHighlight={addHighlight} onNote={() => addHighlight('yellow', false, true)} />
-      )}
-      {editing && editingHighlight && (
-        <AnnotationEditor
-          highlight={editingHighlight}
-          text={editing.text}
-          isNew={editing.isNew}
-          onSave={patch => { updateHighlight(editing.key, editing.id, patch); setEditing(null); }}
-          onDelete={() => { updateHighlight(editing.key, editing.id, null); setEditing(null); }}
-          onClose={() => setEditing(null)}
-        />
-      )}
+      {notes.overlays}
 
       {confirm === 'submit' && (
         <Modal title="Submit your answers?" confirmLabel="Submit" onConfirm={() => { setConfirm(null); p.onSubmit?.(); }} onCancel={() => setConfirm(null)}>

@@ -3,12 +3,15 @@ const { byId, publicQuestion, answerKey, isAnswerCorrect, selectQuestions } = re
 // Chế độ "Finish Line" (kiểu phần Về đích của Olympia), chạy theo lượt và do server điều khiển:
 // - Mỗi lượt, người chơi chọn gói 3 câu: Easy 10 / Medium 20 / Hard 30 điểm.
 // - Trước mỗi câu có thể đặt Ngôi sao hy vọng (1 lần / lượt): đúng nhân đôi điểm, sai bị trừ đúng số điểm câu đó.
+// - Mỗi lượt có một quỹ giờ (tổng thời gian chuẩn của 3 câu trong gói, gói khó được nhiều giờ hơn).
+//   Đồng hồ chỉ chạy khi đang trả lời; câu nào làm nhanh thì dư giờ cho câu sau, hết quỹ thì câu đang làm tính hết giờ.
 // - Trả lời sai hoặc hết giờ: đối thủ có vài giây để bấm cướp điểm. Cướp đúng: lấy điểm câu từ người đang thi;
 //   cướp sai: bị trừ một nửa số điểm câu.
 // - Hết các lượt mà bằng điểm: câu hỏi phụ, ai trả lời đúng trước thắng (trả lời sai bị khóa).
 // Mọi pha đều có hạn giờ trên server nên trận vẫn chạy tiếp khi một người mất kết nối.
 
 const VALUES = { Easy: 10, Medium: 20, Hard: 30 };
+// Thời gian chuẩn của từng mức, cộng lại thành quỹ giờ của lượt
 const SECONDS = {
   Verbal: { Easy: 60, Medium: 75, Hard: 90 },
   Math: { Easy: 75, Medium: 95, Hard: 115 },
@@ -63,6 +66,8 @@ function publicState(room) {
     scores: g.scores,
     question: g.current ? publicQuestion(g.current) : null,
     seconds: g.seconds,
+    bank: g.bank, // ms còn lại trong quỹ giờ của lượt (đang trả lời thì đồng hồ thật là deadline)
+    bankTotal: g.bankTotal,
     value: item?.value ?? null,
     difficulty: item?.difficulty ?? null,
     attempt: g.attempt, // { answer, correct } của người đang thi (khi đã trả lời sai / hết giờ)
@@ -95,7 +100,7 @@ function start(io, room) {
   room.startedAt = Date.now() + COUNTDOWN_MS;
   room.game = {
     phase: 'pick', turns, turnIndex: 0, activeId: turns[0],
-    pkg: null, q: 0, star: false, starUsed: false, current: null, seconds: 0,
+    pkg: null, q: 0, star: false, starUsed: false, current: null, seconds: 0, bank: 0, bankTotal: 0, qStart: 0,
     attempt: null, steal: null, continued: new Set(), tiebreak: null,
     scores: Object.fromEntries(ids.map(id => [id, 0])),
     usedIds: new Set(), log: [], deadline: 0,
@@ -107,7 +112,7 @@ function start(io, room) {
 
 function beginTurn(io, room) {
   const g = room.game;
-  Object.assign(g, { phase: 'pick', activeId: g.turns[g.turnIndex], pkg: null, q: 0, star: false, starUsed: false, current: null, attempt: null, steal: null });
+  Object.assign(g, { phase: 'pick', activeId: g.turns[g.turnIndex], pkg: null, q: 0, star: false, starUsed: false, current: null, attempt: null, steal: null, bank: 0, bankTotal: 0 });
   schedule(io, room, PICK_MS, onPickTimeout);
   emitState(io, room);
 }
@@ -121,6 +126,7 @@ function choosePackage(io, room, difficulties) {
     return { id: q?.id, difficulty, value: VALUES[difficulty] };
   }).filter(x => x.id);
   if (!g.pkg.length) return finish(io, room);
+  g.bank = g.bankTotal = g.pkg.reduce((ms, x) => ms + SECONDS[room.settings.subject][x.difficulty] * 1000, 0);
   toReady(io, room, 0);
 }
 
@@ -131,6 +137,7 @@ function onPickTimeout(io, room) {
 function toReady(io, room, i) {
   const g = room.game;
   Object.assign(g, { phase: 'ready', q: i, star: false, current: null, attempt: null, steal: null, continued: new Set() });
+  if (g.bank <= 0) return toQuestion(io, room); // hết quỹ giờ: không còn gì để đặt ngôi sao
   schedule(io, room, READY_MS, (io2, r) => r.game?.phase === 'ready' && toQuestion(io2, r));
   emitState(io, room);
 }
@@ -141,7 +148,9 @@ function toQuestion(io, room) {
   g.phase = 'question';
   g.current = byId.get(item.id);
   g.seconds = SECONDS[room.settings.subject][item.difficulty];
-  schedule(io, room, g.seconds * 1000, (io2, r) => r.game?.phase === 'question' && activeAnswer(io2, r, ''));
+  g.qStart = Date.now();
+  if (g.bank <= 0) return activeAnswer(io, room, ''); // hết quỹ giờ: tính hết giờ, đối thủ vẫn được cướp
+  schedule(io, room, g.bank, (io2, r) => r.game?.phase === 'question' && activeAnswer(io2, r, ''));
   emitState(io, room);
 }
 
@@ -160,6 +169,7 @@ function record(room, patch) {
 function activeAnswer(io, room, answer) {
   const g = room.game;
   const item = g.pkg[g.q];
+  g.bank = Math.max(0, g.bank - (Date.now() - g.qStart));
   const correct = Boolean(answer) && isAnswerCorrect(g.current, answer);
   if (correct) {
     record(room, { answer, correct, deltas: { [g.activeId]: item.value * (g.star ? 2 : 1) } });

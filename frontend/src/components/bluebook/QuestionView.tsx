@@ -32,6 +32,9 @@ interface Props {
   result?: QuestionResult;
   onCheck?: () => void; // luyện tập: kiểm tra từng câu
   checking?: boolean;
+  checkLabel?: string;
+  noMark?: boolean; // ẩn Mark for Review (Finish Line chỉ có một câu)
+  choiceLabels?: Record<string, string>; // Finish Line: ai đã chọn sai đáp án nào (thay cho "Your Answer")
 }
 
 // Giống Bluebook: tối đa 5 ký tự (6 nếu là số âm), chỉ gồm số, dấu chấm, dấu gạch phân số và dấu trừ
@@ -56,7 +59,7 @@ function AnswerPreview({ value }: { value: string }) {
   );
 }
 
-function Explanation({ result, answer }: { result: QuestionResult; answer?: string }) {
+function Explanation({ result, answer, hideAnswer }: { result: QuestionResult; answer?: string; hideAnswer?: boolean }) {
   return (
     <div className="mt-8 border-t border-[var(--bb-line)] pt-5">
       <div className="flex flex-wrap gap-x-8 gap-y-1 text-[15px] mb-4">
@@ -64,12 +67,12 @@ function Explanation({ result, answer }: { result: QuestionResult; answer?: stri
           <span className="font-bold">Correct Answer: </span>
           <span className="text-[var(--bb-correct)] font-bold">{correctAnswerText(result.key)}</span>
         </span>
-        <span>
+        {!hideAnswer && <span>
           <span className="font-bold">Your Answer: </span>
           <span className={result.correct ? 'text-[var(--bb-correct)] font-bold' : 'text-[var(--bb-wrong)] font-bold'}>
             {answer || 'Omitted'}
           </span>
-        </span>
+        </span>}
       </div>
       <h3 className="font-bold mb-2">Explanation</h3>
       <RichContent html={result.key.rationale} className="text-[15px]" />
@@ -110,8 +113,9 @@ export default function QuestionView(props: Props) {
     const letter = 'ABCD'[i];
     const selected = answer === letter;
     const isCrossed = crossed.includes(letter);
+    const label = props.choiceLabels?.[letter];
     const state = result
-      ? i === result.key.correctAnswer ? 'is-correct' : selected ? 'is-wrong' : ''
+      ? i === result.key.correctAnswer ? 'is-correct' : selected || label ? 'is-wrong' : ''
       : selected ? 'is-selected' : isCrossed ? 'is-crossed' : '';
     return (
       <div key={letter} className="bb-choice-row">
@@ -126,6 +130,7 @@ export default function QuestionView(props: Props) {
         >
           <span className="bb-letter">{letter}</span>
           <RichContent html={html} inline className="flex-1" />
+          {label && <span className="text-[12px] font-bold text-[var(--bb-wrong)] self-center whitespace-nowrap">{label}</span>}
         </button>
         {eliminatorOn && !locked && (
           isCrossed
@@ -140,9 +145,11 @@ export default function QuestionView(props: Props) {
     <div className={twoPane ? 'bb-pane-inner' : 'bb-pane-inner mx-auto w-full max-w-[720px]'}>
       <div className="bb-qbar">
         <span className="bb-qnum">{index + 1}</span>
-        <button className={`bb-mark ${marked ? 'is-marked' : ''}`} onClick={props.onToggleMark} aria-pressed={marked}>
-          <BookmarkIcon filled={marked} /> Mark for Review
-        </button>
+        {!props.noMark && (
+          <button className={`bb-mark ${marked ? 'is-marked' : ''}`} onClick={props.onToggleMark} aria-pressed={marked}>
+            <BookmarkIcon filled={marked} /> Mark for Review
+          </button>
+        )}
         {!isSpr && !locked && (
           <button className={`bb-abc ${eliminatorOn ? 'is-on' : ''}`} onClick={props.onToggleEliminator}
             aria-pressed={eliminatorOn} title="Cross out answer choices you think are wrong.">
@@ -178,12 +185,12 @@ export default function QuestionView(props: Props) {
 
       {props.onCheck && !result && (
         <div className="mt-6">
-          <button className="bb-secondary" onClick={props.onCheck} disabled={!answer || props.checking}>
-            {props.checking ? 'Checking…' : 'Check Answer'}
+          <button className={props.checkLabel ? 'bb-primary' : 'bb-secondary'} onClick={props.onCheck} disabled={!answer || props.checking}>
+            {props.checking ? 'Checking…' : props.checkLabel || 'Check Answer'}
           </button>
         </div>
       )}
-      {result && <Explanation result={result} answer={answer} />}
+      {result && <Explanation result={result} answer={answer} hideAnswer={Boolean(props.choiceLabels)} />}
     </div>
   );
 

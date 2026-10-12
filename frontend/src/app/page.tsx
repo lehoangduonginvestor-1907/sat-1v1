@@ -85,6 +85,7 @@ function CreateMatchModal({ onClose, onCreate }: { onClose: () => void; onCreate
               </div>
               <ul className="text-xs text-[var(--bb-muted)] space-y-1 list-disc pl-4">
                 <li>On your turn, pick a package of 3 questions: Easy 10, Medium 20 or Hard 30 points.</li>
+                <li>One time bank per turn for all 3 questions: harder packages get more time, and time you save carries over.</li>
                 <li>Star of Hope (once per turn): double points if right, lose the points if wrong.</li>
                 <li>Miss or run out of time and your opponent can steal: right takes your points, wrong costs them half.</li>
                 <li>Tied at the end? A sudden-death question: first correct answer wins.</li>

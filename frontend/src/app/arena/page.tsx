@@ -352,7 +352,7 @@ function ArenaContent() {
       return <>{<FinishLineResults end={flEnd} me={playerId} players={room.players} onRematch={() => socketRef.current?.emit('match:rematch')} />}{emoteUi()}</>;
     }
     if (room.state === 'waiting' || !fl) return <><Lobby room={room} me={playerId} inviteLink={inviteLink} onLeave={leave} />{emoteUi()}</>;
-    return <><FinishLineGame s={fl} offset={offset} me={me} opp={opponent} send={flSend} onLeave={leave} />{emoteUi(undefined, 96)}</>;
+    return <><FinishLineGame s={fl} subject={room.settings.subject} offset={offset} me={me} opp={opponent} send={flSend} onLeave={leave} />{emoteUi(undefined, 96)}</>;
   }
 
   if (end && view === 'results') {
