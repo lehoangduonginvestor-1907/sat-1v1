@@ -1,5 +1,7 @@
 const { publicQuestion, answerKey, isAnswerCorrect, selectQuestions } = require('./bank');
 const finishLine = require('./finishLine');
+const db = require('./db');
+const ratings = require('./ratings');
 
 // Phòng đấu 1v1. Server giữ câu hỏi, đáp án và đồng hồ: client chỉ nhận đề (không kèm đáp án),
 // gửi từng câu trả lời lên, và nhận đáp án + lời giải khi trận kết thúc.
@@ -46,6 +48,7 @@ function snapshot(room) {
     players: room.players.map(p => ({
       playerId: p.playerId,
       name: p.name,
+      signedIn: Boolean(p.userId), // cả hai đã đăng nhập thì trận được tính Elo
       connected: p.connected,
       answered: answeredCount(p),
       finished: p.finished,
@@ -131,9 +134,27 @@ function endMatch(io, room) {
   io.to(room.code).emit('match:end', room.result);
   broadcast(io, room);
   console.log(`Match ended in room ${room.code}: ${results.map(r => `${r.name} ${r.score}`).join(' vs ')}`);
+  ratings.recordMatch(io, room);
 }
 
 function registerRoomHandlers(io) {
+  // Đăng nhập Google (Supabase): client gửi access token khi kết nối. Token sai/thiếu = chơi như khách.
+  io.use(async (socket, next) => {
+    const token = socket.handshake.auth?.token;
+    if (token && db.enabled) {
+      try {
+        const user = await db.verifyUser(token);
+        if (user) {
+          socket.data.user = user;
+          db.upsertProfile(user).catch(err => console.error('Profile upsert failed:', err.message));
+        }
+      } catch (err) {
+        console.error('Auth check failed:', err.message);
+      }
+    }
+    next();
+  });
+
   io.on('connection', socket => {
     // Client gửi sự kiện không kèm dữ liệu thì socket.io truyền null: đổi về undefined để tham số mặc định hoạt động
     socket.use((packet, next) => {
@@ -147,8 +168,13 @@ function registerRoomHandlers(io) {
       return { room, player };
     };
 
+    // Đã đăng nhập thì định danh là id tài khoản (do server xác thực), bỏ qua playerId client gửi
+    const resolveId = data => socket.data.user?.id || data.playerId;
+
     const join = (room, { name, playerId }) => {
+      const userId = socket.data.user?.id || null;
       let player = room.players.find(p => p.playerId === playerId);
+      if (player && player.userId && player.userId !== userId) return { error: 'This seat belongs to another signed-in player.' };
       if (!player) {
         if (room.players.length >= 2) return { error: 'This room is full.' };
         if (room.state !== 'waiting') return { error: 'This match has already started.' };
@@ -157,8 +183,9 @@ function registerRoomHandlers(io) {
       }
       // Cùng playerId (vd. tải lại trang): nhận lại chỗ cũ, giữ nguyên bài đang làm
       Object.assign(player, { name: String(name || 'Player').slice(0, 20), socketId: socket.id, connected: true });
+      if (userId) player.userId = userId;
       socket.join(room.code);
-      socket.data = { code: room.code, playerId };
+      Object.assign(socket.data, { code: room.code, playerId });
 
       if (room.game) socket.emit('fl:state', finishLine.publicState(room));
       else if (room.state === 'playing') socket.emit('match:start', matchPayload(room, player));
@@ -171,25 +198,27 @@ function registerRoomHandlers(io) {
     };
 
     socket.on('room:create', (data = {}, ack = () => {}) => {
-      if (!data.playerId) return ack({ error: 'Missing player id.' });
+      const playerId = resolveId(data);
+      if (!playerId) return ack({ error: 'Missing player id.' });
       const room = {
         code: makeCode(),
         state: 'waiting',
         settings: cleanSettings(data.settings),
-        hostId: data.playerId,
+        hostId: playerId,
         players: [],
         questions: [],
         lastActivity: Date.now(),
       };
       rooms.set(room.code, room);
-      ack(join(room, data));
+      ack(join(room, { ...data, playerId }));
     });
 
     socket.on('room:join', (data = {}, ack = () => {}) => {
       const room = rooms.get(String(data.code));
       if (!room) return ack({ error: 'Room not found. Check the code or ask for a new invite link.' });
-      if (!data.playerId) return ack({ error: 'Missing player id.' });
-      ack(join(room, data));
+      const playerId = resolveId(data);
+      if (!playerId) return ack({ error: 'Missing player id.' });
+      ack(join(room, { ...data, playerId }));
     });
 
     for (const action of ['pick', 'star', 'answer', 'steal', 'continue']) {
@@ -242,7 +271,8 @@ function registerRoomHandlers(io) {
       const { room, player } = context();
       if (!room || !player) return;
       socket.leave(room.code);
-      socket.data = {};
+      delete socket.data.code;
+      delete socket.data.playerId;
       if (room.state === 'playing' && room.game) {
         // Rời trận Finish Line = xử thua
         player.connected = false;

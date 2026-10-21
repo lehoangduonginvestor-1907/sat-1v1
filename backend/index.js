@@ -7,8 +7,10 @@ require('dotenv').config();
 
 const { bank, byId, publicQuestion, answerKey, isAnswerCorrect, selectQuestions, bankStats, BLUEPRINTS } = require('./lib/bank');
 const { registerRoomHandlers } = require('./lib/rooms');
+const db = require('./lib/db');
 
 console.log(`Loaded ${bank.length} questions from question bank.`);
+console.log(db.enabled ? 'Supabase connected: Google sign-in and Elo are on.' : 'Supabase not configured: everyone plays as a guest, no Elo.');
 
 const app = express();
 
@@ -54,6 +56,17 @@ app.post('/api/grade', (req, res) => {
 });
 
 registerRoomHandlers(io);
+
+// Bảng xếp hạng Elo (chỉ có khi đã cấu hình Supabase)
+app.get('/api/leaderboard', async (req, res) => {
+  if (!db.enabled) return res.json({ enabled: false, players: [] });
+  try {
+    res.json({ enabled: true, players: await db.leaderboard() });
+  } catch (err) {
+    console.error('Leaderboard failed:', err.message);
+    res.status(502).json({ error: 'Leaderboard is unavailable right now.' });
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('SAT Challenge Backend is running');

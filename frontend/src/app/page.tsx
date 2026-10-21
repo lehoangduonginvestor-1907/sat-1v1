@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Edit2, Swords, BookOpen, GraduationCap, Target, X } from 'lucide-react';
 import { setNickname as saveNickname, useHistory, useNickname, History } from '@/lib/storage';
+import { googleName, useAuth } from '@/lib/supabase';
+import AuthButton from '@/components/AuthButton';
 
 const DOMAINS: Record<string, string[]> = {
   Verbal: ['Craft and Structure', 'Information and Ideas', 'Standard English Conventions', 'Expression of Ideas'],
@@ -147,6 +149,7 @@ function HomeContent() {
   const router = useRouter();
   const params = useSearchParams();
   const nickname = useNickname();
+  const { session } = useAuth();
   const history = useHistory();
   const [editingName, setEditingName] = useState(false);
   const [creating, setCreating] = useState(false);
@@ -168,7 +171,7 @@ function HomeContent() {
         <div className="bg-white p-10 rounded-2xl shadow-[0_2px_16px_rgb(0_0_0/0.12)] w-full max-w-md text-center">
           <h1 className="text-3xl font-bold mb-2">SAT Arena</h1>
           <p className="text-[var(--bb-muted)] mb-8">Choose a nickname. Your opponents will see it.</p>
-          <NicknameForm initial={nickname} onCancel={nickname ? () => setEditingName(false) : undefined}
+          <NicknameForm key={googleName(session)} initial={nickname || googleName(session)} onCancel={nickname ? () => setEditingName(false) : undefined}
             onSave={name => { saveNickname(name); setEditingName(false); }} />
         </div>
       </div>
@@ -189,9 +192,12 @@ function HomeContent() {
       <header className="bg-white">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="text-xl font-bold tracking-tight">SAT Arena</span>
-          <button onClick={() => setEditingName(true)} className="flex items-center gap-2 text-[15px] font-semibold hover:underline" title="Change nickname">
-            {nickname} <Edit2 size={15} />
-          </button>
+          <div className="flex items-center gap-6">
+            <AuthButton />
+            <button onClick={() => setEditingName(true)} className="flex items-center gap-2 text-[15px] font-semibold hover:underline" title="Change nickname">
+              {nickname} <Edit2 size={15} />
+            </button>
+          </div>
         </div>
         <div className="bb-dash" />
       </header>

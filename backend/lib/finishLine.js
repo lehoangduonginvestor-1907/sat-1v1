@@ -1,4 +1,5 @@
 const { byId, publicQuestion, answerKey, isAnswerCorrect, selectQuestions } = require('./bank');
+const ratings = require('./ratings');
 
 // Chế độ "Finish Line" (kiểu phần Về đích của Olympia), chạy theo lượt và do server điều khiển:
 // - Mỗi lượt, người chơi chọn gói 3 câu: Easy 10 / Medium 20 / Hard 30 điểm.
@@ -277,6 +278,7 @@ function finish(io, room, forfeitId = null) {
   emitState(io, room);
   io.to(room.code).emit('match:end', room.result);
   console.log(`Finish Line ended in room ${room.code}: ${results.map(r => `${r.name} ${r.score}`).join(' vs ')}`);
+  ratings.recordMatch(io, room);
 }
 
 // Hành động của người chơi: fl:pick / fl:star / fl:answer / fl:steal / fl:continue

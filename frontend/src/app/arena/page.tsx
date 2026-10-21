@@ -15,13 +15,15 @@ import type { AnswerKey, Answers, Question } from '@/lib/types';
 import { SECTION_OF } from '@/lib/types';
 import { Emote, EmoteDock, EmoteLayer } from '@/components/arena/Emotes';
 import { FinishLineGame, FinishLineResults, FlEnd, FlState } from '@/components/arena/FinishLine';
+import RatingBanner, { MatchRating } from '@/components/arena/RatingBanner';
+import { getAccessToken, useAuth } from '@/lib/supabase';
 
-interface RoomPlayer { playerId: string; name: string; connected: boolean; answered: number; finished: boolean; rematch: boolean }
+interface RoomPlayer { playerId: string; name: string; signedIn?: boolean; connected: boolean; answered: number; finished: boolean; rematch: boolean }
 interface RoomSettings { subject: 'Verbal' | 'Math'; domain: string; difficulty: string; questionCount: number; timeLimit: number; includeBluebook: boolean; mode?: 'classic' | 'finish'; turns?: number }
 interface Room { code: string; state: 'waiting' | 'playing' | 'ended'; settings: RoomSettings; hostId: string; total: number; players: RoomPlayer[] }
 interface MatchStart { questions: Question[]; startedAt: number; endsAt: number; serverNow: number; answers: Answers; finished: boolean }
 interface PlayerResult { playerId: string; name: string; score: number; correct: boolean[]; answers: Answers; timeUsed: number }
-interface MatchEnd { results: PlayerResult[]; winnerId: string | null; review: AnswerKey[] }
+interface MatchEnd { results: PlayerResult[]; winnerId: string | null; review: AnswerKey[]; rating?: MatchRating }
 
 function TopBar({ me, opponent, total, code }: { me?: RoomPlayer; opponent?: RoomPlayer; total: number; code: string }) {
   const bar = (p: RoomPlayer | undefined, color: string, align: 'left' | 'right') => (
@@ -76,6 +78,7 @@ function Lobby({ room, me, inviteLink, onLeave }: { room: Room; me: string; invi
             <li key={p.playerId} className="flex items-center gap-3 bg-[var(--bb-bar)] rounded-lg px-4 py-2.5 font-semibold">
               <span className={`w-2.5 h-2.5 rounded-full ${p.connected ? 'bg-[var(--bb-correct)]' : 'bg-[#bbb]'}`} />
               <span className="flex-1">{p.name} {p.playerId === me && <span className="text-[var(--bb-muted)] font-normal">(you)</span>}</span>
+              {!p.signedIn && <span className="text-xs text-[var(--bb-muted)]">Guest</span>}
               {p.playerId === room.hostId && <span className="text-xs text-[var(--bb-muted)]">Host</span>}
             </li>
           ))}
@@ -85,7 +88,12 @@ function Lobby({ room, me, inviteLink, onLeave }: { room: Room; me: string; invi
             </li>
           )}
         </ul>
-        <p className="text-sm text-[var(--bb-muted)] mb-6">The match starts automatically when both players are here.</p>
+        <p className="text-sm text-[var(--bb-muted)] mb-6">
+          The match starts automatically when both players are here.{' '}
+          {room.players.every(p => p.signedIn)
+            ? <>This match counts toward Elo{s.mode === 'finish' ? ' (Finish Line: half weight)' : ''}.</>
+            : <>Only matches where both players are signed in with Google count toward Elo.</>}
+        </p>
         <button onClick={onLeave} className="font-semibold text-[var(--bb-muted)] hover:underline">Leave room</button>
       </div>
     </div>
@@ -202,9 +210,11 @@ function ArenaContent() {
   const socketRef = useRef<Socket | null>(null);
   const nickname = useNickname();
   const storedId = usePlayerId();
-  const playerId = storedId || '';
+  const auth = useAuth();
+  // Đã đăng nhập: định danh = id tài khoản (server cũng dùng id này); khách: id lưu trong trình duyệt
+  const playerId = auth.session?.user.id || storedId || '';
   const name = nickname || '';
-  const ready = nickname !== null && storedId !== null; // đã đọc xong localStorage
+  const ready = nickname !== null && storedId !== null && !auth.loading; // đã đọc xong localStorage + phiên đăng nhập
   const [room, setRoom] = useState<Room | null>(null);
   const [match, setMatch] = useState<MatchStart | null>(null);
   const [offset, setOffset] = useState(0); // Date.now() - giờ server
@@ -217,6 +227,7 @@ function ArenaContent() {
   const [fl, setFl] = useState<FlState | null>(null);
   const [flEnd, setFlEnd] = useState<FlEnd | null>(null);
   const [emotes, setEmotes] = useState<Emote[]>([]);
+  const [rating, setRating] = useState<MatchRating | null>(null);
   const [muted, setMuted] = useState(false);
   const mutedRef = useRef(false);
   useEffect(() => { mutedRef.current = muted; }, [muted]);
@@ -229,9 +240,13 @@ function ArenaContent() {
       router.replace(code ? `/?join=${code}` : '/');
       return;
     }
-    const id = storedId!;
+    const id = playerId;
 
-    const socket = io(BACKEND_URL, { transports: ['websocket', 'polling'] });
+    // Gửi access token mỗi lần (kết nối lại) để server biết tài khoản; không đăng nhập thì token rỗng
+    const socket = io(BACKEND_URL, {
+      transports: ['websocket', 'polling'],
+      auth: cb => { getAccessToken().then(token => cb({ token }), () => cb({})); },
+    });
     socketRef.current = socket;
 
     const enter = () => {
@@ -265,16 +280,19 @@ function ArenaContent() {
       setAnswers(m.answers || {});
       setSubmitted(m.finished);
       setEnd(null);
+      setRating(null);
       setView('match');
     });
     socket.on('match:end', (e: MatchEnd | FlEnd) => {
+      setRating((e as { rating?: MatchRating }).rating ?? null);
       if ('mode' in e && e.mode === 'finish') setFlEnd(e);
       else { setEnd(e as MatchEnd); setView(v => (v === 'review' ? v : 'results')); }
     });
+    socket.on('match:rating', (r: MatchRating) => setRating(r));
     socket.on('fl:state', (st: FlState) => {
       setOffset(Date.now() - st.serverNow);
       setFl(st);
-      if (st.phase !== 'done') setFlEnd(null);
+      if (st.phase !== 'done') { setFlEnd(null); setRating(null); }
     });
     socket.on('room:emote', (e: Emote) => {
       if (mutedRef.current && e.playerId !== id) return;
@@ -349,7 +367,7 @@ function ArenaContent() {
 
   if (room.settings.mode === 'finish') {
     if (flEnd) {
-      return <>{<FinishLineResults end={flEnd} me={playerId} players={room.players} onRematch={() => socketRef.current?.emit('match:rematch')} />}{emoteUi()}</>;
+      return <>{<FinishLineResults end={flEnd} me={playerId} players={room.players} onRematch={() => socketRef.current?.emit('match:rematch')} />}<RatingBanner rating={rating} me={playerId} />{emoteUi()}</>;
     }
     if (room.state === 'waiting' || !fl) return <><Lobby room={room} me={playerId} inviteLink={inviteLink} onLeave={leave} />{emoteUi()}</>;
     return <><FinishLineGame s={fl} subject={room.settings.subject} offset={offset} me={me} opp={opponent} send={flSend} onLeave={leave} />{emoteUi(undefined, 96)}</>;
@@ -360,6 +378,7 @@ function ArenaContent() {
       <>
         <Results end={end} room={room} me={playerId} questions={match?.questions ?? []} onReview={() => setView('review')}
           onRematch={() => socketRef.current?.emit('match:rematch')} />
+        <RatingBanner rating={rating} me={playerId} />
         {emoteUi()}
       </>
     );
