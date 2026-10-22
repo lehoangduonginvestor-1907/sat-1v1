@@ -97034,5 +97034,2621 @@
     ],
     "exam": "May 2026 International",
     "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw1_01",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q01.jpg\" alt=\"Question 1\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #1). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_02",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q02.jpg\" alt=\"Question 2\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #2). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_03",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q03.jpg\" alt=\"Question 3\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #3). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_04",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q04.jpg\" alt=\"Question 4\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #4). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_05",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q05.jpg\" alt=\"Question 5\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #5). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_06",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Text Structure and Purpose",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q06.jpg\" alt=\"Question 6\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #6). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_07",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Text Structure and Purpose",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q07.jpg\" alt=\"Question 7\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #7). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_08",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Text Structure and Purpose",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q08.jpg\" alt=\"Question 8\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #8). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_09",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Cross-Text Connections",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q09.jpg\" alt=\"Question 9\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #9). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_10",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Cross-Text Connections",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q10.jpg\" alt=\"Question 10\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #10). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_11",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q11.jpg\" alt=\"Question 11\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #11). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_12",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q12.jpg\" alt=\"Question 12\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #12). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_13",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q13.jpg\" alt=\"Question 13\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #13). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_14",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q14.jpg\" alt=\"Question 14\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #14). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_15",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Command of Evidence",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q15.jpg\" alt=\"Question 15\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #15). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_16",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Command of Evidence",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q16.jpg\" alt=\"Question 16\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #16). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_17",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Command of Evidence",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q17.jpg\" alt=\"Question 17\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #17). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_18",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q18.jpg\" alt=\"Question 18\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #18). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_19",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q19.jpg\" alt=\"Question 19\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #19). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_20",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q20.jpg\" alt=\"Question 20\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #20). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_21",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q21.jpg\" alt=\"Question 21\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #21). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_22",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q22.jpg\" alt=\"Question 22\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #22). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_23",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q23.jpg\" alt=\"Question 23\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #23). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_24",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q24.jpg\" alt=\"Question 24\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #24). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_25",
+    "section": "Reading and Writing",
+    "domain": "Expression of Ideas",
+    "skill": "Transitions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q25.jpg\" alt=\"Question 25\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #25). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_26",
+    "section": "Reading and Writing",
+    "domain": "Expression of Ideas",
+    "skill": "Rhetorical Synthesis",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q26.jpg\" alt=\"Question 26\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #26). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw1_27",
+    "section": "Reading and Writing",
+    "domain": "Expression of Ideas",
+    "skill": "Rhetorical Synthesis",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw1_q27.jpg\" alt=\"Question 27\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #27). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_rw2_01",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q01.jpg\" alt=\"Question 1\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #1). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_02",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q02.jpg\" alt=\"Question 2\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #2). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_03",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q03.jpg\" alt=\"Question 3\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #3). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_04",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q04.jpg\" alt=\"Question 4\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #4). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_05",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Words in Context",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q05.jpg\" alt=\"Question 5\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #5). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_06",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Text Structure and Purpose",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q06.jpg\" alt=\"Question 6\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #6). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_07",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Text Structure and Purpose",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q07.jpg\" alt=\"Question 7\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #7). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_08",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Text Structure and Purpose",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q08.jpg\" alt=\"Question 8\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #8). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_09",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Cross-Text Connections",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q09.jpg\" alt=\"Question 9\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #9). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_10",
+    "section": "Reading and Writing",
+    "domain": "Craft and Structure",
+    "skill": "Cross-Text Connections",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q10.jpg\" alt=\"Question 10\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #10). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_11",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q11.jpg\" alt=\"Question 11\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #11). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_12",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q12.jpg\" alt=\"Question 12\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #12). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_13",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q13.jpg\" alt=\"Question 13\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #13). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_14",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Central Ideas and Details",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q14.jpg\" alt=\"Question 14\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #14). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_15",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Command of Evidence",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q15.jpg\" alt=\"Question 15\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #15). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_16",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Command of Evidence",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q16.jpg\" alt=\"Question 16\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #16). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_17",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Command of Evidence",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q17.jpg\" alt=\"Question 17\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #17). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_18",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q18.jpg\" alt=\"Question 18\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #18). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_19",
+    "section": "Reading and Writing",
+    "domain": "Information and Ideas",
+    "skill": "Inferences",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q19.jpg\" alt=\"Question 19\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #19). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_20",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q20.jpg\" alt=\"Question 20\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #20). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_21",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q21.jpg\" alt=\"Question 21\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #21). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_22",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q22.jpg\" alt=\"Question 22\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #22). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_23",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q23.jpg\" alt=\"Question 23\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #23). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_24",
+    "section": "Reading and Writing",
+    "domain": "Standard English Conventions",
+    "skill": "Boundaries",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q24.jpg\" alt=\"Question 24\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #24). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_25",
+    "section": "Reading and Writing",
+    "domain": "Expression of Ideas",
+    "skill": "Transitions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q25.jpg\" alt=\"Question 25\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #25). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_26",
+    "section": "Reading and Writing",
+    "domain": "Expression of Ideas",
+    "skill": "Rhetorical Synthesis",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q26.jpg\" alt=\"Question 26\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #26). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_rw2_27",
+    "section": "Reading and Writing",
+    "domain": "Expression of Ideas",
+    "skill": "Rhetorical Synthesis",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/rw2_q27.jpg\" alt=\"Question 27\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #27). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m1_01",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q01.jpg\" alt=\"Question 1\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #1). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_02",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q02.jpg\" alt=\"Question 2\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #2). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_03",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q03.jpg\" alt=\"Question 3\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "29"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #3). Correct Answer: <strong>29</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_04",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q04.jpg\" alt=\"Question 4\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #4). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_05",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q05.jpg\" alt=\"Question 5\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #5). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_06",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q06.jpg\" alt=\"Question 6\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "50"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #6). Correct Answer: <strong>50</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_07",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q07.jpg\" alt=\"Question 7\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #7). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_08",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q08.jpg\" alt=\"Question 8\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #8). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_09",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q09.jpg\" alt=\"Question 9\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #9). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_10",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q10.jpg\" alt=\"Question 10\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #10). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_11",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q11.jpg\" alt=\"Question 11\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #11). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_12",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q12.jpg\" alt=\"Question 12\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #12). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_13",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q13.jpg\" alt=\"Question 13\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "25"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #13). Correct Answer: <strong>25</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_14",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q14.jpg\" alt=\"Question 14\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #14). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_15",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q15.jpg\" alt=\"Question 15\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #15). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_16",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q16.jpg\" alt=\"Question 16\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #16). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_17",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q17.jpg\" alt=\"Question 17\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #17). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_18",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q18.jpg\" alt=\"Question 18\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #18). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_19",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q19.jpg\" alt=\"Question 19\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "36864"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #19). Correct Answer: <strong>36864</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_20",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q20.jpg\" alt=\"Question 20\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #20). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_21",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q21.jpg\" alt=\"Question 21\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #21). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m1_22",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Medium",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m1_q22.jpg\" alt=\"Question 22\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "44/3",
+      "14.67",
+      "14.6667",
+      "14.667"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 1, #22). Correct Answer: <strong>44/3</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 1"
+  },
+  {
+    "id": "jun24_m2_01",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q01.jpg\" alt=\"Question 1\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #1). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_02",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q02.jpg\" alt=\"Question 2\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #2). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_03",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q03.jpg\" alt=\"Question 3\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "12"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #3). Correct Answer: <strong>12</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_04",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q04.jpg\" alt=\"Question 4\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #4). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_05",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q05.jpg\" alt=\"Question 5\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #5). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_06",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q06.jpg\" alt=\"Question 6\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #6). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_07",
+    "section": "Math",
+    "domain": "Algebra",
+    "skill": "Linear Equations in One Variable",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q07.jpg\" alt=\"Question 7\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #7). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_08",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q08.jpg\" alt=\"Question 8\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #8). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_09",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q09.jpg\" alt=\"Question 9\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 2,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #9). Correct Answer: <strong>(C)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_10",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q10.jpg\" alt=\"Question 10\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #10). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_11",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q11.jpg\" alt=\"Question 11\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "21"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #11). Correct Answer: <strong>21</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_12",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q12.jpg\" alt=\"Question 12\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #12). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_13",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q13.jpg\" alt=\"Question 13\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #13). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_14",
+    "section": "Math",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear Functions",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q14.jpg\" alt=\"Question 14\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "25"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #14). Correct Answer: <strong>25</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_15",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q15.jpg\" alt=\"Question 15\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "121"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #15). Correct Answer: <strong>121</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_16",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q16.jpg\" alt=\"Question 16\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 3,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #16). Correct Answer: <strong>(D)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_17",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q17.jpg\" alt=\"Question 17\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #17). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_18",
+    "section": "Math",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q18.jpg\" alt=\"Question 18\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "5/72",
+      "0.06944",
+      "0.0694",
+      "0.069"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #18). Correct Answer: <strong>5/72</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_19",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q19.jpg\" alt=\"Question 19\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 1,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #19). Correct Answer: <strong>(B)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_20",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "mcq",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q20.jpg\" alt=\"Question 20\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [
+      "<span class=\"font-bold text-base\">A</span>",
+      "<span class=\"font-bold text-base\">B</span>",
+      "<span class=\"font-bold text-base\">C</span>",
+      "<span class=\"font-bold text-base\">D</span>"
+    ],
+    "correctAnswer": 0,
+    "acceptedAnswers": null,
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #20). Correct Answer: <strong>(A)</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_21",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q21.jpg\" alt=\"Question 21\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "650"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #21). Correct Answer: <strong>650</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
+  },
+  {
+    "id": "jun24_m2_22",
+    "section": "Math",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right Triangles and Trigonometry",
+    "difficulty": "Hard",
+    "bluebook": false,
+    "type": "spr",
+    "stimulus": "",
+    "stem": "<div class=\"q-card mb-4 text-center\"><img src=\"/media/dsat_june2024/m2_q22.jpg\" alt=\"Question 22\" class=\"max-w-full rounded border border-gray-100 shadow-sm\" /></div>",
+    "options": [],
+    "correctAnswer": null,
+    "acceptedAnswers": [
+      "-32"
+    ],
+    "rationale": "<p>Official June 2024 International SAT exam question (Module 2, #22). Correct Answer: <strong>-32</strong></p>",
+    "sources": [
+      "June 2024 International SAT",
+      "Official Key",
+      "Ver 1"
+    ],
+    "exam": "June 2024 International",
+    "module": "Module 2"
   }
 ]
