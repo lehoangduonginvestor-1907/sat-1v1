@@ -24,3 +24,4 @@ __pycache__/
 # Sách tham khảo (không đưa lên GitHub)
 /*.pdf
 books/
+imported_pdfs/
