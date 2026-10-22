@@ -190,6 +190,7 @@ function selectQuestions(settings) {
     (!has(settings.domains) || settings.domains.includes(q.domain)) &&
     (!has(settings.skills) || settings.skills.includes(q.skill)) &&
     (!has(settings.difficulties) || settings.difficulties.includes(q.difficulty)) &&
+    (!settings.exam || q.exam === settings.exam) &&
     (!only || only.has(q.id)));
   const count = Math.max(1, Math.min(Number(settings.count) || BLUEPRINTS[section || RW].size, 100));
   if (has(settings.topics)) {
