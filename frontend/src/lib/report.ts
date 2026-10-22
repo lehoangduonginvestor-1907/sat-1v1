@@ -32,6 +32,11 @@ export interface PracticeReport {
   title: string;
   adaptive: string | null;
   modules: ReportModule[];
+  scaledScore?: {
+    total: number;
+    rw?: number;
+    math?: number;
+  };
 }
 
 export type Outcome = 'correct' | 'incorrect' | 'omitted';

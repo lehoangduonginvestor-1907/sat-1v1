@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp, Clock } from 'lucide-react';
-import { AnnotateIcon, CalculatorIcon, MoreIcon, ReferenceIcon } from './icons';
+import { AnnotateIcon, CalculatorIcon, MoreIcon, PenIcon, ReferenceIcon } from './icons';
 import { SectionDirections } from './Directions';
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
   untimedLabel?: string;
   tools: {
     annotate?: { active: boolean; onClick: () => void; hint?: string | null };
+    draw?: { active: boolean; onClick: () => void };
     calculator?: { active: boolean; onClick: () => void };
     reference?: { active: boolean; onClick: () => void };
   };
@@ -92,6 +93,11 @@ export default function BluebookHeader({ title, isMath, secondsLeft, untimedLabe
               </button>
               {tools.annotate.hint && <div className="bb-toast" style={{ left: 'auto', right: 0, transform: 'none' }}>{tools.annotate.hint}</div>}
             </div>
+          )}
+          {tools.draw && (
+            <button className="bb-tool" aria-pressed={tools.draw.active} onClick={tools.draw.onClick} title="Vẽ ghi chú / Freehand Drawing">
+              <PenIcon /> Draw
+            </button>
           )}
           {isMath && tools.calculator && (
             <button className="bb-tool" aria-pressed={tools.calculator.active} onClick={tools.calculator.onClick}>

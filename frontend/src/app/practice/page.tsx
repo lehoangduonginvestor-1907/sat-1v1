@@ -14,7 +14,7 @@ import { findLesson } from '@/lib/learn';
 import ReportView from '@/components/report/ReportView';
 import { CB_ORDER, newReportId, PracticeReport, saveReport } from '@/lib/report';
 
-type Kind = 'module' | 'section' | 'custom';
+type Kind = 'module' | 'section' | 'full' | 'custom';
 type Pool = 'all' | 'unseen' | 'mistakes';
 
 interface Config {
@@ -28,6 +28,7 @@ interface Config {
   minutes: number;
   instant: boolean;
   includeBluebook: boolean;
+  excludeSeen: boolean;
 }
 
 interface ModuleRun {
@@ -48,22 +49,112 @@ const byOrder = <T,>(entries: [string, T][]) => entries.sort(([a], [b]) => CB_OR
 const sectionNumber = (s: Subject) => (s === 'Verbal' ? 1 : 2);
 const moduleTitle = (s: Subject, n: number) => `Section ${sectionNumber(s)}, Module ${n}: ${SECTION_OF[s]}`;
 
+function calculateSectionScore(correctCount: number, totalCount: number, isHarder: boolean): number {
+  if (totalCount === 54) {
+    // Verbal Section (2 modules = 54 questions)
+    const rawRatio = correctCount / 54;
+    if (isHarder) {
+      return Math.min(800, Math.max(480, Math.round((480 + rawRatio * 320) / 10) * 10));
+    } else {
+      return Math.min(590, Math.max(200, Math.round((200 + rawRatio * 390) / 10) * 10));
+    }
+  } else if (totalCount === 44) {
+    // Math Section (2 modules = 44 questions)
+    const rawRatio = correctCount / 44;
+    if (isHarder) {
+      return Math.min(800, Math.max(480, Math.round((480 + rawRatio * 320) / 10) * 10));
+    } else {
+      return Math.min(590, Math.max(200, Math.round((200 + rawRatio * 390) / 10) * 10));
+    }
+  } else {
+    // Single module
+    return Math.min(800, Math.max(200, Math.round((200 + (correctCount / totalCount) * 600) / 10) * 10));
+  }
+}
+
 function defaultConfig(subject: Subject, kind: Kind): Config {
   return {
-    subject, kind, skills: [], difficulties: [], pool: 'all',
-    count: kind === 'custom' ? 10 : MODULE[subject].size,
+    subject,
+    kind,
+    skills: [],
+    difficulties: [],
+    pool: 'all',
+    count: kind === 'full' ? MODULE.Verbal.size : kind === 'custom' ? 10 : MODULE[subject].size,
     timer: kind === 'custom' ? 'off' : 'pace',
     minutes: 15,
     instant: kind === 'custom',
     includeBluebook: false,
+    excludeSeen: true,
   };
 }
 
 function minutesFor(config: Config, count: number) {
   if (config.timer === 'off') return null;
+  if (config.kind === 'full') return MODULE.Verbal.minutes;
   if (config.kind !== 'custom') return MODULE[config.subject].minutes;
   if (config.timer === 'pace') return Math.max(1, Math.round((count * PACE_SECONDS[config.subject]) / 60));
   return config.minutes;
+}
+
+// ---------- Màn hình nghỉ giữa giờ (Intermission Break) ----------
+
+function BreakScreen({ onResume }: { onResume: () => void }) {
+  const [seconds, setSeconds] = useState(600); // 10 phút
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds(s => {
+        if (s <= 1) {
+          clearInterval(timer);
+          onResume();
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [onResume]);
+
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  const timeFormatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+  return (
+    <div className="min-h-dvh flex flex-col items-center justify-center bg-[#0f172a] text-white p-6">
+      <div className="max-w-lg w-full bg-[#1e293b] rounded-2xl p-8 sm:p-10 border border-slate-700 shadow-2xl text-center space-y-6">
+        <div className="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">
+          Section 1 Complete
+        </div>
+        <h1 className="text-3xl font-extrabold tracking-tight">10-Minute Break</h1>
+        <p className="text-sm text-slate-300">
+          You have completed the Reading &amp; Writing section. Take a moment to stretch, drink water, or rest your eyes before starting Math.
+        </p>
+
+        <div className="py-6 bg-slate-900/60 rounded-xl border border-slate-800">
+          <div className="text-6xl font-mono font-bold tracking-widest text-blue-400">
+            {timeFormatted}
+          </div>
+          <p className="text-xs text-slate-400 mt-2 font-medium">Break time remaining</p>
+        </div>
+
+        <div className="text-left text-xs text-slate-300 bg-slate-800/80 p-4 rounded-lg space-y-2 border border-slate-700">
+          <p className="font-semibold text-white">Guidelines during the break:</p>
+          <ul className="list-disc pl-4 space-y-1 text-slate-300">
+            <li>Do not close your browser tab.</li>
+            <li>Testing will automatically resume when the clock reaches 00:00.</li>
+            <li>You can resume immediately whenever you are ready.</li>
+          </ul>
+        </div>
+
+        <button
+          onClick={onResume}
+          className="w-full bb-primary !py-3.5 !text-base !font-bold !rounded-xl !bg-blue-600 hover:!bg-blue-500 text-white shadow-lg transition-all"
+        >
+          Resume Testing (Section 2: Math) →
+        </button>
+      </div>
+    </div>
+  );
 }
 
 // ---------- Màn hình chọn bài ----------
@@ -124,6 +215,7 @@ function Setup({ config, setConfig, stats, onStart, error, loading }: {
   const mine = Object.values(history || {}).filter(h => h.section === section);
   const mistakes = mine.filter(h => !h.correct).length;
   const custom = config.kind === 'custom';
+  const isFull = config.kind === 'full';
   const row = 'grid sm:grid-cols-[180px_1fr] gap-2 sm:gap-6 items-start py-4 border-b border-[#e3e3e3]';
 
   return (
@@ -139,20 +231,49 @@ function Setup({ config, setConfig, stats, onStart, error, loading }: {
         <div className="bg-white rounded-xl shadow-[0_2px_12px_rgb(0_0_0/0.1)] px-7 py-3">
           <div className={row}>
             <span className="font-bold pt-1.5">Subject</span>
-            <Segmented value={config.subject} options={[['Verbal', 'Reading & Writing'], ['Math', 'Math']]}
-              onChange={subject => setConfig({ ...defaultConfig(subject, config.kind), instant: config.instant })} />
+            {isFull ? (
+              <div className="pt-1.5 text-[15px] font-semibold text-[var(--bb-blue)]">
+                All Sections: Reading &amp; Writing + Math (Official 4-module test)
+              </div>
+            ) : (
+              <Segmented value={config.subject} options={[['Verbal', 'Reading & Writing'], ['Math', 'Math']]}
+                onChange={subject => setConfig({ ...defaultConfig(subject, config.kind), instant: config.instant })} />
+            )}
           </div>
           <div className={row}>
             <span className="font-bold pt-1.5">Format</span>
             <div>
-              <Segmented value={config.kind} options={[['custom', 'Custom set'], ['module', 'Bluebook module'], ['section', 'Adaptive section']]}
+              <Segmented value={config.kind} options={[
+                ['full', 'Full Test (134 min)'],
+                ['section', 'Adaptive section'],
+                ['module', 'Bluebook module'],
+                ['custom', 'Custom set']
+              ]}
                 onChange={kind => setConfig(defaultConfig(config.subject, kind))} />
               <p className="text-sm text-[var(--bb-muted)] mt-2">
+                {config.kind === 'full' && 'Complete 4-module Digital SAT exam (134 min): 2 adaptive Reading & Writing modules (64 min) → 10-minute break → 2 adaptive Math modules (70 min) with estimated 400–1600 composite score.'}
                 {config.kind === 'module' && `${MODULE[config.subject].size} questions in ${MODULE[config.subject].minutes} minutes, with the official domain mix and question order.`}
                 {config.kind === 'section' && `Two ${MODULE[config.subject].minutes}-minute modules. Module 2 gets harder or easier depending on how you do in Module 1, like the real test.`}
                 {custom && 'Choose exactly what to practice.'}
               </p>
             </div>
+          </div>
+
+          {/* Tuỳ chọn chỉ chọn câu mới (Exclude Seen) */}
+          <div className={row}>
+            <span className="font-bold">Lọc câu hỏi</span>
+            <label className="flex items-start gap-2 text-[15px]">
+              <input
+                type="checkbox"
+                className="mt-1"
+                checked={config.excludeSeen}
+                onChange={e => setConfig({ ...config, excludeSeen: e.target.checked })}
+              />
+              <span>
+                <strong>Chỉ chọn câu hỏi mới</strong> (Exclude seen questions).{' '}
+                <span className="text-[var(--bb-muted)]">Hệ thống sẽ lọc bỏ các câu bạn đã từng làm để làm đề mới 100%.</span>
+              </span>
+            </label>
           </div>
 
           {custom && (
@@ -244,9 +365,16 @@ function PracticeContent() {
   const lessonHref = lesson ? `/learn/${lesson.course.slug}/${lesson.lesson.slug}` : null;
 
   const [config, setConfig] = useState<Config>(() =>
-    preset === 'module' || preset === 'section' ? defaultConfig(presetSubject, preset) : defaultConfig(presetSubject, 'custom'));
+    preset === 'full'
+      ? defaultConfig('Verbal', 'full')
+      : preset === 'module' || preset === 'section'
+      ? defaultConfig(presetSubject, preset)
+      : defaultConfig(presetSubject, 'custom')
+  );
   const [stats, setStats] = useState<BankStats | null>(null);
-  const [phase, setPhase] = useState<'loading' | 'setup' | 'session' | 'transition' | 'results' | 'review'>(preset || sharedIds || lesson ? 'loading' : 'setup');
+  const [phase, setPhase] = useState<'loading' | 'setup' | 'session' | 'transition' | 'break' | 'results' | 'review'>(
+    preset || sharedIds || lesson ? 'loading' : 'setup'
+  );
   const [modules, setModules] = useState<ModuleRun[]>([]);
   const [current, setCurrent] = useState(0);
   const [reviewing, setReviewing] = useState(0);
@@ -254,7 +382,9 @@ function PracticeContent() {
   const [error, setError] = useState<string | null>(null);
   const [checkingIndex, setCheckingIndex] = useState<number | null>(null);
   const [adaptive, setAdaptive] = useState<string | null>(null);
+  const [adaptiveFlags, setAdaptiveFlags] = useState<{ rwHarder?: boolean; mathHarder?: boolean }>({});
   const [report, setReport] = useState<PracticeReport | null>(null);
+
   // Đo thời gian ở từng câu của module đang làm
   const timing = useRef<{ index: number | null; since: number; seconds: number[] }>({ index: null, since: 0, seconds: [] });
   const resetTiming = () => { timing.current = { index: null, since: 0, seconds: [] }; };
@@ -279,7 +409,7 @@ function PracticeContent() {
       count: c.count,
       includeBluebook: c.includeBluebook,
       format: c.kind === 'custom' ? 'random' : 'module',
-      excludeIds: Object.keys(history), // ưu tiên câu chưa làm
+      excludeIds: c.excludeSeen ? Object.keys(history) : [],
     };
     if (c.kind === 'custom') {
       if (c.skills.length) filter.skills = c.skills;
@@ -296,7 +426,9 @@ function PracticeContent() {
   // Tải đề rồi vào bài; chỉ đặt state sau khi có kết quả (gọi được từ effect)
   const launch = useCallback(async (c: Config, extra: Partial<QuestionFilter> = {}) => {
     try {
-      const filter = buildFilter(c, extra);
+      const activeSubject = c.kind === 'full' ? 'Verbal' : c.subject;
+      const count = c.kind === 'full' ? MODULE.Verbal.size : c.count;
+      const filter = buildFilter({ ...c, subject: activeSubject, count }, extra);
       const questions = await (filter.onlyIds && !filter.onlyIds.length
         ? Promise.reject(new Error('You have no mistakes to redo here yet.'))
         : fetchQuestions(filter));
@@ -305,7 +437,10 @@ function PracticeContent() {
       setConfig(c);
       setModules([{
         title: lesson && extra.topics !== undefined ? `Lesson Practice: ${lesson.lesson.title}`
-          : extra.subject === 'Any' ? 'Practice' : c.kind === 'custom' ? `Practice: ${SECTION_OF[c.subject]}` : moduleTitle(c.subject, 1),
+          : extra.subject === 'Any' ? 'Practice'
+          : c.kind === 'full' ? moduleTitle('Verbal', 1)
+          : c.kind === 'custom' ? `Practice: ${SECTION_OF[c.subject]}`
+          : moduleTitle(c.subject, 1),
         questions,
         answers: {},
         endsAt: minutes ? Date.now() + minutes * 60_000 : null,
@@ -313,6 +448,7 @@ function PracticeContent() {
       }]);
       setCurrent(0);
       setAdaptive(null);
+      setAdaptiveFlags({});
       setReport(null);
       resetTiming();
       setError(null);
@@ -341,14 +477,11 @@ function PracticeContent() {
     launch(c, extra);
   };
 
-  // Vào thẳng từ trang chủ (module / section / làm lại câu sai).
-  // launch() chỉ đặt state sau khi tải đề xong (sau await), không phải setState đồng bộ trong effect.
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (lesson) {
       launchLesson();
     } else if (sharedIds) {
-      // Link chia sẻ: /practice?ids=a1b2c3d4,e5f6a7b8
       const ids = sharedIds.split(',').map(s => s.trim()).filter(Boolean).slice(0, 100);
       launch({ ...defaultConfig('Verbal', 'custom'), count: ids.length, instant: true },
         { subject: 'Any', onlyIds: ids, excludeIds: [], includeBluebook: true, format: 'random' });
@@ -358,6 +491,8 @@ function PracticeContent() {
       const wrong = Object.entries(history).filter(([, h]) => !h.correct);
       const subject: Subject = wrong.length && wrong.every(([, h]) => h.section === 'Math') ? 'Math' : 'Verbal';
       launch({ ...c, subject });
+    } else if (preset === 'full') {
+      launch(defaultConfig('Verbal', 'full'));
     } else if (preset === 'module' || preset === 'section') {
       launch(defaultConfig(presetSubject, preset));
     }
@@ -374,7 +509,6 @@ function PracticeContent() {
     setModules(prev => prev.map((m, idx) => (idx === current ? { ...m, answers: { ...m.answers, [index]: value } } : m)));
   };
 
-  // Kiểm tra từng câu (chế độ học)
   const onCheck = async (index: number) => {
     const q = mod.questions[index];
     setCheckingIndex(index);
@@ -391,23 +525,56 @@ function PracticeContent() {
     }
   };
 
-  // Kết thúc phiên: lập báo cáo và lưu lại để xem / tải về sau
-  const finishSession = (done: ModuleRun[], adaptiveNote: string | null) => {
+  const finishSession = (done: ModuleRun[], adaptiveNote: string | null, scaled?: { total: number; rw?: number; math?: number }) => {
     const r: PracticeReport = {
       id: newReportId(),
       ts: Date.now(),
-      title: config.kind === 'section' ? `${SECTION_OF[config.subject]}: Adaptive Section` : done[0].title,
+      title: config.kind === 'full'
+        ? 'Full Practice Test: Reading & Writing + Math'
+        : config.kind === 'section'
+        ? `${SECTION_OF[config.subject]}: Adaptive Section`
+        : done[0].title,
       adaptive: adaptiveNote,
       modules: done.map(({ title, questions, answers, results, seconds }) => ({ title, questions, answers, results, seconds })),
+      scaledScore: scaled,
     };
     saveReport(r);
     setReport(r);
     setPhase('results');
   };
 
+  // Bắt đầu phần Math sau khi hết 10 phút nghỉ
+  const resumeAfterBreak = async () => {
+    setPhase('transition');
+    try {
+      const questions = await fetchQuestions(buildFilter({ ...config, subject: 'Math', count: MODULE.Math.size }, {
+        subject: 'Math',
+        count: MODULE.Math.size,
+        format: 'module',
+        excludeIds: [...(config.excludeSeen ? Object.keys(getHistory()) : []), ...modules.flatMap(m => m.questions.map(q => q.id))],
+      }));
+      setModules(prev => [
+        ...prev,
+        {
+          title: moduleTitle('Math', 1),
+          questions,
+          answers: {},
+          endsAt: Date.now() + MODULE.Math.minutes * 60_000,
+          results: [],
+        },
+      ]);
+      setCurrent(2);
+      resetTiming();
+      setPhase('session');
+    } catch {
+      setError('Could not load Section 2 (Math). Check your connection.');
+      finishSession(modules, adaptive, undefined);
+    }
+  };
+
   const finishModule = async () => {
     const m = modules[current];
-    onNavigate(null); // dừng đồng hồ câu đang xem
+    onNavigate(null);
     const seconds = [...timing.current.seconds];
     let graded: GradeResult[];
     try {
@@ -417,44 +584,144 @@ function PracticeContent() {
       return;
     }
     const results = m.questions.map((q, i) => graded.find(r => r.id === q.id) || m.results[i]);
-    // Câu đã kiểm tra từng câu thì đã được ghi lại rồi
     recordResults(m.questions.filter((_, i) => !m.results[i]), results.filter((r, i) => r && !m.results[i]) as GradeResult[]);
     const done = modules.map((x, idx) => (idx === current ? { ...x, results, seconds } : x));
     setModules(done);
 
-    if (config.kind === 'section' && current === 0) {
-      // Module 2 thích ứng: làm tốt module 1 thì module 2 khó hơn
-      const ratio = results.filter(r => r?.correct).length / results.length;
-      const harder = ratio >= ADAPTIVE_THRESHOLD;
-      const note = harder ? 'Module 2 was the harder module.' : 'Module 2 was the easier module.';
-      setAdaptive(note);
-      setPhase('transition');
-      try {
-        const questions = await fetchQuestions(buildFilter(config, {
-          difficulties: harder ? ['Medium', 'Hard'] : ['Easy', 'Medium'],
-          excludeIds: [...Object.keys(getHistory()), ...m.questions.map(q => q.id)],
-        }));
-        setModules([...done, {
-          title: moduleTitle(config.subject, 2),
-          questions,
-          answers: {},
-          endsAt: Date.now() + MODULE[config.subject].minutes * 60_000,
-          results: [],
-        }]);
-        setCurrent(1);
-        resetTiming();
-        setPhase('session');
-      } catch {
-        setError('Could not load Module 2.');
-        finishSession(done, null);
+    // Xử lý Full-length Practice Test (4 modules)
+    if (config.kind === 'full') {
+      if (current === 0) {
+        // Hoàn thành R&W Module 1 -> sang R&W Module 2 Adaptive
+        const ratio = results.filter(r => r?.correct).length / results.length;
+        const harder = ratio >= ADAPTIVE_THRESHOLD;
+        setAdaptiveFlags(prev => ({ ...prev, rwHarder: harder }));
+        setPhase('transition');
+        try {
+          const questions = await fetchQuestions(buildFilter({ ...config, subject: 'Verbal', count: MODULE.Verbal.size }, {
+            difficulties: harder ? ['Medium', 'Hard'] : ['Easy', 'Medium'],
+            excludeIds: [...(config.excludeSeen ? Object.keys(getHistory()) : []), ...m.questions.map(q => q.id)],
+          }));
+          setModules([...done, {
+            title: moduleTitle('Verbal', 2),
+            questions,
+            answers: {},
+            endsAt: Date.now() + MODULE.Verbal.minutes * 60_000,
+            results: [],
+          }]);
+          setCurrent(1);
+          resetTiming();
+          setPhase('session');
+        } catch {
+          setError('Could not load Reading & Writing Module 2.');
+          finishSession(done, null);
+        }
+        return;
       }
+
+      if (current === 1) {
+        // Hoàn thành R&W Module 2 -> Nghỉ giải lao 10 phút trước khi làm Math
+        setPhase('break');
+        return;
+      }
+
+      if (current === 2) {
+        // Hoàn thành Math Module 1 -> sang Math Module 2 Adaptive
+        const ratio = results.filter(r => r?.correct).length / results.length;
+        const harder = ratio >= ADAPTIVE_THRESHOLD;
+        setAdaptiveFlags(prev => ({ ...prev, mathHarder: harder }));
+        setPhase('transition');
+        try {
+          const questions = await fetchQuestions(buildFilter({ ...config, subject: 'Math', count: MODULE.Math.size }, {
+            difficulties: harder ? ['Medium', 'Hard'] : ['Easy', 'Medium'],
+            excludeIds: [...(config.excludeSeen ? Object.keys(getHistory()) : []), ...done.flatMap(x => x.questions.map(q => q.id))],
+          }));
+          setModules([...done, {
+            title: moduleTitle('Math', 2),
+            questions,
+            answers: {},
+            endsAt: Date.now() + MODULE.Math.minutes * 60_000,
+            results: [],
+          }]);
+          setCurrent(3);
+          resetTiming();
+          setPhase('session');
+        } catch {
+          setError('Could not load Math Module 2.');
+          finishSession(done, null);
+        }
+        return;
+      }
+
+      if (current === 3) {
+        // Hoàn thành toàn bộ 4 Module đề thi chuẩn
+        const rwCorrect = (done[0].results.filter(r => r?.correct).length) + (done[1].results.filter(r => r?.correct).length);
+        const mathCorrect = (done[2].results.filter(r => r?.correct).length) + (done[3].results.filter(r => r?.correct).length);
+        const rwHarder = adaptiveFlags.rwHarder ?? true;
+        const mathHarder = adaptiveFlags.mathHarder ?? true;
+        const rwScore = calculateSectionScore(rwCorrect, 54, rwHarder);
+        const mathScore = calculateSectionScore(mathCorrect, 44, mathHarder);
+        const total = rwScore + mathScore;
+        const adaptiveNote = `R&W: ${rwHarder ? 'Harder' : 'Easier'} M2 · Math: ${mathHarder ? 'Harder' : 'Easier'} M2`;
+        finishSession(done, adaptiveNote, { total, rw: rwScore, math: mathScore });
+        return;
+      }
+    }
+
+    // Xử lý Section Test (2 modules adaptive)
+    if (config.kind === 'section') {
+      if (current === 0) {
+        const ratio = results.filter(r => r?.correct).length / results.length;
+        const harder = ratio >= ADAPTIVE_THRESHOLD;
+        setAdaptiveFlags({ [config.subject === 'Verbal' ? 'rwHarder' : 'mathHarder']: harder });
+        const note = harder ? 'Module 2 was the harder module.' : 'Module 2 was the easier module.';
+        setAdaptive(note);
+        setPhase('transition');
+        try {
+          const questions = await fetchQuestions(buildFilter(config, {
+            difficulties: harder ? ['Medium', 'Hard'] : ['Easy', 'Medium'],
+            excludeIds: [...(config.excludeSeen ? Object.keys(getHistory()) : []), ...m.questions.map(q => q.id)],
+          }));
+          setModules([...done, {
+            title: moduleTitle(config.subject, 2),
+            questions,
+            answers: {},
+            endsAt: Date.now() + MODULE[config.subject].minutes * 60_000,
+            results: [],
+          }]);
+          setCurrent(1);
+          resetTiming();
+          setPhase('session');
+        } catch {
+          setError('Could not load Module 2.');
+          finishSession(done, null);
+        }
+        return;
+      }
+
+      if (current === 1) {
+        const totalCorrect = (done[0].results.filter(r => r?.correct).length) + (done[1].results.filter(r => r?.correct).length);
+        const totalQ = done[0].questions.length + done[1].questions.length;
+        const harder = (config.subject === 'Verbal' ? adaptiveFlags.rwHarder : adaptiveFlags.mathHarder) ?? true;
+        const score = calculateSectionScore(totalCorrect, totalQ, harder);
+        finishSession(done, adaptive, { total: score });
+        return;
+      }
+    }
+
+    // Single Module
+    if (config.kind === 'module') {
+      const totalCorrect = done[0].results.filter(r => r?.correct).length;
+      const score = calculateSectionScore(totalCorrect, done[0].questions.length, false);
+      finishSession(done, null, { total: score });
       return;
     }
-    if (lesson && m.title.startsWith('Lesson Practice')) { // không tính lượt "làm lại câu sai"
+
+    if (lesson && m.title.startsWith('Lesson Practice')) {
       const key = `${lesson.course.slug}/${lesson.lesson.slug}`;
       recordLessonPractice(key, results.filter(r => r?.correct).length, results.length);
       updateLesson(key, p => ({ ...p, done: true }));
     }
+
     finishSession(done, adaptive);
   };
 
@@ -481,9 +748,13 @@ function PracticeContent() {
     return (
       <div className="min-h-dvh flex flex-col items-center justify-center gap-4 bg-white">
         <div className="w-12 h-12 border-4 border-[var(--bb-blue)] border-t-transparent rounded-full animate-spin" />
-        <p className="text-lg font-semibold">Module 1 complete. Loading Module 2…</p>
+        <p className="text-lg font-semibold">Module complete. Loading next module…</p>
       </div>
     );
+  }
+
+  if (phase === 'break') {
+    return <BreakScreen onResume={resumeAfterBreak} />;
   }
 
   if (phase === 'results' && report) {
@@ -519,6 +790,19 @@ function PracticeContent() {
     );
   }
 
+  const submitMessage =
+    config.kind === 'full'
+      ? current === 0
+        ? "You will move on to Reading & Writing Module 2 and won't be able to return to these questions."
+        : current === 1
+        ? "You have completed Section 1. You will proceed to the 10-minute break before Math Section."
+        : current === 2
+        ? "You will move on to Math Module 2 and won't be able to return to these questions."
+        : "You will submit your test and view your complete Digital SAT score report."
+      : config.kind === 'section' && current === 0
+      ? "You will move on to Module 2 and won't be able to return to these questions."
+      : "You will see your score and explanations next.";
+
   return (
     <>
       <TestShell
@@ -531,7 +815,7 @@ function PracticeContent() {
         onTimeUp={finishModule}
         onSubmit={finishModule}
         onNavigate={onNavigate}
-        submitConfirm={config.kind === 'section' && current === 0 ? 'You will move on to Module 2 and won\'t be able to return to these questions.' : 'You will see your score and explanations next.'}
+        submitConfirm={submitMessage}
         studentName={name}
         results={mod.results.map(x => (x ? { key: x, correct: x.correct } : undefined))}
         onCheck={config.instant ? onCheck : undefined}

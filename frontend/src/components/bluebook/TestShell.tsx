@@ -10,6 +10,8 @@ import CalculatorPanel from './CalculatorPanel';
 import ReferenceSheet from './ReferenceSheet';
 import LineReader from './LineReader';
 import Modal from './Modal';
+import DrawingCanvas, { Stroke } from './DrawingCanvas';
+import ReportQuestionModal from './ReportQuestionModal';
 import { useAnnotations } from './useAnnotations';
 
 export interface TestShellProps {
@@ -46,6 +48,9 @@ export default function TestShell(p: TestShellProps) {
   const [calcOpen, setCalcOpen] = useState(false);
   const [refOpen, setRefOpen] = useState(false);
   const [lineReader, setLineReader] = useState(false);
+  const [drawActive, setDrawActive] = useState(false);
+  const [drawings, setDrawings] = useState<Record<string, Stroke[]>>({});
+  const [reportModalOpen, setReportModalOpen] = useState(false);
   const notes = useAnnotations();
   const { clearPending } = notes;
   const [confirm, setConfirm] = useState<'submit' | 'exit' | null>(null);
@@ -128,6 +133,7 @@ export default function TestShell(p: TestShellProps) {
   const menu = [
     { label: 'Line Reader', checked: lineReader, onClick: () => setLineReader(v => !v) },
     { label: 'Clear Highlights', onClick: notes.clearHighlights },
+    ...(!onReviewPage ? [{ label: 'Report Question Issue', onClick: () => setReportModalOpen(true) }] : []),
     ...(p.shareLinks && !onReviewPage ? [{ label: 'Copy Question Link', onClick: copyLink }] : []),
     ...(p.onExit ? [{ label: p.exitLabel || 'Exit', onClick: () => (p.exitConfirm ? setConfirm('exit') : p.onExit!()) }] : []),
   ];
@@ -144,6 +150,7 @@ export default function TestShell(p: TestShellProps) {
         untimedLabel={reviewMode ? 'Answer Review' : 'Untimed'}
         tools={{
           annotate: notes.tool,
+          draw: { active: drawActive, onClick: () => setDrawActive(v => !v) },
           calculator: { active: calcOpen, onClick: () => setCalcOpen(o => !o) },
           reference: { active: refOpen, onClick: () => setRefOpen(o => !o) },
         }}
@@ -172,6 +179,15 @@ export default function TestShell(p: TestShellProps) {
             result={result}
             onCheck={p.onCheck ? () => p.onCheck!(index) : undefined}
             checking={p.checkingIndex === index}
+          />
+        )}
+        {!onReviewPage && question && (
+          <DrawingCanvas
+            active={drawActive}
+            questionId={question.id}
+            strokes={drawings[question.id] || []}
+            onChangeStrokes={(newStrokes) => setDrawings(prev => ({ ...prev, [question.id]: newStrokes }))}
+            onClose={() => setDrawActive(false)}
           />
         )}
         {lineReader && !onReviewPage && <LineReader />}
@@ -209,6 +225,14 @@ export default function TestShell(p: TestShellProps) {
         <Modal title={p.exitLabel || 'Exit'} confirmLabel={p.exitLabel || 'Exit'} onConfirm={() => { setConfirm(null); p.onExit?.(); }} onCancel={() => setConfirm(null)}>
           {p.exitConfirm}
         </Modal>
+      )}
+
+      {reportModalOpen && question && (
+        <ReportQuestionModal
+          questionId={question.id}
+          questionNumber={index + 1}
+          onClose={() => setReportModalOpen(false)}
+        />
       )}
     </div>
   );

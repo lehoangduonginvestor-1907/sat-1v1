@@ -48,3 +48,7 @@ export async function fetchQuestions(filter: QuestionFilter): Promise<Question[]
 export async function gradeAnswers(answers: { id: string; answer: string }[]): Promise<GradeResult[]> {
   return (await post<{ results: GradeResult[] }>('/api/grade', { answers })).results;
 }
+
+export async function reportQuestion(payload: { questionId: string; reason: string; description?: string; studentName?: string }): Promise<void> {
+  await post('/api/report-question', payload);
+}

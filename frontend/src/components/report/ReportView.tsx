@@ -191,6 +191,37 @@ export default function ReportView({ report, back, onReview, actions }: Props) {
           <ExportMenu report={report} />
         </div>
 
+        {/* Thang điểm Digital SAT (200-800 hoặc 400-1600) */}
+        {report.scaledScore && (
+          <section className="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white rounded-xl p-6 sm:p-7 shadow-lg">
+            <div className="flex flex-wrap items-center justify-between gap-6">
+              <div>
+                <span className="text-xs uppercase font-extrabold tracking-widest text-blue-200">
+                  Estimated Digital SAT Score
+                </span>
+                <div className="text-5xl sm:text-6xl font-black tracking-tight mt-1">
+                  {report.scaledScore.total}{' '}
+                  <span className="text-xl sm:text-2xl font-normal text-blue-200">
+                    / {report.scaledScore.rw !== undefined && report.scaledScore.math !== undefined ? 1600 : 800}
+                  </span>
+                </div>
+              </div>
+              {report.scaledScore.rw !== undefined && report.scaledScore.math !== undefined && (
+                <div className="flex items-center gap-6 sm:gap-8 border-t sm:border-t-0 sm:border-l border-blue-400/30 pt-4 sm:pt-0 sm:pl-8">
+                  <div>
+                    <div className="text-xs text-blue-200 font-semibold uppercase tracking-wider">Reading & Writing</div>
+                    <div className="text-3xl font-extrabold">{report.scaledScore.rw} <span className="text-sm text-blue-200 font-normal">/ 800</span></div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-blue-200 font-semibold uppercase tracking-wider">Math</div>
+                    <div className="text-3xl font-extrabold">{report.scaledScore.math} <span className="text-sm text-blue-200 font-normal">/ 800</span></div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {/* Điểm tổng */}
         <section className={`${card} p-6 sm:p-7 grid md:grid-cols-[200px_1fr] gap-6 sm:gap-8 items-center`}>
           <div className="text-center">

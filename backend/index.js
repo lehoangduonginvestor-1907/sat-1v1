@@ -57,6 +57,14 @@ app.post('/api/grade', (req, res) => {
 
 registerRoomHandlers(io);
 
+// Báo lỗi câu hỏi từ phòng thi
+app.post('/api/report-question', (req, res) => {
+  const { questionId, reason, description, studentName } = req.body || {};
+  if (!questionId) return res.status(400).json({ error: 'Missing questionId' });
+  console.log(`[QUESTION REPORT] ${questionId} reported by ${studentName || "Anonymous"} (${reason}): ${description || ""}`);
+  res.json({ ok: true, message: 'Report received. Thank you!' });
+});
+
 // Bảng xếp hạng Elo (chỉ có khi đã cấu hình Supabase)
 app.get('/api/leaderboard', async (req, res) => {
   if (!db.enabled) return res.json({ enabled: false, players: [] });
