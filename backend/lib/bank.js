@@ -49,7 +49,30 @@ function loadBank(file = path.join(__dirname, '..', 'data', 'questions.json')) {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
-const bank = loadBank();
+// Đề đã import nhưng tạm chưa phục vụ: ảnh câu hỏi bị lệch so với đáp án (import theo
+// "mỗi trang một câu"), cần sửa xong từng đề mới bỏ khỏi danh sách này
+const HIDDEN_EXAMS = new Set([
+  'October 2024 International Form A',
+  'December 2024 International Form 2',
+  'December 2024 US Form 2',
+  'August 2024 US Form 1',
+  'October 2024 US Form A',
+  'October 2024 US Form B',
+  'August 2024 International Form 1',
+  'August 2024 US Form 2',
+  'November 2024 International Form 2',
+  'December 2024 International Form 1',
+  'December 2024 US Form 1',
+  'Practice Test 10.1',
+  'Practice Test 10.2',
+  'Practice Test 10.3',
+  'August 2024 International Form 2',
+  'October 2024 US Form C',
+  'October 2024 SAT Form D',
+  'April 2025 Prediction Leak',
+]);
+
+const bank = loadBank().filter(q => !HIDDEN_EXAMS.has(q.exam));
 // Chủ đề nhỏ cho bài học /learn (vd. Boundaries → nối hai câu / thành phần chen giữa...)
 for (const q of bank) q.topics = topicsOf(q);
 const byId = new Map(bank.map(q => [q.id, q]));
