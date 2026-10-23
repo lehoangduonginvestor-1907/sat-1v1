@@ -108,3 +108,18 @@ test('lesson practice prefers questions on the lesson topic, then tops up from t
   assert.equal(topped.filter(q => q.topics.includes('colon-dash')).length, rare);
   assert.ok(topped.every(q => q.skill === 'Boundaries'));
 });
+
+test('real exam questions are opt-in by exam and stay out of the default pool', () => {
+  const exam = bank.find(q => q.exam).exam;
+  for (const subject of ['Verbal', 'Math']) {
+    assert.ok(selectQuestions({ subject, count: 100, format: 'random' }).every(q => !q.exam));
+    assert.ok(selectQuestions({ subject, count: 22 }).every(q => !q.exam));
+  }
+  const picked = selectQuestions({ subject: 'Math', count: 22, exam, skills: ['Circles'] });
+  assert.equal(picked.length, 22);
+  assert.ok(picked.every(q => q.exam === exam));
+
+  // Link chia sẻ theo id vẫn mở được câu đề thật
+  const ids = picked.slice(0, 3).map(q => q.id);
+  assert.equal(selectQuestions({ subject: 'Any', count: 10, onlyIds: ids }).length, 3);
+});

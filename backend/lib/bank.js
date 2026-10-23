@@ -174,7 +174,7 @@ function composeModule(pool, section, count) {
 
 /**
  * settings: { subject: 'Verbal' | 'Math' | 'Any' (chỉ khi có onlyIds), domains?: [], skills?: [], difficulties?: [],
- *             topics?: [], includeBluebook?: bool, excludeIds?: [], onlyIds?: [], count, format?: 'module' | 'random' }
+ *             topics?: [], includeBluebook?: bool, exam?: string, excludeIds?: [], onlyIds?: [], count, format?: 'module' | 'random' }
  * topics chỉ là ưu tiên: thiếu câu đúng chủ đề thì bù bằng câu cùng skill.
  */
 function selectQuestions(settings) {
@@ -187,10 +187,12 @@ function selectQuestions(settings) {
   let pool = bank.filter(q =>
     (!section || q.section === section) &&
     (!q.bluebook || settings.includeBluebook) &&
-    (!has(settings.domains) || settings.domains.includes(q.domain)) &&
-    (!has(settings.skills) || settings.skills.includes(q.skill)) &&
+    // Câu đề thi thật chỉ có khi chọn đúng đề đó (hoặc mở theo id); chọn đề thì chỉ lấy câu của đề
+    (only ? !settings.exam || q.exam === settings.exam : (q.exam || '') === (settings.exam || '')) &&
+    // Câu đề thật chưa được gắn domain/skill chính xác nên bỏ qua bộ lọc này
+    (settings.exam || !has(settings.domains) || settings.domains.includes(q.domain)) &&
+    (settings.exam || !has(settings.skills) || settings.skills.includes(q.skill)) &&
     (!has(settings.difficulties) || settings.difficulties.includes(q.difficulty)) &&
-    (!settings.exam || q.exam === settings.exam) &&
     (!only || only.has(q.id)));
   const count = Math.max(1, Math.min(Number(settings.count) || BLUEPRINTS[section || RW].size, 100));
   if (has(settings.topics)) {
@@ -208,7 +210,7 @@ function selectQuestions(settings) {
   const fresh = pool.filter(q => !exclude.has(q.id));
   if (fresh.length >= count) pool = fresh;
 
-  const picked = section && settings.format === 'module' && !has(settings.domains) && !has(settings.skills)
+  const picked = section && settings.format === 'module' && !settings.exam && !has(settings.domains) && !has(settings.skills)
     ? composeModule(pool, section, count)
     : shuffle(pool).slice(0, count);
   return bluebookOrder(picked);
@@ -218,7 +220,11 @@ function selectQuestions(settings) {
 function bankStats() {
   const stats = {};
   for (const q of bank) {
-    const s = (stats[q.section] ||= { total: 0, bluebook: 0, domains: {} });
+    const s = (stats[q.section] ||= { total: 0, bluebook: 0, exams: {}, domains: {} });
+    if (q.exam) {
+      s.exams[q.exam] = (s.exams[q.exam] || 0) + 1;
+      continue;
+    }
     if (q.bluebook) {
       s.bluebook++;
       continue;

@@ -17,6 +17,7 @@ export interface BankStats {
   [section: string]: {
     total: number;
     bluebook: number;
+    exams: Record<string, number>; // câu đề thi thật, chỉ có khi chọn đề
     domains: Record<string, { total: number; skills: Record<string, SkillStats> }>;
   };
 }
@@ -35,6 +36,7 @@ export interface QuestionFilter {
   topics?: string[]; // ưu tiên câu đúng chủ đề bài học (thiếu thì bù câu cùng skill)
   difficulties?: string[];
   includeBluebook?: boolean;
+  exam?: string; // chỉ lấy câu của đề thi thật này
   excludeIds?: string[];
   onlyIds?: string[];
   count: number;

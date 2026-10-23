@@ -29,6 +29,7 @@ interface Config {
   instant: boolean;
   includeBluebook: boolean;
   excludeSeen: boolean;
+  exam: string; // '' = ngân hàng thường, còn lại = chỉ câu của đề thi thật đó
 }
 
 interface ModuleRun {
@@ -85,6 +86,7 @@ function defaultConfig(subject: Subject, kind: Kind): Config {
     instant: kind === 'custom',
     includeBluebook: false,
     excludeSeen: true,
+    exam: '',
   };
 }
 
@@ -216,6 +218,10 @@ function Setup({ config, setConfig, stats, onStart, error, loading }: {
   const mistakes = mine.filter(h => !h.correct).length;
   const custom = config.kind === 'custom';
   const isFull = config.kind === 'full';
+  const exams = [...new Set(Object.values(stats || {}).flatMap(s => Object.keys(s.exams || {})))].sort();
+  const examCount = (exam: string) => isFull
+    ? Object.values(stats || {}).reduce((n, s) => n + (s.exams?.[exam] || 0), 0)
+    : stats?.[section]?.exams?.[exam] || 0;
   const row = 'grid sm:grid-cols-[180px_1fr] gap-2 sm:gap-6 items-start py-4 border-b border-[#e3e3e3]';
 
   return (
@@ -237,7 +243,7 @@ function Setup({ config, setConfig, stats, onStart, error, loading }: {
               </div>
             ) : (
               <Segmented value={config.subject} options={[['Verbal', 'Reading & Writing'], ['Math', 'Math']]}
-                onChange={subject => setConfig({ ...defaultConfig(subject, config.kind), instant: config.instant })} />
+                onChange={subject => setConfig({ ...defaultConfig(subject, config.kind), instant: config.instant, exam: config.exam })} />
             )}
           </div>
           <div className={row}>
@@ -249,7 +255,7 @@ function Setup({ config, setConfig, stats, onStart, error, loading }: {
                 ['module', 'Bluebook module'],
                 ['custom', 'Custom set']
               ]}
-                onChange={kind => setConfig(defaultConfig(config.subject, kind))} />
+                onChange={kind => setConfig({ ...defaultConfig(config.subject, kind), exam: config.exam })} />
               <p className="text-sm text-[var(--bb-muted)] mt-2">
                 {config.kind === 'full' && 'Complete 4-module Digital SAT exam (134 min): 2 adaptive Reading & Writing modules (64 min) → 10-minute break → 2 adaptive Math modules (70 min) with estimated 400–1600 composite score.'}
                 {config.kind === 'module' && `${MODULE[config.subject].size} questions in ${MODULE[config.subject].minutes} minutes, with the official domain mix and question order.`}
@@ -276,15 +282,33 @@ function Setup({ config, setConfig, stats, onStart, error, loading }: {
             </label>
           </div>
 
+          {exams.length > 0 && (
+            <div className={row}>
+              <span className="font-bold pt-1.5">Question source</span>
+              <div>
+                <select value={config.exam} onChange={e => setConfig({ ...config, exam: e.target.value, skills: [] })}
+                  aria-label="Question source" className="border-[1.5px] border-[#5f5f5f] rounded px-3 py-1.5 text-[15px] bg-white">
+                  <option value="">Question bank</option>
+                  {exams.map(e => <option key={e} value={e}>{e} SAT ({examCount(e)} questions)</option>)}
+                </select>
+                <p className="text-sm text-[var(--bb-muted)] mt-2">
+                  {config.exam
+                    ? 'Only questions from this past test. Skill filters are not available for these questions yet.'
+                    : 'Questions from past real tests stay out of normal practice. Pick a test here to practice with them.'}
+                </p>
+              </div>
+            </div>
+          )}
+
           {custom && (
             <>
-              <div className={row}>
+              {!config.exam && <div className={row}>
                 <span className="font-bold">Skills</span>
                 <div>
                   <SkillPicker stats={stats} subject={config.subject} selected={config.skills} onChange={skills => setConfig({ ...config, skills })} />
                   <p className="text-xs text-[var(--bb-muted)] mt-3">Leave everything unchecked to practice all skills.</p>
                 </div>
-              </div>
+              </div>}
               <div className={row}>
                 <span className="font-bold">Difficulty</span>
                 <div className="flex gap-5">
@@ -408,6 +432,7 @@ function PracticeContent() {
       subject: c.subject,
       count: c.count,
       includeBluebook: c.includeBluebook,
+      ...(c.exam && { exam: c.exam }),
       format: c.kind === 'custom' ? 'random' : 'module',
       excludeIds: c.excludeSeen ? Object.keys(history) : [],
     };
