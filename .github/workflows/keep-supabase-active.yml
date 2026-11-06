@@ -1,0 +1,22 @@
+# Supabase (gói miễn phí) tự pause project sau 7 ngày không có hoạt động.
+# Mỗi ngày gọi /api/leaderboard: backend dùng khoá secret của nó đọc bảng profiles, nên đây là
+# một truy vấn database thật và không cần thêm secret nào ở GitHub.
+# Nếu Supabase đã bị pause hoặc backend chưa cấu hình Supabase, job sẽ fail -> GitHub gửi email báo.
+name: Keep Supabase active
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # mỗi ngày lúc 02:17 UTC (09:17 giờ VN)
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Query Supabase through the backend
+        run: |
+          body=$(curl -fsS --max-time 150 --retry 3 --retry-delay 20 --retry-all-errors \
+            https://sat-1v1.onrender.com/api/leaderboard)
+          echo "$body" | head -c 200; echo
+          echo "$body" | grep -q '"enabled":true' || { echo "::error::Backend reports Supabase is not configured"; exit 1; }
