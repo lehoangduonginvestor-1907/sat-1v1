@@ -12,11 +12,13 @@ on:
 jobs:
   ping:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Query Supabase through the backend
+        # Backend trên Render có thể đang khởi động lại (vd. vừa deploy) và treo kết nối vài phút:
+        # mỗi lần thử tối đa 60s, thử lại 5 lần -> tổng ~6,5 phút, vẫn dưới giới hạn 10 phút của job.
         run: |
-          body=$(curl -fsS --max-time 150 --retry 3 --retry-delay 20 --retry-all-errors \
+          body=$(curl -fsS --max-time 60 --retry 5 --retry-delay 20 --retry-all-errors \
             https://sat-1v1.onrender.com/api/leaderboard)
           echo "$body" | head -c 200; echo
           echo "$body" | grep -q '"enabled":true' || { echo "::error::Backend reports Supabase is not configured"; exit 1; }
